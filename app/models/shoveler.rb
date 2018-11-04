@@ -1,0 +1,2 @@
+class Shoveler < ApplicationRecord
+end

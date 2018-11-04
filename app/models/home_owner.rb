@@ -1,0 +1,2 @@
+class HomeOwner < ApplicationRecord
+end
