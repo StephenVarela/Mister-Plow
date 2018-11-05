@@ -40,6 +40,8 @@ group :development, :test do
   # Use postgresql as the database for Active Record
   gem 'pg', '>= 0.18', '< 2.0'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'factory_bot_rails'
+  gem 'pry-rails'
 end
 
 group :development do
