@@ -5,7 +5,7 @@ class Body extends React.Component {
       jobs: []
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    // this.addNewFruit = this.addNewFruit.bind(this)
+    this.addNewJob = this.addNewJob.bind(this)
   }
 
   handleFormSubmit(comments, price) {
@@ -18,7 +18,7 @@ class Body extends React.Component {
     });
     fetch('http://localhost:3000/api/v1/jobs', {
       method: 'POST',
-      header: {
+      headers: {
         'Content-Type': 'application/json',
       },
       body: body,
