@@ -49,8 +49,8 @@ user_2_residence.save
 my_job = Job.new
 my_job.shoveler = my_shoveler
 my_job.residence =  user_2_residence
-my_job.job_price = 30
-my_job.instructions
+my_job.price = 30
+my_job.instructions = "shovel the driveway"
 my_job.comments = "This is Mr. Plows first job!"
 
 my_job.save

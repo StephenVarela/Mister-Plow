@@ -3,11 +3,11 @@ const AllJobs = (props) => {
     return(
       <div key={job.id}>
         <h3>{job.comments}</h3>
-        <p>Job Price: ${job.job_price}</p>
+        <p>Job Price: ${job.price}</p>
       </div>
     )
   });
-  
+
   return (
     <div>
       {jobs}
