@@ -4,6 +4,10 @@ class UserTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
+  def test_user_factory_is_valid
+
+  end
+
   def test_user_can_be_created_and_saved
     user = create(:user)
     p user
