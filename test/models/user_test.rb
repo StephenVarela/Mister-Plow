@@ -6,9 +6,7 @@ class UserTest < ActiveSupport::TestCase
   # end
   def test_user_factory_is_valid
     user = build(:user)
-    user.valid?
-    p user.errors.full_messages
-    # assert(user.valid?)
+    assert(user.valid?)
   end
 
   def test_user_can_be_created_and_saved
