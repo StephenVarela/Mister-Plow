@@ -1,30 +1,16 @@
-class AllJobs extends React.Component {
-  
-  constructor(props) {
-    super(props);
-    this.state = {
-      jobs: []
-    };
-  }
-  componentDidMount(){
-    fetch('/api/v1/jobs.json')
-      .then((response) => {return response.json()})
-      .then((data) => {this.setState({ jobs: data }) });
-  }
-  render(){
-    console.log(this.state.jobs)
-    var jobs = this.state.jobs.map((job) => {
-      return(
-        <div key={job.id}>
-       <h1>{job.comments}</h1>
-       <p>{job.job_price}</p>
-      </div>
-     )
-    })
+const AllJobs = (props) => {
+  var jobs = props.jobs.map((job) => {
     return(
-     <div>
-      {jobs}
-     </div>
+      <div key={job.id}>
+        <h3>{job.comments}</h3>
+        <p>Job Price: ${job.job_price}</p>
+      </div>
     )
-  }
+  });
+  
+  return (
+    <div>
+      {jobs}
+    </div>  
+  )
 }
