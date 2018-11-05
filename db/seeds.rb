@@ -8,6 +8,13 @@
 
 # To Test Associations random seeds
 
+
+Shoveler.destroy_all
+User.destroy_all
+HomeOwner.destroy_all
+Residence.destroy_all
+Job.destroy_all
+
 # user1 is a shoveler
 my_user = User.new()
 my_user.first_name = 'Stephen'
@@ -40,5 +47,7 @@ my_job = Job.new
 my_job.shoveler = my_shoveler
 my_job.residence =  user_2_residence
 my_job.job_price = 30
+my_job.instructions
+my_job.comments = "This is Mr. Plows first job!"
 
 my_job.save
