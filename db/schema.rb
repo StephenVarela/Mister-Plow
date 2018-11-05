@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_05_142413) do
+ActiveRecord::Schema.define(version: 2018_11_05_142704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,23 @@ ActiveRecord::Schema.define(version: 2018_11_05_142413) do
 
   create_table "home_owners", force: :cascade do |t|
     t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.integer "shoveler_id"
+    t.integer "residence_id"
+    t.integer "job_price"
+    t.text "instructions"
+    t.datetime "scheduled_time"
+    t.integer "premium_rush"
+    t.integer "premium_peak_hours"
+    t.datetime "check_in"
+    t.datetime "check_out"
+    t.integer "rating"
+    t.text "comments"
+    t.boolean "confirmation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
