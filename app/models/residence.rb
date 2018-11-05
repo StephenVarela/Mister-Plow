@@ -4,6 +4,7 @@ class Residence < ApplicationRecord
   has_many :jobs
   has_many :shovelers, through: :jobs
 
+
   validates :street_name, presence: true
   validates :city_name, presence: true
   validates :postal_code, presence: true

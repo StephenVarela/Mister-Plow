@@ -19,8 +19,6 @@ class JobTest < ActiveSupport::TestCase
     my_job.price = 30
     my_job.scheduled_time = DateTime.now + 50000
 
-    my_job.valid?
-    p my_job.errors.full_messages
     assert(my_job.valid?)
   end
 end
