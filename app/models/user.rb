@@ -1,4 +1,5 @@
 class User < ApplicationRecord
-  has_one :shoveler
-  has_one :home_owner
+  authenticates_with_sorcery!
+  has_many :shovelers
+  has_many :home_owners
 end
