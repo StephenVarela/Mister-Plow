@@ -1,4 +1,8 @@
 class User < ApplicationRecord
-  has_one :shoveler
-  has_one :home_owner
+  authenticates_with_sorcery!
+  has_many :shovelers
+  has_many :home_owners
+
+  validates :password, confirmation: true
+  validates :email, uniqueness: true
 end
