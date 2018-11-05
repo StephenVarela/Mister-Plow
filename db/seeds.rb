@@ -31,7 +31,7 @@ my_homeOwner.user = my_user2
 user_2_residence = Residence.new()
 user_2_residence.home_owner = my_homeOwner
 user_2_residence.is_home_address = true
-
+ 
 my_user2.save
 my_homeOwner.save
 user_2_residence.save
