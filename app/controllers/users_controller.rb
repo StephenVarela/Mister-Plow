@@ -19,20 +19,13 @@ class UsersController < ApplicationController
     @user.password = params[:user][:password]
 
     if @user.save
-      puts "Hello"
+      current_user = @user
+      puts "hi"
     else
       render :new
     end
-    
+
   end
 
-  def edit
-  end
-
-  def update
-  end
-
-  def destroy
-  end
 
 end
