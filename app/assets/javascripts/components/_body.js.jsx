@@ -4,10 +4,33 @@ class Body extends React.Component {
     this.state = {
       jobs: []
     };
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    // this.addNewFruit = this.addNewFruit.bind(this)
   }
 
-  handleFormSubmit(comment, price) {
-    console.log('hello')
+  handleFormSubmit(comments, price) {
+    console.log(comments, price);
+    let body = JSON.stringify({
+      job: {
+        comments: comments,
+        price: price,
+      }
+    });
+    fetch('http://localhost:3000/api/v1/jobs', {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json',
+      },
+      body: body,
+    }).then((response) => {return response.json()})
+    .then((job) => {
+      this.addNewJob(job)
+    });
+  }
+  addNewJob(job) {
+    this.setState({
+      jobs: this.state.jobs.concat(job)
+    });
   }
 
   componentDidMount(){
@@ -19,7 +42,7 @@ class Body extends React.Component {
     return (
       <div>
         <AllJobs jobs={this.state.jobs} />
-        <NewJob />
+        <NewJob handleFormSubmit={this.handleFormSubmit}/>
       </div>
     )
   }
