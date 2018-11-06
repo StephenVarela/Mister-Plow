@@ -9,4 +9,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :sessions, except: [:index, :edit, :update, :show]
+
+  get 'login' => 'sessions#new', :as => :login
+  post 'logout' => 'sessions#destroy', :as => :logout
 end
