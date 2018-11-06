@@ -27,7 +27,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'sorcery'
 # gem 'activejob'
-gem 'sucker_punch', '~> 2.0'
+gem 'sucker_punch'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
