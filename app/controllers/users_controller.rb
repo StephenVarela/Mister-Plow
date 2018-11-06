@@ -18,17 +18,10 @@ class UsersController < ApplicationController
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password]
 
-
-    puts params
-
-    @user.valid?
-    puts "======"
-    puts @user.errors.full_messages
-    puts "======"
     if @user.save
       session[:user_id] = @user.id
       current_user = @user
-      puts "hi"
+      redirect_to root_url
     else
       puts "Dan"
       render :new
