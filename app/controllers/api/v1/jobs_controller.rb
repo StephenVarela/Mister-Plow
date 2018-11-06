@@ -21,6 +21,6 @@ class Api::V1::JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:id, :shoveler_id, :residence_id)
+    params.require(:job).permit(:id, :comments, :price, :residence_id)
   end
 end
