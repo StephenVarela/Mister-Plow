@@ -11,6 +11,6 @@ const AllJobs = (props) => {
   return (
     <div>
       {jobs}
-    </div>  
+    </div>
   )
 }

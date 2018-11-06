@@ -1,9 +1,11 @@
-class Body extends React.Component {
+class Body extends React.Component{
+
   constructor(props) {
     super(props);
     this.state = {
       jobs: []
     };
+
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.addNewJob = this.addNewJob.bind(this)
   }
@@ -36,8 +38,8 @@ class Body extends React.Component {
     this.setState({
       jobs: this.state.jobs.concat(job)
     });
-  }
 
+  }
   componentDidMount(){
     fetch('/api/v1/jobs.json')
       .then((response) => {return response.json()})
@@ -45,6 +47,7 @@ class Body extends React.Component {
     });
   }
   render(){
+
     return (
       <div>
         <AllJobs jobs={this.state.jobs} />
@@ -52,4 +55,5 @@ class Body extends React.Component {
       </div>
     )
   }
+
 }
