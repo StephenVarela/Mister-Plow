@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :home_owner do
-    
+  factory :driveway do
+
   end
 end
