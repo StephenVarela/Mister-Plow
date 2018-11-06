@@ -15,13 +15,22 @@ class UsersController < ApplicationController
     @user.email = params[:user][:email]
     @user.primary_contact_number = params[:user][:primary_contact_number]
     @user.secondary_contact_number = params[:user][:secondary_contact_number]
-    @user.e_wallet = params[:user][:e_wallet]
     @user.password = params[:user][:password]
+    @user.password_confirmation = params[:user][:password]
 
+
+    puts params
+
+    @user.valid?
+    puts "======"
+    puts @user.errors.full_messages
+    puts "======"
     if @user.save
+      session[:user_id] = @user.id
       current_user = @user
       puts "hi"
     else
+      puts "Dan"
       render :new
     end
 

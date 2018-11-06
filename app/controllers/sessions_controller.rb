@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
 
   def new
-    flash[:previous_page] = request.referer
   end
 
 def create
