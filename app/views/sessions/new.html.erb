@@ -1,16 +1,16 @@
 <h1>Log in</h1>
 
-<%= form_for :sessions, :method => :post do |f| %>
+<%= form_tag sessions_path, :method => :post do %>
   <div class="field">
-    <% f.label :email %>
-    <%= f.text_field :email, placeholder: 'E-mail' %>
+    <%= label_tag :email %><br />
+    <%= text_field_tag :email %>
   </div>
   <div class="field">
-    <% f.label :password %>
-    <%= f.password_field :password, placeholder: 'Password' %>
+    <%= label_tag :password %><br />
+    <%= password_field_tag :password %>
   </div>
   <div class="actions">
-    <%= f.submit "Login" %>
+    <%= submit_tag "Login" %>
   </div>
 <% end %>
 
