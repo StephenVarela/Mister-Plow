@@ -1,9 +1,9 @@
-class HomeController < ApplicationController
+class SignupController < ApplicationController
   def index
     if current_user
-      render :index
-    else
       redirect_to new_session_url
+    else
+      render :index
     end
   end
 end

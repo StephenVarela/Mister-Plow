@@ -5,9 +5,7 @@ class HomeOwner < ApplicationRecord
   validate :has_valid_user_profile
 
   def has_valid_user_profile
-    if(self.user.id)
-
-    else
+    unless self.user.id
       errors.add(:user, "Must be valid")
     end
   end
