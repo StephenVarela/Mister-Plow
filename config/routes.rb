@@ -6,8 +6,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-     resources :jobs, only: [:index, :create, :destroy, :update]
-     resources :users
+      resources :jobs, only: [:index, :create, :destroy, :update]
+      resources :users
+      resources :home_owners
     end
   end
 

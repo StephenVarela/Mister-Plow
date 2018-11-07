@@ -33,7 +33,10 @@ class NewUser extends React.Component {
         password_confirmation: password_confirmation
       }
     });
-    fetch('http://localhost:3000/api/v1/users', {
+
+    alert(body)
+
+    fetch('/api/v1/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -41,9 +44,19 @@ class NewUser extends React.Component {
       body: body,
     })
     .then((response) => {
+
       return response.json()
     })
+  
+
+  // let homeBody = JSON.stringify({
+  //   homeowner: {
+  //     user_id: 5
+  //   }
+  // })
   }
+
+
   render() {
     let formFields = {}
 
@@ -73,8 +86,13 @@ class NewUser extends React.Component {
         <p><input ref={input => formFields.email = input} placeholder='E-mail' /></p>
         <p><input ref={input => formFields.primary_contact_number = input} placeholder='Primary Contact Number' /></p>
         <p><input ref={input => formFields.secondary_contact_number = input} placeholder='Secondary Contact Number' /></p>
-        <p><input type='password'ref={input => formFields.password = input} placeholder='Password' /></p>
-        <p><input type='password'ref={input => formFields.password_confirmation = input} placeholder='Password Confirmation' /></p>
+        <p><input type='password' ref={input => formFields.password = input} placeholder='Password' /></p>
+        <p><input type='password' ref={input => formFields.password_confirmation = input} placeholder='Password Confirmation' /></p>
+        <p>I am a: <select>
+          <option value="Homeowner">Homeowner</option>  
+        </select></p>
+        <p>Residence is Home Address: <input type='checkbox' ref={input => formFields.home_address = input} name='is_home-adress' value={true} /></p>
+
         <input type='hidden' name='authenticity_token' value={this.props.authenticity_token} />
         <p><button>Sign Up</button></p>
       </form>

@@ -1,5 +1,4 @@
 class Api::V1::UsersController < ApplicationController
-
   def new
     if current_user
       redirect_to home_url
@@ -10,19 +9,23 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
+    # puts '!!!!!!!LOOK AT THIS DATA -> ' + session
+
     user = User.create(user_params)
 
-    puts '!!!!!!!LOOK AT THIS DATA -> ' + session
+    render json: user
+    
+    auto_login(user)
 
-    respond_to do |format|
-      if user.save
-        format.html { redirect_to :root, notice: 'Account successfully created.'}
-        format.json { render json: user }
-      else
-        format.html { redirect_to signup_url }
-        format.json { render json: {error: 'Something went wrong'} }
-      end
-    end
+    # if user.save
+    #   flash[:success] = "New account created."
+    #   redirect_to root_url
+    # end
+
+    # respond_to do |format|
+    #   format.html { redirect_to home_url, notice: 'Account successfully created.'}
+    #   format.json {  }
+    # end
   end
 
   private
