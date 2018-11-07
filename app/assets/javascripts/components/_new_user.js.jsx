@@ -42,20 +42,24 @@ class NewUser extends React.Component {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
       body: body,
     })
     .then((response) => {
-
+      console.log(response)
       return response.json()
-    })
+    }).then(() => {
+      window.location.reload();
+    });
+
   
 
-  // let homeBody = JSON.stringify({
-  //   homeowner: {
-  //     user_id: 5
-  //   }
-  // })
+    // let homeBody = JSON.stringify({
+    //   homeowner: {
+    //     user_id: 
+    //   }
+    // })
   }
 
 
