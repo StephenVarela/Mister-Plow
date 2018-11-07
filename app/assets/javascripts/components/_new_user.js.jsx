@@ -17,6 +17,8 @@ class NewUser extends React.Component {
     secondary_contact_number,
     password,
     password_confirmation,
+    user_type,
+    authenticity_token
     ) {
     let body = JSON.stringify({
       user: {
@@ -30,30 +32,69 @@ class NewUser extends React.Component {
         primary_contact_number: primary_contact_number,
         secondary_contact_number: secondary_contact_number,
         password: password,
-        password_confirmation: password_confirmation
-      }
+        password_confirmation: password_confirmation,
+      },
+      authenticity_token: authenticity_token
     });
-
-    alert(body)
-
     fetch('/api/v1/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
       body: body,
-    })
-    .then((response) => {
+    }).then((response1) => {
+      return response1.json()
+    }).then((userResponse) => {
+    
+    if (user_type) {
+      alert(user_type)
+    }
 
-      return response.json()
-    })
-  
 
-  // let homeBody = JSON.stringify({
-  //   homeowner: {
-  //     user_id: 5
-  //   }
-  // })
+    
+    // window.location.reload();
+      let homeBody = JSON.stringify({
+        home_owner: {
+          user_id: userResponse.id
+        },
+        authenticity_token: authenticity_token
+      });
+      fetch('/api/v1/home_owners', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: homeBody,
+      }).then((response2) => {
+        return response2.json()
+      }).then((homeResponse) => {
+        let resBody = JSON.stringify({
+          residence: {
+            home_owner_id: homeResponse.id,
+            street_name: street_name,
+            city_name: city_name,
+            postal_code: postal_code,
+            country: country,
+            is_home_address: true
+          },
+          authenticity_token: authenticity_token
+        });
+        fetch('/api/v1/residences', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: resBody,
+        }).then((response3) => {
+          return response3.json()
+        }).then((residenceResponse) => {
+          console.log(residenceResponse)
+        });
+      });
+    });
   }
 
 
@@ -62,6 +103,7 @@ class NewUser extends React.Component {
 
     return (
       <form onSubmit={(e) => {
+        e.preventDefault();
         this.handleFormSubmit(
             formFields.first_name.value,
             formFields.last_name.value,
@@ -73,7 +115,9 @@ class NewUser extends React.Component {
             formFields.primary_contact_number.value,
             formFields.secondary_contact_number.value,
             formFields.password.value,
-            formFields.password_confirmation.value
+            formFields.password_confirmation.value,
+            formFields.user_type.value,
+            formFields.authenticity_token.value,
           );
           e.target.reset();        
         }}>
@@ -88,13 +132,14 @@ class NewUser extends React.Component {
         <p><input ref={input => formFields.secondary_contact_number = input} placeholder='Secondary Contact Number' /></p>
         <p><input type='password' ref={input => formFields.password = input} placeholder='Password' /></p>
         <p><input type='password' ref={input => formFields.password_confirmation = input} placeholder='Password Confirmation' /></p>
-        <p>I am a: <select>
-          <option value="Homeowner">Homeowner</option>  
+        <p>I am a: <select ref={input => formFields.user_type = input}>
+          <option value="home_owner">Homeowner</option>  
+          <option value="shoveler">Shoveler</option>  
         </select></p>
         <p>Residence is Home Address: <input type='checkbox' ref={input => formFields.home_address = input} name='is_home-adress' value={true} /></p>
 
-        <input type='hidden' name='authenticity_token' value={this.props.authenticity_token} />
-        <p><button>Sign Up</button></p>
+        <input ref={input => formFields.authenticity_token = input} type='hidden' name='authenticity_token' value={this.props.authenticity_token} />
+        <p><button type='submit'>Sign Up</button></p>
       </form>
     )
   }
