@@ -17,10 +17,10 @@ class Api::V1::UsersController < ApplicationController
     
     auto_login(user)
 
-    # if user.save
-    #   flash[:success] = "New account created."
-    #   redirect_to root_url
-    # end
+    if user.save
+      flash[:success] = "New account created."
+      redirect_to root_url
+    end
 
     # respond_to do |format|
     #   format.html { redirect_to home_url, notice: 'Account successfully created.'}
