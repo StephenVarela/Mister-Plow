@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :jobs, only: [:index, :create, :destroy, :update]
       resources :users
       resources :home_owners
+      resources :weathers
     end
   end
 
