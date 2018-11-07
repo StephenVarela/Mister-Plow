@@ -62,6 +62,7 @@ Rails.application.configure do
 
   #initialize weather object loop
   config.after_initialize do
-    Weather.new
+    puts "Calling ping job"
+    PingApiJob.perform_in(30*1,'Weather')
   end
 end
