@@ -27,7 +27,7 @@ class PingApiJob
       p weather_event.errors.full_messages
     end
 
-    binding.pry
+    
 
     queue_job
   end
