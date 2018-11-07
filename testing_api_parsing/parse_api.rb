@@ -8,6 +8,18 @@ response = HTTParty.get("http://api.openweathermap.org/data/2.5/forecast?id=5249
 binding.pry
 
 
+weather_event = Weather.new();
+
+
+forcast_array = []
+
+response["list"].each do |item|
+ forecast_array << item["weather"]
+end
+
+weather.city_name = response["city"]["name"]
+weather.forecast = forcast_array
+binding.pry
 #weather event
 #id
 #city name

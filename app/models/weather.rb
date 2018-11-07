@@ -3,7 +3,7 @@ class Weather < ApplicationRecord
   serialize :forecast, Array
 
   def queue_job
-    PingApiJob.perform_in(5,'Weather')
+    PingApiJob.perform_in(30*1,'Weather')
     puts "Checking async"
   end
 end
