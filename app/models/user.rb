@@ -19,5 +19,8 @@ class User < ApplicationRecord
   validates_confirmation_of :password
   validates :password, confirmation: true
 
+  def get_weather_forecast
+    return Weather.where(city_name: "#{self.city_name}")
+  end
 
 end
