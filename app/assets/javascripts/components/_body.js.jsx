@@ -33,7 +33,7 @@ class Body extends React.Component{
     .then((job) => {
       this.addNewJob(job)
     });
-}
+  }
   addNewJob(job) {
     this.setState({
       jobs: this.state.jobs.concat(job)

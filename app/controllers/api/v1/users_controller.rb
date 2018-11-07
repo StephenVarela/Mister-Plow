@@ -10,30 +10,25 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
-    user = User.
-    render json: user
-    # @user = User.new
-    # @user.first_name = params[:user][:first_name]
-    # @user.last_name = params[:user][:last_name]
-    # @user.street_name = params[:user][:street_name]
-    # @user.city_name = params[:user][:city_name]
-    # @user.postal_code = params[:user][:postal_code]
-    # @user.country = params[:user][:country]
-    # @user.email = params[:user][:email]
-    # @user.primary_contact_number = params[:user][:primary_contact_number]
-    # @user.secondary_contact_number = params[:user][:secondary_contact_number]
-    # @user.password = params[:user][:password]
-    # @user.password_confirmation = params[:user][:password]
+    user = User.create(user_params)
 
-    if @user.save
-      session[:user_id] = @user.id
-      current_user = @user
-      redirect_to root_url
-    else
-      render :new
+    puts '!!!!!!!LOOK AT THIS DATA -> ' + session
+
+    respond_to do |format|
+      if user.save
+        format.html { redirect_to :root, notice: 'Account successfully created.'}
+        format.json { render json: user }
+      else
+        format.html { redirect_to signup_url }
+        format.json { render json: {error: 'Something went wrong'} }
+      end
     end
-
   end
 
+  private
+
+  def user_params
+    params.require(:user).permit(:id, :first_name, :last_name, :street_name, :city_name, :postal_code, :country, :email, :primary_contact_number, :secondary_contact_number, :password, :password_confirmation)
+  end
 
 end
