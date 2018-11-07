@@ -60,7 +60,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
 
-  #initialize weather object loop
+  # initialize weather object loop
   config.after_initialize do
     puts "Calling ping job"
     PingApiJob.perform_in(30*1,'Weather')

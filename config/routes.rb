@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :jobs, only: [:index, :create, :destroy, :update]
       resources :users
+
+      resources :weathers
       resources :home_owners, only: [:new, :create, :destroy]
       resources :residences, only: [:new, :create, :destroy]
     end
