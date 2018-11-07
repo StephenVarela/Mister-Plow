@@ -1,17 +1,17 @@
 <h1>Log in</h1>
 
-<%= form_tag sessions_path, :method => :post do %>
+<%= form_for :sessions, :method => :post do |f| %>
   <div class="field">
-    <%= label_tag :email %><br />
-    <%= text_field_tag :email %>
+    <% f.label :email %>
+    <%= f.text_field :email, placeholder: 'E-mail' %>
   </div>
   <div class="field">
-    <%= label_tag :password %><br />
-    <%= password_field_tag :password %>
+    <% f.label :password %>
+    <%= f.password_field :password, placeholder: 'Password' %>
   </div>
   <div class="actions">
-    <%= submit_tag "Login" %>
+    <%= f.submit "Login" %>
   </div>
 <% end %>
 
-<%= link_to "create a new account", new_user_path %>
+<%= link_to "create a new account", signup_path %>
