@@ -13,14 +13,13 @@ class Api::V1::UsersController < ApplicationController
 
     user = User.create(user_params)
 
-    render json: user
     
-    auto_login(user)
-
-    if user.save
-      flash[:success] = "New account created."
-      redirect_to root_url
-    end
+    # if user.save
+    flash[:success] = "New account created."
+    login(user_params[:email], user_params[:password])
+    render json: user
+    # redirect_to root_url
+    # end
 
     # respond_to do |format|
     #   format.html { redirect_to home_url, notice: 'Account successfully created.'}

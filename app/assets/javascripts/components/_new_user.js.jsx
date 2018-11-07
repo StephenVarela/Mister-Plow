@@ -17,6 +17,7 @@ class NewUser extends React.Component {
     secondary_contact_number,
     password,
     password_confirmation,
+    authenticity_token
     ) {
     let body = JSON.stringify({
       user: {
@@ -30,8 +31,9 @@ class NewUser extends React.Component {
         primary_contact_number: primary_contact_number,
         secondary_contact_number: secondary_contact_number,
         password: password,
-        password_confirmation: password_confirmation
-      }
+        password_confirmation: password_confirmation,
+      },
+      authenticity_token: authenticity_token
     });
 
     alert(body)
@@ -62,6 +64,7 @@ class NewUser extends React.Component {
 
     return (
       <form onSubmit={(e) => {
+        e.preventDefault();
         this.handleFormSubmit(
             formFields.first_name.value,
             formFields.last_name.value,
@@ -73,7 +76,8 @@ class NewUser extends React.Component {
             formFields.primary_contact_number.value,
             formFields.secondary_contact_number.value,
             formFields.password.value,
-            formFields.password_confirmation.value
+            formFields.password_confirmation.value,
+            formFields.authenticity_token.value
           );
           e.target.reset();        
         }}>
@@ -93,8 +97,8 @@ class NewUser extends React.Component {
         </select></p>
         <p>Residence is Home Address: <input type='checkbox' ref={input => formFields.home_address = input} name='is_home-adress' value={true} /></p>
 
-        <input type='hidden' name='authenticity_token' value={this.props.authenticity_token} />
-        <p><button>Sign Up</button></p>
+        <input ref={input => formFields.authenticity_token = input} type='hidden' name='authenticity_token' value={this.props.authenticity_token} />
+        <p><button type='submit'>Sign Up</button></p>
       </form>
     )
   }
