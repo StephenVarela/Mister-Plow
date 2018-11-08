@@ -5,7 +5,7 @@ const WeatherDay =(props)=>  {
   // ))
 
   let weatherDays = props.data.map((data, index) => (
-    data[0].weather.description
+    <WeatherDayDetails body={data} key = {index} weatherClick={props.weatherClick} />
   ))
 
 // console.log(typeof props.data[0]);
