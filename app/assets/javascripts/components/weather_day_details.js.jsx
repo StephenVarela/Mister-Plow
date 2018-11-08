@@ -1,34 +1,32 @@
-class WeatherDayDetails extends React.Component  {
-  constructor(props){
-    super(props)
-    this.state=({
-      icon:'http://openweathermap.org/img/w/03d.png',
-      date: this.props.body[0].date,
-      data: "",
-    })
-    this.logoClick = this.logoClick.bind(this)
-  }
+// constructor(props){
+//   super(props)
+//   this.state=({
+//     icon:'http://openweathermap.org/img/w/03d.png',
+//     date: this.props.body[0].date,
+//     data: "",
+//   })
+//   this.logoClick = this.logoClick.bind(this)
+// }
+//
+// logoClick(e){
+//   e.preventDefault()
+//   this.setState({
+//     data: weatherDaysInfo
+//   })
+// }
 
-  logoClick(e){
-    e.preventDefault()
-    let weatherDaysInfo = this.props.body.map((bits, i) => <WeatherHourly subBody = {bits} key = {i}/>)
-    this.setState({
-      data: weatherDaysInfo
-    })
-  }
+const WeatherDayDetails = (props) =>  {
 
-
-  render() {
+  let weatherDaysInfo = props.body.map((bits, i) => <WeatherHourly subBody = {bits} key = {i}/>)
 
     return (
       <div>
         <div id = 'icon'>
-          <img id="wicon" src={this.state.icon} alt="Weather icon" onClick={(e) => {this.logoClick(e)}}/>
+          <img id="wicon" src={"http://openweathermap.org/img/w/" + props.body[0].weather.icon +".png"} alt="Weather icon" onClick={(e) => {this.logoClick(e)}}/>
         </div>
-        <h1>{this.state.date}</h1>
-        <h4>{this.state.data}</h4>
+        <h1>{props.body[0].weather.description}</h1>
+        <h1>{props.body[0].datetime}</h1>
+        <h4>{props.body[0].weather.main}</h4>
       </div>
     )
-  }
-
   }

@@ -13,8 +13,10 @@ Rails.application.routes.draw do
       resources :home_owners, only: [:new, :create, :destroy]
       resources :residences, only: [:new, :create, :destroy]
       resources :shovelers, only: [:new, :create, :destroy]
+      get '/weather' => 'users#weather' 
     end
   end
+
 
   resources :sessions, except: [:index, :edit, :update, :show]
 
