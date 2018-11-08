@@ -3,44 +3,41 @@ class NewUser extends React.Component {
     super(props);
 
     this.state = {
-      homeResidence: false,
-      addressForm: false
+      homeResidence: true,
+      addressForm: true,
+      isHomeResidence: 'checked'
     }
-    
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.residenceOption = this.residenceOption.bind(this)
+    this.homeAdress = this.homeAdress.bind(this)
   }
 
-  handleFormSubmit(
-    first_name,
-    last_name,
-    street_name,
-    city_name,
-    postal_code,
-    country,
-    email,
-    primary_contact_number,
-    secondary_contact_number,
-    password,
-    password_confirmation,
-    user_type,
-    authenticity_token
-    ) {
+  formData(formFields) {
+    console.log("it's okay" + formFields.first_name.value)
+    return formFields.map((field) => {
+      
+    })
+  }
+
+  handleFormSubmit(formFields) {
     let body = JSON.stringify({
       user: {
-        first_name: first_name,
-        last_name: last_name,
-        street_name: street_name,
-        city_name: city_name,
-        postal_code: postal_code,
-        country: country,
-        email: email,
-        primary_contact_number: primary_contact_number,
-        secondary_contact_number: secondary_contact_number,
-        password: password,
-        password_confirmation: password_confirmation,
+        first_name: formFields.first_name.value,
+        last_name: formFields.last_name.value,
+        street_name: formFields.street_name.value,
+        city_name: formFields.city_name.value,
+        postal_code: formFields.postal_code.value,
+        country: formFields.country.value,
+        email: formFields.email.value,
+        primary_contact_number: formFields.primary_contact_number.value,
+        secondary_contact_number: formFields.secondary_contact_number.value,
+        password: formFields.password.value,
+        password_confirmation: formFields.password_confirmation.value,
       },
-      authenticity_token: authenticity_token
+      authenticity_token: formFields.authenticity_token.value
     });
+
+
     fetch('/api/v1/users', {
       method: 'POST',
       headers: {
@@ -48,15 +45,19 @@ class NewUser extends React.Component {
         'Accept': 'application/json',
       },
       body: body,
-    }).then((response) => {
+    }
+    ).then((response) => {
       return response.json()
     }).then((newUser) => {
-      if (user_type === 'home_owner') {
+
+      console.log(formFields)
+
+      if (formFields.user_type.value === 'home_owner') {
         let homeBody = JSON.stringify({
           home_owner: {
             user_id: newUser.id
           },
-          authenticity_token: authenticity_token
+          authenticity_token: formFields.authenticity_token.value
         });
         fetch('/api/v1/home_owners', {
           method: 'POST',
@@ -68,16 +69,21 @@ class NewUser extends React.Component {
         }).then((response) => {
           return response.json()
         }).then((newHomeOwner) => {
+          let residence_street = this.state.addressForm? formFields.street_name.value : formFields.res_street_name.value
+          let residence_city = this.state.addressForm? formFields.city_name.value : formFields.res_city_name.value
+          let residence_postal = this.state.addressForm? formFields.postal_code.value : formFields.res_postal_code.value
+          let residence_country = this.state.addressForm? formFields.country.value : formFields.res_country.value
+          
           let resBody = JSON.stringify({
             residence: {
               home_owner_id: newHomeOwner.id,
-              street_name: street_name,
-              city_name: city_name,
-              postal_code: postal_code,
-              country: country,
-              is_home_address: true
+              street_name: residence_street,
+              city_name: residence_city,
+              postal_code: residence_postal,
+              country: residence_country,
+              is_home_address: this.state.addressForm
             },
-            authenticity_token: authenticity_token
+            authenticity_token: formFields.authenticity_token.value
           });
           fetch('/api/v1/residences', {
             method: 'POST',
@@ -92,13 +98,13 @@ class NewUser extends React.Component {
             window.location.reload();
           });
         });
-      } else if (user_type === 'shoveler') {
+      } else if (formFields.user_type.value === 'shoveler') {
         let shovelBody = JSON.stringify({
           shoveler: {
             user_id: newUser.id,
             rating: null
           },
-          authenticity_token: authenticity_token
+          authenticity_token: formFields.authenticity_token.value
         });
         fetch('/api/v1/shovelers', {
           method: 'POST',
@@ -115,55 +121,24 @@ class NewUser extends React.Component {
       }
     });
   }
-
+  residenceOption(option) {
+    if (option === 'shoveler') {
+      this.setState({homeResidence: false})
+    } else if (option === 'home_owner') {
+      this.setState({homeResidence: true})
+    }
+  }
+  homeAdress() {
+    if (this.state.addressForm === false) {
+      this.setState({isHomeResidence: 'checked', addressForm: true})
+    } else {
+      this.setState({isHomeResidence: '', addressForm: false})
+    }
+  }
 
   render() {
-    let formFields = {}
-    let homeResidence = this.state.homeResidence? <p>Residence is Home Address: <input type='checkbox' ref={input => formFields.home_address = input} name='is_home-adress' value={true} /></p> : ''
-    let addressForm = ''
-
     return (
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        this.handleFormSubmit(
-            formFields.first_name.value,
-            formFields.last_name.value,
-            formFields.street_name.value,
-            formFields.city_name.value,
-            formFields.postal_code.value,
-            formFields.country.value,
-            formFields.email.value,
-            formFields.primary_contact_number.value,
-            formFields.secondary_contact_number.value,
-            formFields.password.value,
-            formFields.password_confirmation.value,
-            formFields.user_type.value,
-            formFields.authenticity_token.value,
-          );
-          e.target.reset();        
-        }}>
-        <p><input ref={input => formFields.first_name = input} placeholder='First Name'/></p>
-        <p><input ref={input => formFields.last_name = input} placeholder='Last Name' /></p>
-        <p><input ref={input => formFields.street_name = input} placeholder='Street Name' /></p>
-        <p><input ref={input => formFields.city_name = input} placeholder='City Name' /></p>
-        <p><input ref={input => formFields.postal_code = input} placeholder='Postal Code' /></p>
-        <p><input ref={input => formFields.country = input} placeholder='Country' /></p>
-        <p><input ref={input => formFields.email = input} placeholder='E-mail' /></p>
-        <p><input ref={input => formFields.primary_contact_number = input} placeholder='Primary Contact Number' /></p>
-        <p><input ref={input => formFields.secondary_contact_number = input} placeholder='Secondary Contact Number' /></p>
-        <p><input type='password' ref={input => formFields.password = input} placeholder='Password' /></p>
-        <p><input type='password' ref={input => formFields.password_confirmation = input} placeholder='Password Confirmation' /></p>
-        <p>I am a: <select ref={input => formFields.user_type = input}>
-          <option value="home_owner">Homeowner</option>  
-          <option value="shoveler">Shoveler</option>  
-        </select></p>
-        
-        {homeResidence}
-        {addressForm}
-
-        <input ref={input => formFields.authenticity_token = input} type='hidden' name='authenticity_token' value={this.props.authenticity_token} />
-        <p><button type='submit'>Sign Up</button></p>
-      </form>
+      <NewUserForm formData={this.formData} homeResidence={this.state.homeResidence} isHomeResidence={this.state.isHomeResidence} homeAdress={this.homeAdress} addressForm={this.state.addressForm} handleFormSubmit={this.handleFormSubmit} residenceOption={this.residenceOption} authenticity_token={this.props.authenticity_token}/>
     )
   }
 }
