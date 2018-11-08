@@ -19,29 +19,35 @@ class User < ApplicationRecord
   validates_confirmation_of :password
   validates :password, confirmation: true
 
-  def self.get_weather_forecast
+  def get_weather_forecast
 
-    return Weather.where(city_name: "Toronto")
-    # return Weather.where(city_name: "#{self.city_name}")
+    # return Weather.where(city_name: "Toronto")
+    return Weather.where(city_name: "#{self.city_name}").sort_by &:created_at
   end
 
-  def self.create_forecast_array
-    forecast = get_weather_forecast
+  def create_forecast_array
+    weather = get_weather_forecast.last
 
-    day_1 = []
-    day_2 = []
-    day_3 = []
-    day_4 = []
-    day_5 = []
+    data = {}
 
-    puts "========================="
-
-    forecast.each.with_index do |sample, i|
-      #puts sample
+    #creates hash with unque keys
+    weather.forecast.each do |weather_sample|
+      date = weather_sample["datetime"].split(' ')[0]
+      if !data.key?(date)
+        data[date] = []
+      end
     end
 
-    puts "========================="
+    #loop through data hash and add weather element if the datetime == the hash key
+    data.each do |key, data_element|
+      weather.forecast.each do |weather_sample|
+        if(weather_sample["datetime"].split(' ')[0] == key)
+          data_element << weather_sample
+        end
+      end
+    end
 
+    return data
   end
 
 end
