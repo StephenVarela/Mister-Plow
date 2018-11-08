@@ -28,8 +28,8 @@ class WeatherApp extends React.Component {
   }
 
   weatherClick(){
-    console.log("HELLO");
-    let fakeData = [[{weather: "cloudy", date:"Monday"}, {weather: "cloudy", date:"Monday"}], [{weather: "sunny", date:"Tuesday"}, {weather: "sunny", date:"Tuesday"}], [{weather: "snowy", date:"Wednesday"}]]
+    let fakeData = [[{weather: "cloudy", date:"Monday"}, {weather: "snow", date:"Monday"}], [{weather: "sunny", date:"Tuesday"}, {weather: "sunny", date:"Tuesday"}], [{weather: "snowy", date:"Wednesday"}]]
+    console.log(fakeData[0][1]);
     this.setState({
       data: fakeData
     })
@@ -51,7 +51,7 @@ class WeatherApp extends React.Component {
         <p>Toronto: is currently {this.state.description}</p>
         <p>{this.state.date}</p>
         <button onClick={(e)=> this.eventClick(e)}> Click me </button>
-        <WeatherDay weatherClick={this.weatherClick} fakeData={fakeData}/>
+        <WeatherDay weatherClick={this.weatherClick} fakeData={fakeData} newState={this.state.data}/>
       </div>
     )
   }
