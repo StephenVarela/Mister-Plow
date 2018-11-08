@@ -5,7 +5,6 @@ class Api::V1::JobsController < ApplicationController
 
   def create
     job = Job.create(job_params)
-    puts Time.at(job_params[:scheduled_time] / 1000.00)
     job.update_attributes(scheduled_time: Time.at(job_params[:scheduled_time] / 1000.00))
     render json: job
   end
