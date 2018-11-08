@@ -12,37 +12,32 @@ class NewUser extends React.Component {
     this.homeAdress = this.homeAdress.bind(this)
   }
 
-  handleFormSubmit(
-    first_name,
-    last_name,
-    street_name,
-    city_name,
-    postal_code,
-    country,
-    email,
-    primary_contact_number,
-    secondary_contact_number,
-    password,
-    password_confirmation,
-    user_type,
-    authenticity_token) {
+  formData(formFields) {
+    console.log("it's okay" + formFields.first_name.value)
+    return formFields.map((field) => {
+      
+    })
+  }
 
+  handleFormSubmit(formFields) {
     let body = JSON.stringify({
       user: {
-        first_name: first_name,
-        last_name: last_name,
-        street_name: street_name,
-        city_name: city_name,
-        postal_code: postal_code,
-        country: country,
-        email: email,
-        primary_contact_number: primary_contact_number,
-        secondary_contact_number: secondary_contact_number,
-        password: password,
-        password_confirmation: password_confirmation,
+        first_name: formFields.first_name.value,
+        last_name: formFields.last_name.value,
+        street_name: formFields.street_name.value,
+        city_name: formFields.city_name.value,
+        postal_code: formFields.postal_code.value,
+        country: formFields.country.value,
+        email: formFields.email.value,
+        primary_contact_number: formFields.primary_contact_number.value,
+        secondary_contact_number: formFields.secondary_contact_number.value,
+        password: formFields.password.value,
+        password_confirmation: formFields.password_confirmation.value,
       },
-      authenticity_token: authenticity_token
+      authenticity_token: formFields.authenticity_token.value
     });
+
+
     fetch('/api/v1/users', {
       method: 'POST',
       headers: {
@@ -50,15 +45,19 @@ class NewUser extends React.Component {
         'Accept': 'application/json',
       },
       body: body,
-    }).then((response) => {
+    }
+    ).then((response) => {
       return response.json()
     }).then((newUser) => {
-      if (user_type === 'home_owner') {
+
+      console.log(formFields)
+
+      if (formFields.user_type.value === 'home_owner') {
         let homeBody = JSON.stringify({
           home_owner: {
             user_id: newUser.id
           },
-          authenticity_token: authenticity_token
+          authenticity_token: formFields.authenticity_token.value
         });
         fetch('/api/v1/home_owners', {
           method: 'POST',
@@ -70,10 +69,10 @@ class NewUser extends React.Component {
         }).then((response) => {
           return response.json()
         }).then((newHomeOwner) => {
-          let residence_street = this.state.addressForm? street_name : res_street_name
-          let residence_city = this.state.addressForm? city_name : res_city_name
-          let residence_postal = this.state.addressForm? postal_code : res_postal_code
-          let residence_country = this.state.addressForm? country : res_country
+          let residence_street = this.state.addressForm? formFields.street_name.value : formFields.res_street_name.value
+          let residence_city = this.state.addressForm? formFields.city_name.value : formFields.res_city_name.value
+          let residence_postal = this.state.addressForm? formFields.postal_code.value : formFields.res_postal_code.value
+          let residence_country = this.state.addressForm? formFields.country.value : formFields.res_country.value
           
           let resBody = JSON.stringify({
             residence: {
@@ -84,7 +83,7 @@ class NewUser extends React.Component {
               country: residence_country,
               is_home_address: this.state.addressForm
             },
-            authenticity_token: authenticity_token
+            authenticity_token: formFields.authenticity_token.value
           });
           fetch('/api/v1/residences', {
             method: 'POST',
@@ -99,13 +98,13 @@ class NewUser extends React.Component {
             window.location.reload();
           });
         });
-      } else if (user_type === 'shoveler') {
+      } else if (formFields.user_type.value === 'shoveler') {
         let shovelBody = JSON.stringify({
           shoveler: {
             user_id: newUser.id,
             rating: null
           },
-          authenticity_token: authenticity_token
+          authenticity_token: formFields.authenticity_token.value
         });
         fetch('/api/v1/shovelers', {
           method: 'POST',
@@ -138,6 +137,8 @@ class NewUser extends React.Component {
   }
 
   render() {
-    <NewUserForm homeResidence={this.state.homeResidence}/>
+    return (
+      <NewUserForm formData={this.formData} homeResidence={this.state.homeResidence} isHomeResidence={this.state.isHomeResidence} homeAdress={this.homeAdress} addressForm={this.state.addressForm} handleFormSubmit={this.handleFormSubmit} residenceOption={this.residenceOption} authenticity_token={this.props.authenticity_token}/>
+    )
   }
 }

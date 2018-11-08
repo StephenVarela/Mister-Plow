@@ -9,6 +9,5 @@ class Residence < ApplicationRecord
   validates :city_name, presence: true
   validates :postal_code, presence: true
   validates :country, presence: true
-  validates :is_home_address, presence: true
 
 end
