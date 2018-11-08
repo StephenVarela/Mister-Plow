@@ -5,10 +5,16 @@ class WeatherApp extends React.Component {
     this.state=({
       description:'' || "cold",
       icon:'',
-      date:'',
-      data:'',
+      date: '',
+      data: this.initialize(),//[[{weather: "cloudy", date:"Monday"}, {weather: "snow", date:"Monday"}], [{weather: "sunny", date:"Tuesday"}, {weather: "sunny", date:"Tuesday"}], [{weather: "snowy", date:"Wednesday"}]],
+      showDetailsFor: '',
     })
     this.weatherClick = this.weatherClick.bind(this)
+    // this.componentDidMount = this.componentDidMount.bind(this)
+  }
+
+  initialize() {
+    return [[{weather: "cloudy", date:"Monday"}, {weather: "snow", date:"Monday"}], [{weather: "sunny", date:"Tuesday"}, {weather: "sunny", date:"Tuesday"}], [{weather: "snowy", date:"Wednesday"}]]
   }
 
   eventClick(e){
@@ -28,10 +34,8 @@ class WeatherApp extends React.Component {
   }
 
   weatherClick(){
-    console.log("HELLO");
-    let fakeData = [[{weather: "cloudy", date:"Monday"}, {weather: "cloudy", date:"Monday"}], [{weather: "sunny", date:"Tuesday"}, {weather: "sunny", date:"Tuesday"}], [{weather: "snowy", date:"Wednesday"}]]
     this.setState({
-      data: fakeData
+      data: this.state.data
     })
     // this.state.data.map(data => (
     //   data
@@ -40,7 +44,7 @@ class WeatherApp extends React.Component {
   }
 
   render(){
-    let fakeData = [[{weather: "cloudy", date:"Monday"}, {weather: "cloudy", date:"Monday"}], [{weather: "sunny", date:"Tuesday"}, {weather: "sunny", date:"Tuesday"}], [{weather: "snowy", date:"Wednesday"}]]
+
     return(
       <div>
         <h1> Weather Alert! </h1>
@@ -51,7 +55,7 @@ class WeatherApp extends React.Component {
         <p>Toronto: is currently {this.state.description}</p>
         <p>{this.state.date}</p>
         <button onClick={(e)=> this.eventClick(e)}> Click me </button>
-        <WeatherDay weatherClick={this.weatherClick} fakeData={fakeData}/>
+        <WeatherDay weatherClick={this.weatherClick} fakeData={this.state.data} newState={this.state.data}/>
       </div>
     )
   }

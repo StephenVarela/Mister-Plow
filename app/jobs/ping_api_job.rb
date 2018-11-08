@@ -27,14 +27,14 @@ class PingApiJob
       p weather_event.errors.full_messages
     end
 
-    
+
 
     queue_job
   end
 
 
   def queue_job
-    PingApiJob.perform_in(30*1,'Weather')
+    PingApiJob.perform_in(60*60*12,'Weather')
     puts "Checking async"
   end
 
