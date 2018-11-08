@@ -5,6 +5,8 @@ class Api::V1::JobsController < ApplicationController
 
   def create
     job = Job.create(job_params)
+    puts Time.at(job_params[:scheduled_time] / 1000.00)
+    job.update_attributes(scheduled_time: Time.at(job_params[:scheduled_time] / 1000.00))
     render json: job
   end
 
@@ -21,6 +23,6 @@ class Api::V1::JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:id, :comments, :price, :residence_id, :description)
+    params.require(:job).permit(:id, :comments, :price, :residence_id, :description, :scheduled_time)
   end
 end

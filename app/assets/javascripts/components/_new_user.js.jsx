@@ -1,6 +1,11 @@
 class NewUser extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      homeResidence: false,
+      addressForm: false
+    }
     
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
   }
@@ -114,6 +119,8 @@ class NewUser extends React.Component {
 
   render() {
     let formFields = {}
+    let homeResidence = this.state.homeResidence? <p>Residence is Home Address: <input type='checkbox' ref={input => formFields.home_address = input} name='is_home-adress' value={true} /></p> : ''
+    let addressForm = ''
 
     return (
       <form onSubmit={(e) => {
@@ -150,7 +157,9 @@ class NewUser extends React.Component {
           <option value="home_owner">Homeowner</option>  
           <option value="shoveler">Shoveler</option>  
         </select></p>
-        <p>Residence is Home Address: <input type='checkbox' ref={input => formFields.home_address = input} name='is_home-adress' value={true} /></p>
+        
+        {homeResidence}
+        {addressForm}
 
         <input ref={input => formFields.authenticity_token = input} type='hidden' name='authenticity_token' value={this.props.authenticity_token} />
         <p><button type='submit'>Sign Up</button></p>
