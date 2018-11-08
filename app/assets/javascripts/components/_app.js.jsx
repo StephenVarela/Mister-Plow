@@ -3,21 +3,23 @@ class App extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      jobs: []
+      jobs: [],
+      residence: 0
     };
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.addNewJob = this.addNewJob.bind(this)
   }
 
-  handleFormSubmit(comments, price) {
-    console.log(comments, price);
+  handleFormSubmit(comments, price, day, time, authenticity_token) {
     let body = JSON.stringify({
       job: {
         comments: comments,
         price: price,
-        residence_id: 4
-      }
+        scheduled_time: new Date(day + ' ' + time).getTime(),
+        residence_id: this.props.user.residences[this.state.residence].id
+      },
+      authenticity_token: authenticity_token,
     });
     alert(body)
     fetch('http://localhost:3000/api/v1/jobs', {
@@ -42,12 +44,13 @@ class App extends React.Component{
   }
   componentDidMount(){
     fetch('/api/v1/jobs.json')
-      .then((response) => {return response.json()})
+      .then((response) => {console.log('between'); return response.json()})
       .then((data) => {this.setState({ jobs: data })
+      
     });
   }
   render(){
-
+    console.log(this.props.user.residences[this.state.residence].id)
     return (
       <div>
         <h1>Welcome to Mister Plow!</h1>

@@ -1,3 +1,2 @@
-  <%= react_component 'App', authenticity_token: form_authenticity_token %>
-  <%= react_component 'WeatherApp'%>
-
+<%= react_component 'App', authenticity_token: form_authenticity_token, user: {user_id: current_user.id, homeowner: current_user.home_owner, shoveler: current_user.shoveler, residences: current_user.home_owner.residences} %>
+<%= react_component 'WeatherApp'%>

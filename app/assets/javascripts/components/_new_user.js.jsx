@@ -1,6 +1,11 @@
 class NewUser extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      homeResidence: false,
+      addressForm: false
+    }
     
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
   }
@@ -43,63 +48,79 @@ class NewUser extends React.Component {
         'Accept': 'application/json',
       },
       body: body,
-    }).then((response1) => {
-      return response1.json()
-    }).then((userResponse) => {
-    
-    if (user_type) {
-      alert(user_type)
-    }
-
-
-    
-    // window.location.reload();
-      let homeBody = JSON.stringify({
-        home_owner: {
-          user_id: userResponse.id
-        },
-        authenticity_token: authenticity_token
-      });
-      fetch('/api/v1/home_owners', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: homeBody,
-      }).then((response2) => {
-        return response2.json()
-      }).then((homeResponse) => {
-        let resBody = JSON.stringify({
-          residence: {
-            home_owner_id: homeResponse.id,
-            street_name: street_name,
-            city_name: city_name,
-            postal_code: postal_code,
-            country: country,
-            is_home_address: true
+    }).then((response) => {
+      return response.json()
+    }).then((newUser) => {
+      if (user_type === 'home_owner') {
+        let homeBody = JSON.stringify({
+          home_owner: {
+            user_id: newUser.id
           },
           authenticity_token: authenticity_token
         });
-        fetch('/api/v1/residences', {
+        fetch('/api/v1/home_owners', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
           },
-          body: resBody,
-        }).then((response3) => {
-          return response3.json()
-        }).then((residenceResponse) => {
-          console.log(residenceResponse)
+          body: homeBody,
+        }).then((response) => {
+          return response.json()
+        }).then((newHomeOwner) => {
+          let resBody = JSON.stringify({
+            residence: {
+              home_owner_id: newHomeOwner.id,
+              street_name: street_name,
+              city_name: city_name,
+              postal_code: postal_code,
+              country: country,
+              is_home_address: true
+            },
+            authenticity_token: authenticity_token
+          });
+          fetch('/api/v1/residences', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+            },
+            body: resBody,
+          }).then((response) => {
+            return response.json()
+          }).then(() => {
+            window.location.reload();
+          });
         });
-      });
+      } else if (user_type === 'shoveler') {
+        let shovelBody = JSON.stringify({
+          shoveler: {
+            user_id: newUser.id,
+            rating: null
+          },
+          authenticity_token: authenticity_token
+        });
+        fetch('/api/v1/shovelers', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: shovelBody,
+        }).then((response) => {
+          return response.json()
+        }).then(() => {
+          window.location.reload();
+        });
+      }
     });
   }
 
 
   render() {
     let formFields = {}
+    let homeResidence = this.state.homeResidence? <p>Residence is Home Address: <input type='checkbox' ref={input => formFields.home_address = input} name='is_home-adress' value={true} /></p> : ''
+    let addressForm = ''
 
     return (
       <form onSubmit={(e) => {
@@ -136,7 +157,9 @@ class NewUser extends React.Component {
           <option value="home_owner">Homeowner</option>  
           <option value="shoveler">Shoveler</option>  
         </select></p>
-        <p>Residence is Home Address: <input type='checkbox' ref={input => formFields.home_address = input} name='is_home-adress' value={true} /></p>
+        
+        {homeResidence}
+        {addressForm}
 
         <input ref={input => formFields.authenticity_token = input} type='hidden' name='authenticity_token' value={this.props.authenticity_token} />
         <p><button type='submit'>Sign Up</button></p>

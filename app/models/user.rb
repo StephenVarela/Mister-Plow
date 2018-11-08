@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
-  has_many :shovelers
-  has_many :home_owners
+  has_one :shoveler
+  has_one :home_owner
 
   validates :first_name, presence: true
   validates :last_name, presence: true

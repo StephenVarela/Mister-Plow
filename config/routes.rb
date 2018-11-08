@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       resources :weathers
       resources :home_owners, only: [:new, :create, :destroy]
       resources :residences, only: [:new, :create, :destroy]
+      resources :shovelers, only: [:new, :create, :destroy]
     end
   end
 
