@@ -5,33 +5,46 @@ class WeatherApp extends React.Component {
     this.state=({
       description:'' || "cold",
       icon:'',
-      date: '',
-      data: this.initialize(),//[[{weather: "cloudy", date:"Monday"}, {weather: "snow", date:"Monday"}], [{weather: "sunny", date:"Tuesday"}, {weather: "sunny", date:"Tuesday"}], [{weather: "snowy", date:"Wednesday"}]],
-      showDetailsFor: '',
+      date:'',
+      data: [],
+      setDescription: '',
     })
     this.weatherClick = this.weatherClick.bind(this)
+    this.componentDidMount = this.componentDidMount.bind(this)
     // this.componentDidMount = this.componentDidMount.bind(this)
   }
 
   initialize() {
-    return [[{weather: "cloudy", date:"Monday"}, {weather: "snow", date:"Monday"}], [{weather: "sunny", date:"Tuesday"}, {weather: "sunny", date:"Tuesday"}], [{weather: "snowy", date:"Wednesday"}]]
   }
 
-  eventClick(e){
+  componentDidMount(e){
     let base = this
-    e.preventDefault()
-    fetch('http://api.openweathermap.org/data/2.5/forecast?q=Toronto,us&appid=7c18018d13139c6172b7a3dfa1ad68d7&&units')
-    .then(function(response) {
+    fetch('/api/v1/weather.json')
+    .then(function(response){
       return response.json()
     }).then(function(json) {
-      console.log(json.list)
-      base.setState(prevState => ({
-        description: json.list[0].weather[0].description,
-        icon: `http://openweathermap.org/img/w/${json.list[0].weather[0].icon}.png`,
-        date: json.list[0].dt_txt
-      }))
-    })
-  }
+      let index = 0;
+      let weather_samples = [];
+       Object.keys(json).forEach(function(sample){
+         weather_samples[index] = json[sample];
+         index++;
+       });
+       console.log(weather_samples);
+       base.setState({
+         data: weather_samples,
+       })
+
+       // json.forEach(function(day){
+       //   console.log(day)
+       // });
+     })
+       // base.setState({
+        // description: json.list[0].weather[0].description,
+        // icon: `http://openweathermap.org/img/w/${json.list[0].weather[0].icon}.png`,
+        // date: json.list[0].dt_txt
+       }
+
+
 
   weatherClick(){
     this.setState({
@@ -54,8 +67,8 @@ class WeatherApp extends React.Component {
         </div>
         <p>Toronto: is currently {this.state.description}</p>
         <p>{this.state.date}</p>
-        <button onClick={(e)=> this.eventClick(e)}> Click me </button>
-        <WeatherDay weatherClick={this.weatherClick} fakeData={this.state.data} newState={this.state.data}/>
+        <WeatherDay data={this.state.data}/>
+        {/* <WeatherDay weatherClick={this.weatherClick} data={this.state.data} newState={this.state.data}/> */}
       </div>
     )
   }
