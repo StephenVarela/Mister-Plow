@@ -21,8 +21,8 @@ class User < ApplicationRecord
 
   def get_weather_forecast
 
-    return Weather.where(city_name: "Toronto")
-    # return Weather.where(city_name: "#{self.city_name}")
+    # return Weather.where(city_name: "Toronto")
+    return Weather.where(city_name: "#{self.city_name}")
   end
 
   def create_forecast_array
@@ -39,7 +39,6 @@ class User < ApplicationRecord
     end
 
     #loop through data hash and add weather element if the datetime == the hash key
-
     data.each do |key, data_element|
       weather.forecast.each do |weather_sample|
         if(weather_sample["datetime"].split(' ')[0] == key)
