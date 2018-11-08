@@ -23,8 +23,13 @@ class UserTest < ActiveSupport::TestCase
   end
 
   def test_get_forecast_array
-    weather_event = build(:weather)
-    weather_event.save
+    #builds first
+    weather_event0 = build(:weather, forecast: [])
+    weather_event0.save
+
+    # builds second
+    weather_event1 = build(:weather)
+    weather_event1.save
 
     my_user = build(:user)
     my_user.save

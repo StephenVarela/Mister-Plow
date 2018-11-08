@@ -22,7 +22,7 @@ class User < ApplicationRecord
   def get_weather_forecast
 
     # return Weather.where(city_name: "Toronto")
-    return Weather.where(city_name: "#{self.city_name}")
+    return Weather.where(city_name: "#{self.city_name}").sort_by &:created_at
   end
 
   def create_forecast_array
