@@ -40,24 +40,26 @@ class App extends React.Component{
     this.setState({
       jobs: this.state.jobs.concat(job)
     });
-
   }
   componentDidMount(){
     fetch('/api/v1/jobs.json')
-      .then((response) => {console.log('between'); return response.json()})
+      .then((response) => {return response.json()})
       .then((data) => {this.setState({ jobs: data })
-      
     });
   }
   render(){
-    console.log(this.props.user.residences[this.state.residence].id)
     return (
       <div>
-        <h1>Welcome to Mister Plow!</h1>
+        <div className="homepage-title-header">
+          <h3>Welcome to</h3>
+          <h1>Mr Plow!</h1>
+        </div>
         <NewJob handleFormSubmit={this.handleFormSubmit} authenticity_token={this.props.authenticity_token} />
+        
+        <WeatherApp />
+        
         <AllJobs jobs={this.state.jobs} />
       </div>
-    )
+    );
   }
-
 }

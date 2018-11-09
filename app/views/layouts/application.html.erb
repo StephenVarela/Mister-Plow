@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MisterPlow</title>
+    <title>Mr Plow</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -20,12 +20,6 @@
   </head>
 
   <body>
-    <div id="nav">
-   <% if current_user %>
-     <%= link_to "Logout", :logout, method: :post %>
-   <% end %>
-  </div>
-
     <%= yield %>
   </body>
 </html>
