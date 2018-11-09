@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       resources :home_owners, only: [:new, :create, :destroy]
       resources :residences, only: [:new, :create, :destroy]
       resources :shovelers, only: [:new, :create, :destroy]
-      get '/weather' => 'users#weather' 
+      get '/weather' => 'users#weather'
     end
   end
 
@@ -22,4 +22,5 @@ Rails.application.routes.draw do
 
   get 'login' => 'sessions#new', :as => :login
   post 'logout' => 'sessions#destroy', :as => :logout
+  get '/map' => 'map#show'
 end
