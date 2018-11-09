@@ -32,6 +32,7 @@ class WeatherApp extends React.Component {
        console.log(weather_samples);
        base.setState({
          data: weather_samples,
+         description: weather_samples[0][0].weather.description
        })
 
        // json.forEach(function(day){
