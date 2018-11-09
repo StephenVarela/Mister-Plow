@@ -47,7 +47,18 @@ a {
 a:hover {
   color: #719fc4;
 }
+ul {
+  text-align: justify;
+  display: inline-block;
+  padding: 1em;;
+}
+li {
+  list-style-type: none;
+}
 
+.residence-details ul {
+  color: #d6e5f3;
+}
 .home-nav {
   display: flex;
   justify-content: space-between;
@@ -57,7 +68,7 @@ a:hover {
   box-shadow: 3px 3px;
   margin: 0;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  position:relative;
+  position: relative;
   z-index: 999;
 }
 .homepage-title-header {
@@ -75,7 +86,7 @@ a:hover {
   padding: 1em;
   background-color: #202f4f;
 }
-.job-form {
+.job-booking {
   padding: 1em;
   background-color: #719fc4;
 }
@@ -97,4 +108,35 @@ a:hover {
   margin: 0 10em;
   display: block;
   border-radius: 15px;
+}
+.residence-pic {
+  width: 150px;
+  height: 150px;
+  background-color: #abcde4;
+  -webkit-mask: url("baseline-home-24px.svg") no-repeat 100%;
+  mask: url("baseline-home-24px.svg") no-repeat 100%;
+  -webkit-mask-size: 100%;
+  mask-size: 100%;
+}
+.residence-pic-border {
+  display: inline-block;
+  border-radius: 20px;
+  border: 8px solid #abcde4;
+}
+.job-booking-display {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 1em;
+}
+.residence-details {
+  display: flex;
+  align-items: center;
+}
+.booking-button {
+  font-size: 2.5em;
+  font-weight: 600;
+  color: #FFF;
+  border-radius: 15px;
+  background-color: #abcde4;
 }

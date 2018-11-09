@@ -4,18 +4,20 @@ class App extends React.Component{
     super(props);
     this.state = {
       jobs: [],
-      residence: 0
+      residence: 0,
+      bookingReady: false,
     };
 
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleJobCreate = this.handleJobCreate.bind(this);
     this.addNewJob = this.addNewJob.bind(this)
+    this.bookingSwitch = this.bookingSwitch.bind(this)
   }
 
-  handleFormSubmit(comments, price, day, time, authenticity_token) {
+  handleJobCreate(comments, day, time, authenticity_token) {
     let body = JSON.stringify({
       job: {
         comments: comments,
-        price: price,
+        price: 15,
         scheduled_time: new Date(day + ' ' + time).getTime(),
         residence_id: this.props.user.residences[this.state.residence].id
       },
@@ -36,10 +38,27 @@ class App extends React.Component{
       this.addNewJob(job)
     });
   }
+
+
+
+
+
+
+
+
+
+
   addNewJob(job) {
     this.setState({
-      jobs: this.state.jobs.concat(job)
+      jobs: this.state.jobs.concat(job),
     });
+  }
+
+  bookingSwitch() {
+    this.setState({
+      bookingReady: true,
+    });
+    console.log("I'm here");
   }
   componentDidMount(){
     fetch('/api/v1/jobs.json')
@@ -47,9 +66,9 @@ class App extends React.Component{
       .then((data) => {this.setState({ jobs: data })
     });
   }
+
   render(){
-    console.log(this.props.user.current_user)
-    let userWidget = this.props.user.current_user.is_shoveler? <MapView /> : <NewJob handleFormSubmit={this.handleFormSubmit} authenticity_token={this.props.authenticity_token} />;
+    let userWidget = this.props.user.current_user.is_shoveler? <MapView /> : <NewJob bookingSwitch={this.bookingSwitch} bookingReady={this.state.bookingReady} handleJobCreate={this.handleJobCreate} residence={this.props.user.residences[this.state.residence]} authenticity_token={this.props.authenticity_token} />;
 
     return (
       <div>
