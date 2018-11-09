@@ -31,11 +31,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       var longitude = position.coords.longitude;
 
       output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
-
-      var img = new Image();
-      img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
-
-      output.appendChild(img);
+      var marker = L.marker([latitude, longitude]).addTo(mymap);
     }
 
     function error() {
@@ -45,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     output.innerHTML = "<p>Locating…</p>";
 
     navigator.geolocation.getCurrentPosition(success, error);
-
 
   })
 
