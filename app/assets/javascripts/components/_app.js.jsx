@@ -48,13 +48,17 @@ class App extends React.Component{
     });
   }
   render(){
+    console.log(this.props.user.current_user)
+    let userWidget = this.props.user.current_user.is_shoveler? <MapView /> : <NewJob handleFormSubmit={this.handleFormSubmit} authenticity_token={this.props.authenticity_token} />;
+
     return (
       <div>
         <div className="homepage-title-header">
           <h3>Welcome to</h3>
           <h1>Mr Plow!</h1>
         </div>
-        <NewJob handleFormSubmit={this.handleFormSubmit} authenticity_token={this.props.authenticity_token} />
+        
+        {userWidget}
         
         <WeatherApp />
         

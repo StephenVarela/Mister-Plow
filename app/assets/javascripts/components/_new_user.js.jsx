@@ -3,24 +3,17 @@ class NewUser extends React.Component {
     super(props);
 
     this.state = {
-      homeResidence: true,
+      isHomeOwner: true,
       addressForm: true,
-      isHomeResidence: 'checked'
+      homeIsResidence: 'checked'
     }
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.residenceOption = this.residenceOption.bind(this)
     this.homeAdress = this.homeAdress.bind(this)
   }
 
-  formData(formFields) {
-    console.log("it's okay" + formFields.first_name.value)
-    return formFields.map((field) => {
-      
-    })
-  }
-
   handleFormSubmit(formFields) {
-    let body = JSON.stringify({
+    var body = {
       user: {
         first_name: formFields.first_name.value,
         last_name: formFields.last_name.value,
@@ -35,8 +28,13 @@ class NewUser extends React.Component {
         password_confirmation: formFields.password_confirmation.value,
       },
       authenticity_token: formFields.authenticity_token.value
-    });
+    }
 
+    if (this.state.isHomeOwner === false) {
+      body.user.is_shoveler = true
+    }
+
+    var postBody = JSON.stringify(body);
 
     fetch('/api/v1/users', {
       method: 'POST',
@@ -44,15 +42,13 @@ class NewUser extends React.Component {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
-      body: body,
+      body: postBody,
     }
     ).then((response) => {
       return response.json()
     }).then((newUser) => {
 
-      console.log(formFields)
-
-      if (formFields.user_type.value === 'home_owner') {
+      if (this.state.isHomeOwner) {
         let homeBody = JSON.stringify({
           home_owner: {
             user_id: newUser.id
@@ -98,11 +94,12 @@ class NewUser extends React.Component {
             window.location.reload();
           });
         });
-      } else if (formFields.user_type.value === 'shoveler') {
+      } else {
         let shovelBody = JSON.stringify({
           shoveler: {
             user_id: newUser.id,
             rating: null
+
           },
           authenticity_token: formFields.authenticity_token.value
         });
@@ -123,22 +120,22 @@ class NewUser extends React.Component {
   }
   residenceOption(option) {
     if (option === 'shoveler') {
-      this.setState({homeResidence: false})
+      this.setState({isHomeOwner: false})
     } else if (option === 'home_owner') {
-      this.setState({homeResidence: true})
+      this.setState({isHomeOwner: true})
     }
   }
   homeAdress() {
     if (this.state.addressForm === false) {
-      this.setState({isHomeResidence: 'checked', addressForm: true})
+      this.setState({homeIsResidence: 'checked', addressForm: true})
     } else {
-      this.setState({isHomeResidence: '', addressForm: false})
+      this.setState({homeIsResidence: '', addressForm: false})
     }
   }
 
   render() {
     return (
-      <NewUserForm formData={this.formData} homeResidence={this.state.homeResidence} isHomeResidence={this.state.isHomeResidence} homeAdress={this.homeAdress} addressForm={this.state.addressForm} handleFormSubmit={this.handleFormSubmit} residenceOption={this.residenceOption} authenticity_token={this.props.authenticity_token}/>
+      <NewUserForm formData={this.formData} isHomeOwner={this.state.isHomeOwner} homeIsResidence={this.state.homeIsResidence} homeAdress={this.homeAdress} addressForm={this.state.addressForm} handleFormSubmit={this.handleFormSubmit} residenceOption={this.residenceOption} authenticity_token={this.props.authenticity_token}/>
     )
   }
 }
