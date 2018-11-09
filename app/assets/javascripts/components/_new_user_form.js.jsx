@@ -1,7 +1,7 @@
 const NewUserForm = (props) => {
   let formFields = {}
-  
-  let homeResidence = props.homeResidence? <p>Residence is Home Address: <input type='checkbox' checked={props.isHomeResidence} onChange={() => props.homeAdress()} ref={input => formFields.home_address = input} name='is_home-adress' value={true} /></p> : ''
+  console.log()
+  let homeResidence = props.isHomeOwner? <p>Residence is Home Address: <input type='checkbox' checked={props.homeIsResidence} onChange={() => props.homeAdress()} ref={input => formFields.home_address = input} name='is_home-adress' value={true} /></p> : ''
   
   var addressForm = props.addressForm === true ? '' : [<p key={'res_city_name'}><input ref={input => formFields.res_city_name = input} placeholder='City Name' /></p>, <p key={'res_postal_code'}><input ref={input => formFields.res_postal_code = input} placeholder='Postal Code' /></p>, <p key={'res_street_name'}><input ref={input => formFields.res_street_name = input} placeholder='Street Name' /></p>, <p key={'res_country'}><input ref={input => formFields.res_country = input} placeholder='Country' /></p>]
 
