@@ -1,7 +1,7 @@
 const AllJobs = (props) => {
   var jobs = props.jobs.map((job) => {
     return(
-      <div key={job.id}>
+      <div key={job.id} className="job-display">
         <h3>{job.comments}</h3>
         <p>Job Price: ${job.price}</p>
       </div>
@@ -9,7 +9,7 @@ const AllJobs = (props) => {
   });
 
   return (
-    <div>
+    <div className="job-list">
       {jobs}
     </div>
   )

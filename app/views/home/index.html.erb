@@ -1,2 +1,13 @@
-<%= react_component 'App', authenticity_token: form_authenticity_token, user: {user_id: current_user.id, homeowner: current_user.home_owner, shoveler: current_user.shoveler, residences: current_user.home_owner.residences} %>
-<%= react_component 'WeatherApp'%>
+<nav class="home-nav">
+  <% if current_user %>
+   <%= link_to "Mr Plow", root_url %>
+   <div>
+      <%= link_to "#{current_user.first_name} #{current_user.last_name}", '/'%> |
+       <%= link_to "Logout", :logout, method: :post %>
+   </div>
+  <% end %>
+</nav>
+
+<main>
+  <%= react_component 'App', authenticity_token: form_authenticity_token, user: {user_id: current_user.id, homeowner: current_user.home_owner, shoveler: current_user.shoveler, residences: current_user.home_owner.residences} %>
+</main>
