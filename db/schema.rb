@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_09_161716) do
+ActiveRecord::Schema.define(version: 2018_11_10_182743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(version: 2018_11_09_161716) do
     t.integer "price"
     t.text "instructions"
     t.datetime "scheduled_time"
-    t.integer "premium_rush"
-    t.integer "premium_peak_hours"
+    t.boolean "premium_rush"
+    t.boolean "premium_peak_hours"
     t.datetime "check_in"
     t.datetime "check_out"
     t.integer "rating"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2018_11_09_161716) do
     t.boolean "confirmation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "accepted"
   end
 
   create_table "residences", force: :cascade do |t|
