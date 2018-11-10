@@ -136,6 +136,17 @@ button:hover, .button:hover {
   background-color: $dark-blue;
 }
 
+// Map elements.
+#mapid { 
+  height: 500px;
+  border: 10px;
+  display: block;
+  margin: 0 auto;
+}
+.map-view {
+  background-color: $light-blue;
+}
+
 // Weather elements.
 .weather-box {
   border: 2px solid $font-blue;
@@ -184,12 +195,4 @@ button:hover, .button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-// Map elements.
-#mapid { 
-  height: 500px;
-  border: 10px;
-  display: block;
-  margin: 0 auto;
 }

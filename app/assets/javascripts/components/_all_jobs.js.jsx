@@ -2,11 +2,15 @@ const AllJobs = (props) => {
   function pad(d) {
     return (d < 10) ? '0' + d.toString() : d.toString();
   }
+
   const monthNames = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
   let jobs = props.jobs.map((job) => {
-    const dateTime = new Date(job.scheduled_time)
+    const dateTime = new Date(job.scheduled_time);
     const dateString = monthNames[dateTime.getMonth()] + ' ' + dateTime.getDate();
     const timeString = (dateTime.getHours() === 0 || dateTime.getHours() === 12 ? 12 : dateTime.getHours() % 12) + ':' + pad(dateTime.getMinutes()) + (dateTime.getHours() > 11 ? ' PM' : ' AM');
+    const status = props.user.is_shoveler? 'Available' : job.accepted? 'Confirmed' : 'Pending...';
+    const jobButton = props.user.is_shoveler? <button className="job-accept-button">Accept</button> : <button className="job-display-button">Update</button>;
+    
     return(
       <div key={job.id} className="job-display">
 
@@ -23,10 +27,10 @@ const AllJobs = (props) => {
 
         <div className="job-display-status">
           <p>Status:</p>
-          <h2>Pending...</h2>
+          <h2>{status}</h2>
         </div>
 
-        <button className="job-display-buttons">Update</button>
+        {jobButton}
 
       </div>
     )

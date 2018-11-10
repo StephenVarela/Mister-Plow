@@ -58,7 +58,10 @@ class App extends React.Component{
   }
 
   render(){
+    let dashboard = [<AllJobs jobs={this.state.jobs} user={this.props.user.current_user}key="all-jobs" />, <WeatherApp key="weather-app" />];
+    
     let userWidget = this.props.user.current_user.is_shoveler? <MapView /> : <NewJob bookingSwitch={this.bookingSwitch} bookingReady={this.state.bookingReady} handleJobCreate={this.handleJobCreate} residence={this.props.user.residences[this.state.residence]} authenticity_token={this.props.authenticity_token} />;
+    let dashboardArrangment = this.props.user.current_user.is_shoveler? dashboard : dashboard.reverse();
 
     return (
       <div>
@@ -68,10 +71,8 @@ class App extends React.Component{
         </div>
         
         {userWidget}
-        
-        <WeatherApp />
-        
-        <AllJobs jobs={this.state.jobs} />
+        {dashboardArrangment}
+
       </div>
     );
   }

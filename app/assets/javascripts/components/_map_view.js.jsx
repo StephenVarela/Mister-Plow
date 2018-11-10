@@ -46,14 +46,12 @@ class MapView extends React.Component {
 
   render() {
     return (
-    <div>
-      <h1>Hello Map</h1>
-      <div id="mapid">
+      <div className="map-view">
+        <h1>Hello Map</h1>
+        <div id="mapid"></div>
+        <p><button id="GeoFind">Show my location</button></p>
+        <div id="out"></div>
       </div>
-
-      <p><button id="GeoFind">Show my location</button></p>
-      <div id="out"></div>
-    </div>
     )
   }
 }
