@@ -1,7 +1,6 @@
 class NewUser extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       isHomeOwner: true,
       addressForm: true,
@@ -11,7 +10,6 @@ class NewUser extends React.Component {
     this.residenceOption = this.residenceOption.bind(this)
     this.homeAdress = this.homeAdress.bind(this)
   }
-
   handleFormSubmit(formFields) {
     var body = {
       user: {
@@ -29,13 +27,10 @@ class NewUser extends React.Component {
       },
       authenticity_token: formFields.authenticity_token.value
     }
-
     if (this.state.isHomeOwner === false) {
       body.user.is_shoveler = true
     }
-
     var postBody = JSON.stringify(body);
-
     fetch('/api/v1/users', {
       method: 'POST',
       headers: {
@@ -47,7 +42,6 @@ class NewUser extends React.Component {
     ).then((response) => {
       return response.json()
     }).then((newUser) => {
-
       if (this.state.isHomeOwner) {
         let homeBody = JSON.stringify({
           home_owner: {
@@ -69,7 +63,6 @@ class NewUser extends React.Component {
           let residence_city = this.state.addressForm? formFields.city_name.value : formFields.res_city_name.value
           let residence_postal = this.state.addressForm? formFields.postal_code.value : formFields.res_postal_code.value
           let residence_country = this.state.addressForm? formFields.country.value : formFields.res_country.value
-          
           let resBody = JSON.stringify({
             residence: {
               home_owner_id: newHomeOwner.id,
@@ -99,7 +92,6 @@ class NewUser extends React.Component {
           shoveler: {
             user_id: newUser.id,
             rating: null
-
           },
           authenticity_token: formFields.authenticity_token.value
         });
@@ -132,7 +124,6 @@ class NewUser extends React.Component {
       this.setState({homeIsResidence: '', addressForm: false})
     }
   }
-
   render() {
     return (
       <NewUserForm formData={this.formData} isHomeOwner={this.state.isHomeOwner} homeIsResidence={this.state.homeIsResidence} homeAdress={this.homeAdress} addressForm={this.state.addressForm} handleFormSubmit={this.handleFormSubmit} residenceOption={this.residenceOption} authenticity_token={this.props.authenticity_token}/>

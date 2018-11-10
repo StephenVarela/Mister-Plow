@@ -13,18 +13,18 @@ class App extends React.Component{
     this.bookingSwitch = this.bookingSwitch.bind(this)
   }
 
-  handleJobCreate(comments, day, time, authenticity_token) {
+  handleJobCreate(jobForm) {
     let body = JSON.stringify({
       job: {
-        comments: comments,
+        instructions: jobForm.instructions.value,
         price: 15,
-        scheduled_time: new Date(day + ' ' + time).getTime(),
-        residence_id: this.props.user.residences[this.state.residence].id
+        scheduled_time: new Date(jobForm.day.value + ' ' + jobForm.time.value).getTime(),
+        residence_id: this.props.user.residences[this.state.residence].id,
       },
-      authenticity_token: authenticity_token,
+      authenticity_token: jobForm.authenticity_token.value,
     });
     alert(body)
-    fetch('http://localhost:3000/api/v1/jobs', {
+    fetch('/api/v1/jobs', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,16 +38,6 @@ class App extends React.Component{
       this.addNewJob(job)
     });
   }
-
-
-
-
-
-
-
-
-
-
   addNewJob(job) {
     this.setState({
       jobs: this.state.jobs.concat(job),
