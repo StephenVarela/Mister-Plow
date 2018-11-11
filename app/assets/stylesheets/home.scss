@@ -40,7 +40,7 @@ ul {
 li {
   list-style-type: none;
 }
-a {
+a, .new-account, .new-login {
   color: #FFF;
   text-decoration: none;
   transition-duration: .15s;
@@ -48,6 +48,10 @@ a {
 }
 a:hover {
   color: $light-blue;
+}
+.new-account:hover, .new-login:hover {
+  color: $opposing-color;
+  cursor: pointer;
 }
 
 // Form elements.
@@ -80,6 +84,31 @@ button:hover, .button:hover {
   border-radius: 15px;
   width: 300px;
 }
+.login-form, .user-form {
+  padding: 1em;
+}
+#welcome-button {
+  padding: .4em 1em;
+  font-size: 2em;
+  font-weight: 600;
+}
+.landing-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('branches-cold-conifer-833013');
+  background-size: cover;
+}
+.landing-header {
+  display: block;
+  font-size: 5em;
+}
+.landing-header, .landing-sub-header {
+  text-shadow: 1px 1px 2px black, 0 0 1em black, 0 0 0.2em black;
+}
+
 .home-nav {
   display: flex;
   justify-content: space-between;
@@ -98,6 +127,9 @@ button:hover, .button:hover {
 }
 
 // Job booking elements.
+.job-form {
+  padding: 1em;
+}
 .job-booking {
   padding: 1em;
   background-color: $light-blue;
@@ -205,4 +237,49 @@ button:hover, .button:hover {
 }
 .address-link:hover {
   color: $opposing-color;
+}
+
+// Modal elements.
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+.modal-main {
+  position: fixed;
+  background: $light-blue;
+  max-width: 500px;
+  width: 80%;
+  // padding : 1em;
+  border: 5px solid $main-bg-color;
+  border-radius: 15px;
+  height: auto;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+.display-block {
+  display: block;
+}
+.display-none {
+  display: none;
+}
+.x-close-button {
+  border-radius: 100%;
+  padding: .2em .5em;
+  background-color: $font-blue;
+  display: inline-block;
+  position: absolute;
+  cursor: pointer;
+}
+.x-close-button:hover {
+  background-color: $opposing-color;
+}
+.modal-top-row {
+  display: relative;
+  text-align: right;
+  padding: .2em 1.8em;
 }

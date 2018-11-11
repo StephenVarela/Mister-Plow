@@ -22,11 +22,8 @@ const AllJobs = (props) => {
       const timeString = (dateTime.getHours() === 0 || dateTime.getHours() === 12 ? 12 : dateTime.getHours() % 12) + ':' + pad(dateTime.getMinutes()) + (dateTime.getHours() > 11 ? ' PM' : ' AM');
 
       const status = props.user.current_user.is_shoveler? job.accepted && job.shoveler_id === props.user.shoveler.id? "Accepted" : 'Available' : job.accepted? 'Confirmed' : 'Pending...';
-      
       const adressTitle = props.user.current_user.is_shoveler? <p>Adress info:</p> : ''
-      
       const adressInfo = props.user.current_user.is_shoveler && props.residences[residenceIndex(job.residence_id)]? <a src="/" className="address-link"><h3>{props.residences[residenceIndex(job.residence_id)].street_name}</h3></a> : ''
-        
       const jobButton = props.user.current_user.is_shoveler? <button className="job-accept-button" onClick={() => { job.accepted? props.jobDetails() : props.acceptJob(job.id) }}>{job.accepted? "Details" : "Accept"}</button> : <button className="job-display-button">Update</button>;
       
       return(
@@ -57,22 +54,21 @@ const AllJobs = (props) => {
     });
     return jobs;
   }
-  let jobListing = props.user.current_user.is_shoveler? 
+  let jobListing = props.user.current_user.is_shoveler?
+
   <div className="job-list">
   
     <div className="accepted-jobs">
       <h1>Your Booked Jobs:</h1>
       {jobPost(props.bookedJobs)}
     </div>
-
-    {jobPost(props.availableJobs).length > 0?
-      <h1>Available Jobs:</h1> : ''
-    }
+    {jobPost(props.availableJobs).length > 0? <h1>Available Jobs:</h1> : ''}
     {jobPost(props.availableJobs)}
 
   </div>
   :
-  <div className="job-list"> { props.jobs > 0? <h1>Your Upcoming Jobs:</h1> : '' }
+  <div className="job-list">
+  {props.jobs.length > 0? <h1>Your Upcoming Jobs:</h1> : ''}
     {jobPost(props.jobs)}
   </div>;
 

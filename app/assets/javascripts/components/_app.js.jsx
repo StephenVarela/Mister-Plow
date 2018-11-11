@@ -6,13 +6,11 @@ class App extends React.Component{
       availableJobs: [],
       bookedJobs: [],
       residence: 0,
-      bookingButtonOn: false,
-
+      bookingForm: false,
     };
-
     this.handleJobCreate = this.handleJobCreate.bind(this);
     this.addNewJob = this.addNewJob.bind(this);
-    this.bookingSwitch = this.bookingSwitch.bind(this);
+    this.showBookingForm = this.showBookingForm.bind(this);
     this.jobDetails = this.jobDetails.bind(this);
     this.acceptJob = this.acceptJob.bind(this);
   }
@@ -48,10 +46,8 @@ class App extends React.Component{
       jobs: this.state.jobs.concat(job),
     });
   }
-  bookingSwitch() {
-    this.setState({
-      bookingButtonOn: true,
-    });
+  showBookingForm() {
+    this.setState((prevState) => ({ bookingForm: !prevState.bookingForm }));
   }
   jobDetails() {
     alert('The details');
@@ -80,11 +76,24 @@ class App extends React.Component{
   }
 
   componentDidMount(){
-    fetch('/api/v1/jobs.json').then((response) => { return response.json()}).then((data) => {this.setState({ jobs: data, availableJobs: data.filter((job) => {if (!job.accepted) { return job }}), bookedJobs: data.filter((job) => { if (job.accepted) { return job }})})});
+    fetch('/api/v1/jobs.json')
+    .then((response) => {
+      return response.json()
+    }).then((data) => {
+      this.setState({
+        jobs: data,
+        availableJobs: data.filter((job) => {
+          if (!job.accepted) { return job }
+        }),
+        bookedJobs: data.filter((job) => {
+          if (job.accepted) { return job }
+        })
+      })
+    });
   }
   render(){
     let dashboard = [<AllJobs acceptJob={this.acceptJob} jobDetails={this.jobDetails} residences={this.props.user.job_residences} availableJobs={this.state.availableJobs} bookedJobs={this.state.bookedJobs} jobs={this.state.jobs} user={this.props.user}key="all-jobs" />, <WeatherApp key="weather-app" />];
-    let userWidget = this.props.user.current_user.is_shoveler? <MapView /> : <NewJob bookingSwitch={this.bookingSwitch} bookingButtonOn={this.state.bookingButtonOn} handleJobCreate={this.handleJobCreate} residence={this.props.user.residences[this.state.residence]} authenticity_token={this.props.authenticity_token} />;
+    let userWidget = this.props.user.current_user.is_shoveler? <MapView /> : <NewJob showBookingForm={this.showBookingForm} bookingForm={this.state.bookingForm} handleJobCreate={this.handleJobCreate} residence={this.props.user.residences[this.state.residence]} authenticity_token={this.props.authenticity_token} />;
     let dashboardArrangment = this.props.user.current_user.is_shoveler? dashboard : dashboard.reverse();
 
     return (

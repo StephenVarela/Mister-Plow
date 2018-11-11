@@ -1,17 +1,15 @@
 const NewJob = (props) => {
 
   let formFields = {}
-  if (props.bookingButtonOn) {
-    var bookingDisplay = <form className="job-form" onSubmit={() => {props.handleJobCreate(formFields)}}>
+  var bookingForm = <form className="job-form" onSubmit={() => {props.handleJobCreate(formFields); props.showBookingForm();}}>
     <p>Date: <input ref={input => formFields.day = input} type='date' placeholder='Scheduled day' /></p>
     <p>Finished by: <input ref={input => formFields.time = input} type='time' placeholder='Scheduled time' /></p>
     <p>Notes: <textarea ref={input => formFields.instructions = input} placeholder='Special instructions'/></p>
     <input ref={input => formFields.authenticity_token = input} type='hidden' name='authenticity_token' value={props.authenticity_token} />
     <button>Submit</button>
-    </form>
-  } else {
-    var bookingDisplay = <button className="booking-button" onClick={() => {props.bookingSwitch()}}>Book Now!</button>
-  }
+  </form>
+
+  var bookingDisplay = <button className="booking-button" onClick={() => {props.showBookingForm()}}>Book Now!</button>
 
   return (
     <div className="job-booking" >
@@ -32,6 +30,7 @@ const NewJob = (props) => {
 
         {bookingDisplay}
 
+        <Modal show={props.bookingForm} handleClose={props.showBookingForm} children={bookingForm} />
       </div>
     </div>
   )
