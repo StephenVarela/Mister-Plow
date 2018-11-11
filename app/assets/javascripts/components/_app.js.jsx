@@ -1,5 +1,4 @@
 class App extends React.Component{
-
   constructor(props) {
     super(props);
     this.state = {
@@ -9,10 +8,12 @@ class App extends React.Component{
     };
 
     this.handleJobCreate = this.handleJobCreate.bind(this);
-    this.addNewJob = this.addNewJob.bind(this)
-    this.bookingSwitch = this.bookingSwitch.bind(this)
+    this.addNewJob = this.addNewJob.bind(this);
+    this.bookingSwitch = this.bookingSwitch.bind(this);
+    this.jobDetails = this.jobDetails.bind(this);
+    this.acceptJob = this.acceptJob.bind(this);
   }
-
+  
   handleJobCreate(jobForm) {
     let body = JSON.stringify({
       job: {
@@ -35,31 +36,51 @@ class App extends React.Component{
       return response.json()
     })
     .then((job) => {
-      this.addNewJob(job)
+      this.addNewJob(job);
     });
   }
+
   addNewJob(job) {
     this.setState({
       jobs: this.state.jobs.concat(job),
     });
   }
-
   bookingSwitch() {
     this.setState({
       bookingReady: true,
     });
-    console.log("I'm here");
   }
-  componentDidMount(){
-    fetch('/api/v1/jobs.json')
-      .then((response) => {return response.json()})
-      .then((data) => {this.setState({ jobs: data })
+  jobDetails() {
+    alert('The details');
+  }
+  acceptJob(id) {
+    // console.log(this.props.user.shoveler.id);
+    let body = JSON.stringify({
+      job: {
+        accepted: true,
+        shoveler_id: this.props.user.shoveler.id,
+      },
+      authenticity_token: this.props.authenticity_token,
+    });
+    fetch(('/api/v1/jobs/' + id), {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: body,
+    }).then((response) => {
+      return response.json();
+    }).then((reply) => {
+      console.log(reply);
     });
   }
 
+  componentDidMount(){
+    fetch('/api/v1/jobs.json').then((response) => {return response.json()}).then((data) => {this.setState({ jobs: data })});
+  }
   render(){
-    let dashboard = [<AllJobs jobs={this.state.jobs} user={this.props.user.current_user}key="all-jobs" />, <WeatherApp key="weather-app" />];
-    
+    let dashboard = [<AllJobs acceptJob={this.acceptJob} jobDetails={this.jobDetails} residences={this.props.user.job_residences} jobs={this.state.jobs} user={this.props.user}key="all-jobs" />, <WeatherApp key="weather-app" />];
     let userWidget = this.props.user.current_user.is_shoveler? <MapView /> : <NewJob bookingSwitch={this.bookingSwitch} bookingReady={this.state.bookingReady} handleJobCreate={this.handleJobCreate} residence={this.props.user.residences[this.state.residence]} authenticity_token={this.props.authenticity_token} />;
     let dashboardArrangment = this.props.user.current_user.is_shoveler? dashboard : dashboard.reverse();
 

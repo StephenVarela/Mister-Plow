@@ -21,9 +21,10 @@ body {
   color: #FFF;
 }
 main {
-  background-color: $main-bg-color;
+  background-color: $font-blue;
   margin: 0 auto;
   max-width: 900px;
+  overflow: auto;
 }
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
@@ -159,12 +160,11 @@ button:hover, .button:hover {
   padding: 1em;
   background-color: $dark-blue;
 }
+.weather-display {
+  background-color: $main-bg-color;
+}
 
 // Job display elements.
-.job-list {
-  padding: 0.1em;
-  background-color: $font-blue;
-}
 .job-display {
   background-color: $light-blue;
   border: 5px solid $main-bg-color;
@@ -172,9 +172,7 @@ button:hover, .button:hover {
   margin: 1em 8em;
   display: flex;
   justify-content: space-between;
-  // align-items: center;
   border-radius: 15px;
-
   p {
     font-weight: 300;
     font-size: 0.75em;
@@ -187,7 +185,9 @@ button:hover, .button:hover {
   justify-content: center;
   align-items: center;
 }
-
+.job-list h1 {
+  margin-top: 0.5em;
+}
 .job-date-time-titles {
   text-align: right;
 }
@@ -195,4 +195,14 @@ button:hover, .button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.accepted-jobs {
+  background-color: $dark-blue;
+  padding: 1em 0 2em;
+}
+.address-link {
+  cursor: pointer;
+}
+.address-link:hover {
+  color: $opposing-color;
 }

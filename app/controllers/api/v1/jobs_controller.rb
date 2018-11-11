@@ -1,7 +1,7 @@
 class Api::V1::JobsController < ApplicationController
   def index
     if current_user.is_shoveler
-      render json: Job.where(accepted: nil)
+      render json: Job.where(accepted: nil).or(Job.where(shoveler_id: current_user.shoveler.id));
     else
       user_residences = current_user.home_owner.residences.map { |residence| residence[:id] }
       render json: Job.where(residence_id: user_residences)
@@ -27,6 +27,6 @@ class Api::V1::JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:id, :comments, :price, :residence_id, :description, :scheduled_time, :accepted)
+    params.require(:job).permit(:id, :comments, :price, :residence_id, :instructions, :premium_rush, :premium_peak_hours, :scheduled_time, :check_in, :check_out, :rating, :confirmation, :accepted, :shoveler_id)
   end
 end

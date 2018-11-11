@@ -38,8 +38,7 @@ class NewUser extends React.Component {
         'Accept': 'application/json',
       },
       body: postBody,
-    }
-    ).then((response) => {
+    }).then((response) => {
       return response.json()
     }).then((newUser) => {
       if (this.state.isHomeOwner) {
