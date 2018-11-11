@@ -12,7 +12,7 @@
   <% user = {current_user: current_user, homeowner: current_user.home_owner, shoveler: current_user.shoveler} %>
   
   <% if current_user.is_shoveler %>
-    <% current_jobs = Job.where(accepted: nil).or(Job.where(shoveler_id: current_user.id)) %>
+    <% current_jobs = Job.where(shoveler_id: current_user.shoveler.id).or(Job.where(accepted: nil)) %>
     <% user[:job_residences] = current_jobs.map { |job| job.residence } %>
     <% user[:job_residences] = user[:job_residences].uniq %>
   <% else %>

@@ -1,7 +1,7 @@
 const NewJob = (props) => {
 
   let formFields = {}
-  if (props.bookingReady) {
+  if (props.bookingButtonOn) {
     var bookingDisplay = <form className="job-form" onSubmit={() => {props.handleJobCreate(formFields)}}>
     <p>Date: <input ref={input => formFields.day = input} type='date' placeholder='Scheduled day' /></p>
     <p>Finished by: <input ref={input => formFields.time = input} type='time' placeholder='Scheduled time' /></p>
