@@ -55,7 +55,7 @@ a:hover {
 }
 
 // Form elements.
-input, textarea, select, option {
+input, textarea {
   font-size: 1.2em;
   border-radius: 5px;
   display: block;
@@ -64,6 +64,14 @@ input, textarea, select, option {
   padding: 0.5em;
   width: 80%;
   margin: 1em auto;
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0.5em;
+  width: 60%;
+  font-size: 1.2em;
 }
 input[type="checkbox"] {
   display: inline;
