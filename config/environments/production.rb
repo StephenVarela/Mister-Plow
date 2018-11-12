@@ -99,5 +99,5 @@ Rails.application.configure do
     PingApiJob.perform_in(30*1,'Weather')
   end
 
-  config.active_storage.service = :amazon
+  # config.active_storage.service = :amazon
 end
