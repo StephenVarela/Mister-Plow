@@ -37,7 +37,11 @@ class MapView extends React.Component {
       output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
       console.log(e);
       var marker = L.marker([latitude, longitude]).addTo(mymap);
-      var marker2 = L.marker([e[0].lat, e[0].lon]).addTo(mymap);
+
+      e.forEach(function(location){
+        L.marker([location.lat, location.lon]).addTo(mymap);
+      })
+
     }
     function error() {
       output.innerHTML = "Unable to retrieve your location";
