@@ -7,14 +7,17 @@ class App extends React.Component{
       bookedJobs: [],
       residence: 0,
       bookingForm: false,
+      bookingDisplay: false,
+
     };
     this.handleJobCreate = this.handleJobCreate.bind(this);
     this.addNewJob = this.addNewJob.bind(this);
     this.showBookingForm = this.showBookingForm.bind(this);
     this.jobDetails = this.jobDetails.bind(this);
     this.acceptJob = this.acceptJob.bind(this);
+    this.showBookingDetails = this.showBookingDetails.bind(this);
   }
-  
+
   handleJobCreate(jobForm) {
     let body = JSON.stringify({
       job: {
@@ -49,6 +52,11 @@ class App extends React.Component{
   showBookingForm() {
     this.setState((prevState) => ({ bookingForm: !prevState.bookingForm }));
   }
+
+  showBookingDetails() {
+    this.setState((prevState) => ({ bookingDisplay: !prevState.bookingDisplay }));
+  }
+
   jobDetails() {
     alert('The details');
   }
@@ -92,7 +100,7 @@ class App extends React.Component{
     });
   }
   render(){
-    let dashboard = [<AllJobs acceptJob={this.acceptJob} jobDetails={this.jobDetails} residences={this.props.user.job_residences} availableJobs={this.state.availableJobs} bookedJobs={this.state.bookedJobs} jobs={this.state.jobs} user={this.props.user}key="all-jobs" />, <WeatherApp key="weather-app" />];
+    let dashboard = [<AllJobs showBookingDetails={this.showBookingDetails} bookingDisplay={this.state.bookingDisplay} acceptJob={this.acceptJob} jobDetails={this.jobDetails} residences={this.props.user.job_residences} availableJobs={this.state.availableJobs} bookedJobs={this.state.bookedJobs} jobs={this.state.jobs} user={this.props.user}key="all-jobs" />, <WeatherApp key="weather-app" />];
     let userWidget = this.props.user.current_user.is_shoveler? <MapView /> : <NewJob showBookingForm={this.showBookingForm} bookingForm={this.state.bookingForm} handleJobCreate={this.handleJobCreate} residence={this.props.user.residences[this.state.residence]} authenticity_token={this.props.authenticity_token} />;
     let dashboardArrangment = this.props.user.current_user.is_shoveler? dashboard : dashboard.reverse();
 
@@ -102,9 +110,10 @@ class App extends React.Component{
           <h3>Welcome to</h3>
           <h1>Mr Plow!</h1>
         </div>
-        
+
         {userWidget}
         {dashboardArrangment}
+        {/* {showJob} */}
 
       </div>
     );
