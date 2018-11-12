@@ -37,9 +37,16 @@ class MapView extends React.Component {
       output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
       console.log(e);
       var marker = L.marker([latitude, longitude]).addTo(mymap);
+      marker.bindPopup("<b>You Are Here</b>").openPopup();
 
       e.forEach(function(location){
-        L.marker([location.lat, location.lon]).addTo(mymap);
+        var circle = L.circle([location.lat, location.lon], {
+          color: 'red',
+          fillColor: '#f03',
+          fillOpacity: 0.5,
+          radius: 20
+        }).addTo(mymap);
+        circle.bindPopup("<img src=https://image.flaticon.com/icons/svg/86/86364.svg>")
       })
 
     }
