@@ -91,4 +91,12 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # initialize weather object loop
+  config.after_initialize do
+    puts "Calling ping job"
+    PingApiJob.perform_in(30*1,'Weather')
+  end
+
+  config.active_storage.service = :amazon
 end
