@@ -55,26 +55,47 @@ a:hover {
 }
 
 // Form elements.
-input {
-  font-size: 1em;
+input, textarea, select, option {
+  font-size: 1.2em;
   border-radius: 5px;
-  display: inline-block;
-  margin: 0.3em;
+  display: block;
+  border: none;
+  outline: none;
+  padding: 0.5em;
+  width: 80%;
+  margin: 1em auto;
+}
+input[type="checkbox"] {
+  display: inline;
+  width: auto;
+}
+input[type="date"], input[type="time"] {
+  font-size: 1.2em;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.modal-main button {
+  width: 80%
 }
 button, .button {
   background-color: $font-blue;
-  font-size: 1em;
+  font-size: 1.2em;
+  font-weight: 600;
   border-radius: 5px;
   border: none;
-  padding: 0.3em;
-  margin: 0.3em;
+  padding: .4em 1em;
+  margin: 1em auto;
   cursor: pointer;
   transition-duration: .15s;
 }
 button:hover, .button:hover {
   background-color: $opposing-color
 }
-
+#welcome-button {
+  font-size: 2em;
+}
+.job-display > button {
+  margin: 0;
+}
 // Main homepage elements.
 .login-signup {
   background-color: $main-bg-color;
@@ -87,11 +108,7 @@ button:hover, .button:hover {
 .login-form, .user-form {
   padding: 1em;
 }
-#welcome-button {
-  padding: .4em 1em;
-  font-size: 2em;
-  font-weight: 600;
-}
+
 .landing-container {
   width: 100vw;
   height: 100vh;
@@ -143,6 +160,7 @@ button:hover, .button:hover {
 .residence-details {
   display: flex;
   align-items: center;
+  margin: 0 auto;
 }
 .residence-pic-border {
   display: inline-block;
@@ -253,7 +271,8 @@ button:hover, .button:hover {
   background: $light-blue;
   max-width: 500px;
   width: 80%;
-  // padding : 1em;
+  max-height: 100%;
+  overflow: auto;
   border: 5px solid $main-bg-color;
   border-radius: 15px;
   height: auto;
