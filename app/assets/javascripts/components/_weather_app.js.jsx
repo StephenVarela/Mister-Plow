@@ -11,7 +11,6 @@ class WeatherApp extends React.Component {
     })
     this.weatherClick = this.weatherClick.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
-    // this.componentDidMount = this.componentDidMount.bind(this)
   }
 
   initialize() {
@@ -25,36 +24,21 @@ class WeatherApp extends React.Component {
     }).then(function(json) {
       let index = 0;
       let weather_samples = [];
-       Object.keys(json).forEach(function(sample){
-         weather_samples[index] = json[sample];
-         index++;
-       });
-       console.log(weather_samples);
-       base.setState({
-         data: weather_samples,
-         description: weather_samples[0][0].weather.description
-       })
-
-       // json.forEach(function(day){
-       //   console.log(day)
-       // });
-     })
-       // base.setState({
-        // description: json.list[0].weather[0].description,
-        // icon: `http://openweathermap.org/img/w/${json.list[0].weather[0].icon}.png`,
-        // date: json.list[0].dt_txt
-       }
-
-
+      Object.keys(json).forEach(function(sample){
+        weather_samples[index] = json[sample];
+        index++;
+      });
+      base.setState({
+        data: weather_samples,
+        description: weather_samples[0][0].weather.description
+      })
+    })
+  }
 
   weatherClick(){
     this.setState({
       data: this.state.data
     })
-    // this.state.data.map(data => (
-    //   data
-    // ))
-    // console.log(this.state.data);
   }
 
   render(){

@@ -2,50 +2,35 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$opposing-color: #ccb22f;
+$dark-blue: #202f4f;
+$main-bg-color: #3a669d;
+$light-blue: #719fc4;
+$outline-blue: #abcde4;
+$font-blue: #d6e5f3;
+$body-bg-color: #eef1f3;
+
+$soft-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+// Main Elements.
 body {
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #eef1f3;
+  background-color: $body-bg-color;
   margin: 0;
   color: #FFF;
 }
 main {
-  background-color: #3a669d; 
-  margin: 0 3em;
-}
-input {
-  font-size: 1em;
-  border-radius: 5px;
-  display: inline-block;
-  margin: 0.3em;
-}
-button, .button {
-  background-color: #d6e5f3;
-  font-size: 1em;
-  border-radius: 5px;
-  border: none;
-  padding: 0.3em;
-  margin: 0.3em;
-  cursor: pointer;
-  transition-duration: .15s;
-}
-button:hover, .button:hover {
-  background-color: #ccb22f
-}
-p {
-  margin: 0;
+  background-color: $font-blue;
+  margin: 0 auto;
+  max-width: 900px;
+  overflow: auto;
 }
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
-a {
-  color: #FFF;
-  text-decoration: none;
-  transition-duration: .15s;
-  font-weight: 800;
-}
-a:hover {
-  color: #719fc4;
+p {
+  margin: 0;
 }
 ul {
   text-align: justify;
@@ -55,73 +40,124 @@ ul {
 li {
   list-style-type: none;
 }
-
-.residence-details ul {
-  color: #d6e5f3;
-}
-.home-nav {
-  display: flex;
-  justify-content: space-between;
-  padding: 1em;
-  background-color: #202f4f;
+a, .new-account, .new-login {
   color: #FFF;
-  box-shadow: 3px 3px;
-  margin: 0;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  position: relative;
-  z-index: 999;
+  text-decoration: none;
+  transition-duration: .15s;
+  font-weight: 800;
 }
-.homepage-title-header {
-  padding: 1em;
-  background-color: #ccb22f;
+a:hover {
+  color: $light-blue;
 }
-.weather-box {
-  border: 2px solid #d6e5f3;
-  border-radius: 15px;
+.new-account:hover, .new-login:hover {
+  color: $opposing-color;
+  cursor: pointer;
+}
+
+// Form elements.
+input, textarea {
+  font-size: 1.2em;
+  border-radius: 5px;
+  display: block;
+  border: none;
+  outline: none;
+  padding: 0.5em;
+  width: 80%;
+  margin: 1em auto;
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0.5em;
+  width: 60%;
+  font-size: 1.2em;
+}
+input[type="checkbox"] {
   display: inline-block;
-  margin: 1em;
-  padding: 1em;
+  width: auto;
 }
-.weather-alert {
-  padding: 1em;
-  background-color: #202f4f;
+input[type="date"], input[type="time"] {
+  font-size: 1.2em;
+  font-family: Arial, Helvetica, sans-serif;
 }
-.job-booking {
-  padding: 1em;
-  background-color: #719fc4;
+.modal-main button {
+  width: 80%
 }
+button, .button {
+  background-color: $font-blue;
+  font-size: 1.2em;
+  font-weight: 600;
+  border-radius: 5px;
+  border: none;
+  padding: .4em 1em;
+  margin: 1em auto;
+  cursor: pointer;
+  transition-duration: .15s;
+}
+button:hover, .button:hover {
+  background-color: $opposing-color
+}
+#welcome-button {
+  font-size: 2em;
+}
+.job-display > button {
+  margin: 0;
+}
+// Main homepage elements.
 .login-signup {
-  background-color: #3a669d;
+  background-color: $main-bg-color;
   display: inline-block;
   padding: 5em;
   margin: 3em;
   border-radius: 15px;
   width: 300px;
 }
-.job-list {
+.login-form, .user-form {
   padding: 1em;
-  background-color: #d6e5f3;
 }
-.job-display {
-  background-color: #202f4f;
-  padding: 1.5em;
-  margin: 0 10em;
+
+.landing-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('branches-cold-conifer-833013');
+  background-size: cover;
+}
+.landing-header {
   display: block;
-  border-radius: 15px;
+  font-size: 5em;
 }
-.residence-pic {
-  width: 150px;
-  height: 150px;
-  background-color: #abcde4;
-  -webkit-mask: url("baseline-home-24px.svg") no-repeat 100%;
-  mask: url("baseline-home-24px.svg") no-repeat 100%;
-  -webkit-mask-size: 100%;
-  mask-size: 100%;
+.landing-header, .landing-sub-header {
+  text-shadow: 1px 1px 2px black, 0 0 1em black, 0 0 0.2em black;
 }
-.residence-pic-border {
-  display: inline-block;
-  border-radius: 20px;
-  border: 8px solid #abcde4;
+
+.home-nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+  background-color: $dark-blue;
+  color: #FFF;
+  box-shadow: 3px 3px;
+  margin: 0;
+  box-shadow: $soft-shadow;
+  position: relative;
+  z-index: 999;
+}
+.homepage-title-header {
+  padding: 1em;
+  background-color: $opposing-color;
+}
+
+// Job booking elements.
+.job-form {
+  padding: 1em;
+}
+.job-booking {
+  padding: 1em;
+  background-color: $light-blue;
 }
 .job-booking-display {
   display: flex;
@@ -132,11 +168,145 @@ li {
 .residence-details {
   display: flex;
   align-items: center;
+  margin: 0 auto;
+}
+.residence-pic-border {
+  display: inline-block;
+  border-radius: 20px;
+  border: 8px solid $outline-blue;
+}
+.residence-pic {
+  width: 150px;
+  height: 150px;
+  background-color: $outline-blue;
+  -webkit-mask: url("baseline-home-24px.svg") no-repeat 100%;
+  mask: url("baseline-home-24px.svg") no-repeat 100%;
+  -webkit-mask-size: 100%;
+  mask-size: 100%;
+}
+.residence-details ul {
+  color: $font-blue;
 }
 .booking-button {
   font-size: 2.5em;
   font-weight: 600;
   color: #FFF;
   border-radius: 15px;
-  background-color: #abcde4;
+  background-color: $dark-blue;
+}
+
+// Map elements.
+#mapid { 
+  height: 500px;
+  border: 10px;
+  display: block;
+  margin: 0 auto;
+}
+.map-view {
+  background-color: $light-blue;
+}
+
+// Weather elements.
+.weather-box {
+  border: 2px solid $font-blue;
+  border-radius: 15px;
+  display: inline-block;
+  margin: 1em;
+  padding: 1em;
+}
+.weather-alert {
+  padding: 1em;
+  background-color: $dark-blue;
+}
+.weather-display {
+  background-color: $main-bg-color;
+}
+
+// Job display elements.
+.job-display {
+  background-color: $light-blue;
+  border: 5px solid $main-bg-color;
+  padding: 1.5em;
+  margin: 1em 8em;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 15px;
+  p {
+    font-weight: 300;
+    font-size: 0.75em;
+    margin: 0.5em;
+  }
+}
+.job-date-time {
+  text-align: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.job-list h1 {
+  margin-top: 0.5em;
+}
+.job-date-time-titles {
+  text-align: right;
+}
+.job-display-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.accepted-jobs {
+  background-color: $dark-blue;
+  padding: 1em 0 2em;
+}
+.address-link {
+  cursor: pointer;
+}
+.address-link:hover {
+  color: $opposing-color;
+}
+
+// Modal elements.
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+.modal-main {
+  position: fixed;
+  background: $light-blue;
+  max-width: 500px;
+  width: 80%;
+  max-height: 100%;
+  overflow: auto;
+  border: 5px solid $main-bg-color;
+  border-radius: 15px;
+  height: auto;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+.display-block {
+  display: block;
+}
+.display-none {
+  display: none;
+}
+.x-close-button {
+  border-radius: 100%;
+  padding: .2em .5em;
+  background-color: $font-blue;
+  display: inline-block;
+  position: absolute;
+  cursor: pointer;
+}
+.x-close-button:hover {
+  background-color: $opposing-color;
+}
+.modal-top-row {
+  display: relative;
+  text-align: right;
+  padding: .2em 1.8em;
 }

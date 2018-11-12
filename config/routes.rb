@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :jobs, only: [:index, :create, :destroy, :update]
+      resources :jobs#, only: [:index, :create, :destroy, :update, :edit]
       resources :users
 
       resources :weathers
@@ -20,7 +20,8 @@ Rails.application.routes.draw do
 
   resources :sessions, except: [:index, :edit, :update, :show]
 
-  get 'login' => 'sessions#new', :as => :login
-  post 'logout' => 'sessions#destroy', :as => :logout
+  get '/sessions' => 'home#index'
+  get '/login' => 'sessions#new', :as => :login
+  post '/logout' => 'sessions#destroy', :as => :logout
   get '/map' => 'map#show'
 end
