@@ -20,7 +20,8 @@ Rails.application.routes.draw do
 
   resources :sessions, except: [:index, :edit, :update, :show]
 
-  get 'login' => 'sessions#new', :as => :login
-  post 'logout' => 'sessions#destroy', :as => :logout
+  get '/sessions' => 'home#index'
+  get '/login' => 'sessions#new', :as => :login
+  post '/logout' => 'sessions#destroy', :as => :logout
   get '/map' => 'map#show'
 end
