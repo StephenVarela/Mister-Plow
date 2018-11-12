@@ -74,7 +74,7 @@ select {
   font-size: 1.2em;
 }
 input[type="checkbox"] {
-  display: inline;
+  display: inline-block;
   width: auto;
 }
 input[type="date"], input[type="time"] {
