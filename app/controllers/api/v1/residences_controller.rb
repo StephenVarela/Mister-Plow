@@ -9,18 +9,25 @@ class Api::V1::ResidencesController < ApplicationController
   end
 
   def create
-    residence = Residence.create(residence_params)
-    puts "HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIi"
-    puts residence_params["street_name"]
-    puts params[:street_name]
-    puts residence_params[:street_name]
-    puts "HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIi"
+    residence = Residence.new(residence_params)
 
-    # residence = Residence.new
-    # residence = Residence.create(residence_params)
-    # response = HTTParty.get("https://www.mapquestapi.com/geocoding/v1/address?key=iv9cSCh7n5iOdUK7TVJGARdjPNBoXGyh&inFormat=kvp&outFormat=json&location=1406+Bayshire+Dr&thumbMaps=false")
+    my_residence = residence_params["street_name"].split
 
+    my_residence.each_with_index do |street, i|
+      if i < my_residence.length - 1
+        my_residence[i] = my_residence[i] + "+"
+      end
+    end
+
+    geo_residence = my_residence.join("")
+
+    response = HTTParty.get("https://www.mapquestapi.com/geocoding/v1/address?key=iv9cSCh7n5iOdUK7TVJGARdjPNBoXGyh&inFormat=kvp&outFormat=json&location=#{geo_residence}&thumbMaps=false")
+
+    residence.lat = response["results"][0]["locations"][0]["latLng"]["lat"]
+    residence.lon = response["results"][0]["locations"][0]["latLng"]["lng"]
     # conditonal?
+
+    residence.save
     flash[:success] = "New residence created."
 
     respond_to do |format|
