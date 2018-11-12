@@ -1,6 +1,13 @@
 class MapView extends React.Component {
 
+  constructor(props){
+    super(props)
+
+  }
+
   componentDidMount(e){
+
+
     var mymap = L.map('mapid').setView([43.6532, -79.3832], 15);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -10,30 +17,38 @@ class MapView extends React.Component {
     }).addTo(mymap);
 
     var findButton = document.querySelector('#GeoFind')
+    console.log(this.props);
 
-    findButton.addEventListener('click', function(){
-      var output = document.getElementById("out");
+    findButton.addEventListener('click', () => {this.clickMapButton(this.props.residences, mymap)})
 
-      if (!navigator.geolocation){
-        output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-        return;
-      }
-      function success(position) {
-        var latitude  = position.coords.latitude;
-        var longitude = position.coords.longitude;
 
-        output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
-        var marker = L.marker([latitude, longitude]).addTo(mymap);
-      }
-      function error() {
-        output.innerHTML = "Unable to retrieve your location";
-      }
-      output.innerHTML = "<p>Locating…</p>";
-      navigator.geolocation.getCurrentPosition(success, error);
-    })
+  }
+
+  clickMapButton(e, mymap){
+    var output = document.getElementById("out");
+    if (!navigator.geolocation){
+      output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+      return;
+    }
+    function success(position) {
+      var latitude  = position.coords.latitude;
+      var longitude = position.coords.longitude;
+
+      output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+      console.log(e);
+      var marker = L.marker([latitude, longitude]).addTo(mymap);
+      var marker2 = L.marker([e[0].lat, e[0].lon]).addTo(mymap);
+    }
+    function error() {
+      output.innerHTML = "Unable to retrieve your location";
+    }
+    output.innerHTML = "<p>Locating…</p>";
+    navigator.geolocation.getCurrentPosition(success, error);
   }
 
   render() {
+    // console.log(this.props.residences);
+
     return (
       <div className="map-view">
         <h1>Your Map</h1>

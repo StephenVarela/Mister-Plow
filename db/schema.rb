@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_12_162056) do
+ActiveRecord::Schema.define(version: 2018_11_12_175231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 2018_11_12_162056) do
     t.boolean "is_home_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "lon"
-    t.integer "lat"
+    t.float "lon"
+    t.float "lat"
   end
 
   create_table "shovelers", force: :cascade do |t|
