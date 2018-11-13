@@ -21,8 +21,13 @@ class User < ApplicationRecord
 
   def get_weather_forecast
 
-    # return Weather.where(city_name: "Toronto")
-    return Weather.where(city_name: "#{self.city_name}").sort_by &:created_at
+    # Hard coded for toronto right now change if condition for supported cities
+    if self.city_name == "Toronto"
+      return Weather.where(city_name: "#{self.city_name}").sort_by &:created_at
+    else
+      return Weather.where(city_name: "Toronto").sort_by &:created_at
+    end
+
   end
 
   def create_forecast_array
@@ -31,12 +36,15 @@ class User < ApplicationRecord
     data = {}
 
     #creates hash with unque keys
-    weather.forecast.each do |weather_sample|
-      date = weather_sample["datetime"].split(' ')[0]
-      if !data.key?(date)
-        data[date] = []
+    if(weather)
+      weather.forecast.each do |weather_sample|
+        date = weather_sample["datetime"].split(' ')[0]
+        if !data.key?(date)
+          data[date] = []
+        end
       end
     end
+
 
     #loop through data hash and add weather element if the datetime == the hash key
     data.each do |key, data_element|
