@@ -21,7 +21,7 @@ class Api::V1::ResidencesController < ApplicationController
 
     geo_residence = my_residence.join("")
 
-    response = HTTParty.get("https://www.mapquestapi.com/geocoding/v1/address?key=iv9cSCh7n5iOdUK7TVJGARdjPNBoXGyh&inFormat=kvp&outFormat=json&location=#{geo_residence}&thumbMaps=false")
+    response = HTTParty.get("https://www.mapquestapi.com/geocoding/v1/address?key=#{ENV['GEOLOC_MQ_KEY']}&inFormat=kvp&outFormat=json&location=#{geo_residence}&thumbMaps=false")
 
     residence.lat = response["results"][0]["locations"][0]["latLng"]["lat"]
     residence.lon = response["results"][0]["locations"][0]["latLng"]["lng"]

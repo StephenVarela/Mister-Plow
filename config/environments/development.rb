@@ -65,4 +65,8 @@ Rails.application.configure do
     puts "Calling ping job"
     PingApiJob.perform_in(30*1,'Weather')
   end
+
+
+  # Store files locally.
+  # config.active_storage.service = :local
 end
