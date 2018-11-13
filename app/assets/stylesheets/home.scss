@@ -288,8 +288,14 @@ button:hover, .button:hover {
   border-radius: 15px;
   width: 25%;
 	height: 100%;
-  // transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
   transform: skewX(25deg);
+}
+
+.userModal-top-row {
+  display: relative;
+  text-align: right;
+  padding: .2em 1.8em;
 }
 
 //Job Modal
@@ -332,7 +338,7 @@ button:hover, .button:hover {
 .x-close-button:hover {
   background-color: $opposing-color;
 }
-.userModal-top-row {
+.modal-top-row {
   display: relative;
   text-align: right;
   padding: .2em 1.8em;
