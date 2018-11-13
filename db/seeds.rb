@@ -54,6 +54,22 @@ def create_jobs(fname, street_name,  phone_number)
   my_residence.postal_code = 'M1M 3F8'
   my_residence.country = 'Canada'
   my_residence.is_home_address = true
+
+  residence_query = street_name.split
+
+  residence_query.each_with_index do |street, i|
+    if i < residence_query.length - 1
+      residence_query[i] = residence_query[i] + "+"
+    end
+  end
+
+  geo_residence = residence_query.join("")
+
+  response = HTTParty.get("https://www.mapquestapi.com/geocoding/v1/address?key=#{ENV['GEOLOC_MQ_KEY']}&inFormat=kvp&outFormat=json&location=#{geo_residence}&thumbMaps=false")
+
+  my_residence.lat = response["results"][0]["locations"][0]["latLng"]["lat"]
+  my_residence.lon = response["results"][0]["locations"][0]["latLng"]["lng"]
+
   my_user.save
   my_homeOwner.save
   my_residence.save
