@@ -1,23 +1,25 @@
-<nav class="home-nav">
-  <% if current_user %>
-   <%= link_to "Mr Plow", root_url %>
-   <div>
-      <%= link_to "#{current_user.first_name} #{current_user.last_name}", '/'%> |
-       <%= link_to "Logout", :logout, method: :post %>
-   </div>
-  <% end %>
-</nav>
+<% if current_user %>
+  <nav class="home-nav">
+     <%= link_to "Mr Plow", root_url %>
+     <div>
+        <%= link_to "#{current_user.first_name} #{current_user.last_name}", '/'%> |
+         <%= link_to "Logout", api_v1_logout_path, method: :post %>
+     </div>
+  </nav>
 
-<main>
-  <% user = {current_user: current_user, homeowner: current_user.home_owner, shoveler: current_user.shoveler} %>
-  
-  <% if current_user.is_shoveler %>
-    <% current_jobs = Job.where(shoveler_id: current_user.shoveler.id).or(Job.where(accepted: nil)) %>
-    <% user[:job_residences] = current_jobs.map { |job| job.residence } %>
-    <% user[:job_residences] = user[:job_residences].uniq %>
-  <% else %>
-    <% user[:residences] = current_user.home_owner.residences %>
-  <% end %>
+  <main>
+    <% user = {current_user: current_user, homeowner: current_user.home_owner, shoveler: current_user.shoveler} %>
 
-  <%= react_component 'App', authenticity_token: form_authenticity_token, user: user %>
-</main>
+    <% if current_user.is_shoveler %>
+      <% current_jobs = Job.where(shoveler_id: current_user.shoveler.id).or(Job.where(accepted: nil)) %>
+      <% user[:job_residences] = current_jobs.map { |job| job.residence } %>
+      <% user[:job_residences] = user[:job_residences].uniq %>
+    <% else %>
+      <% user[:residences] = current_user.home_owner.residences %>
+    <% end %>
+
+    <%= react_component 'App', authenticity_token: form_authenticity_token, user: user %>
+  </main>
+<% else %>
+  <%= react_component 'Login', authenticity_token: form_authenticity_token, user: user %>
+<% end %>

@@ -7,13 +7,27 @@ class App extends React.Component{
       bookedJobs: [],
       residence: 0,
       bookingForm: false,
+      jobModal: null,
     };
     this.handleJobCreate = this.handleJobCreate.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
     this.addNewJob = this.addNewJob.bind(this);
     this.showBookingForm = this.showBookingForm.bind(this);
     this.jobDetails = this.jobDetails.bind(this);
     this.acceptJob = this.acceptJob.bind(this);
+    this.showBookingDetails = this.showBookingDetails.bind(this);
+    this.jobModalSwitchOff = this.jobModalSwitchOff.bind(this);
+    this.jobModalSwitchOff = this.jobModalSwitchOff.bind(this);
+    this.jobModalSwitchOn = this.jobModalSwitchOn.bind(this);
   }
+
+  jobModalSwitchOff() {
+    this.setState({jobModal: null})
+  }
+  jobModalSwitchOn(n) {
+    this.setState({jobModal: n})
+  }
+
 
   handleJobCreate(jobForm) {
     let body = JSON.stringify({
@@ -25,7 +39,6 @@ class App extends React.Component{
       },
       authenticity_token: jobForm.authenticity_token.value,
     });
-    alert(body)
     fetch('/api/v1/jobs', {
       method: 'POST',
       headers: {
@@ -40,6 +53,29 @@ class App extends React.Component{
       this.addNewJob(job);
     });
   }
+  handleLogin(form) {
+    let body = JSON.stringify({
+      session: {
+        email: form.email.value,
+        password: form.password.value,
+      },
+      authenticity_token: form.authenticity_token.value,
+    });
+    fetch('/api/v1/sessions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: body,
+    })
+    .then((response) => {
+      return response.json()
+    })
+    .then(() => {
+      window.location.reload();
+    });
+  }
 
   addNewJob(job) {
     this.setState({
@@ -49,6 +85,11 @@ class App extends React.Component{
   showBookingForm() {
     this.setState((prevState) => ({ bookingForm: !prevState.bookingForm }));
   }
+
+  showBookingDetails() {
+    this.setState((prevState) => ({ bookingDisplay: !prevState.bookingDisplay }));
+  }
+
   jobDetails() {
     alert('The details');
   }
@@ -93,6 +134,7 @@ class App extends React.Component{
   }
 
   render(){
+
 
 
     let dashboard = [<AllJobs acceptJob={this.acceptJob} jobDetails={this.jobDetails} residences={this.props.user.job_residences} availableJobs={this.state.availableJobs} bookedJobs={this.state.bookedJobs} jobs={this.state.jobs} user={this.props.user}key="all-jobs" />, <WeatherApp key="weather-app" />];
