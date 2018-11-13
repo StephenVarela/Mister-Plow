@@ -8,7 +8,7 @@ class NewUser extends React.Component {
     }
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.residenceOption = this.residenceOption.bind(this)
-    this.homeAdress = this.homeAdress.bind(this)
+    this.homeAddress = this.homeAddress.bind(this)
   }
   handleFormSubmit(formFields) {
     var body = {
@@ -116,7 +116,7 @@ class NewUser extends React.Component {
       this.setState({isHomeOwner: true})
     }
   }
-  homeAdress() {
+  homeAddress() {
     console.log("the thing clicked")
     if (this.state.addressForm === false) {
       this.setState({homeIsResidence: 'checked', addressForm: true})
@@ -126,7 +126,7 @@ class NewUser extends React.Component {
   }
   render() {
     return (
-      <NewUserForm formData={this.formData} isHomeOwner={this.state.isHomeOwner} homeIsResidence={this.state.homeIsResidence} homeAdress={this.homeAdress} addressForm={this.state.addressForm} handleFormSubmit={this.handleFormSubmit} residenceOption={this.residenceOption} authenticity_token={this.props.authenticity_token}/>
+      <NewUserForm formData={this.formData} isHomeOwner={this.state.isHomeOwner} homeIsResidence={this.state.homeIsResidence} homeAddress={this.homeAddress} addressForm={this.state.addressForm} handleFormSubmit={this.handleFormSubmit} residenceOption={this.residenceOption} authenticity_token={this.props.authenticity_token}/>
     )
   }
 }

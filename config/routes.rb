@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   get '/home' => 'home#index'
-  get '/signup' => 'signup#index'
+  # get '/signup' => 'signup#index'
 
   namespace :api do
     namespace :v1 do
@@ -13,15 +13,16 @@ Rails.application.routes.draw do
       resources :home_owners, only: [:new, :create, :destroy]
       resources :residences, only: [:new, :create, :destroy]
       resources :shovelers, only: [:new, :create, :destroy]
+      resources :sessions, except: [:index, :edit, :update, :show]
       get '/weather' => 'users#weather'
+      post '/logout' => 'sessions#destroy', :as => :logout
     end
   end
 
 
-  resources :sessions, except: [:index, :edit, :update, :show]
+  # resources :sessions, except: [:index, :edit, :update, :show]
 
-  get '/sessions' => 'home#index'
-  get '/login' => 'sessions#new', :as => :login
-  post '/logout' => 'sessions#destroy', :as => :logout
-  get '/map' => 'map#show'
+  # get '/sessions' => 'home#index'
+  get '/login' => 'home#index', :as => :login
+  # get '/map' => 'map#show'
 end
