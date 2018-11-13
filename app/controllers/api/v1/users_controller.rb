@@ -22,9 +22,8 @@ class Api::V1::UsersController < ApplicationController
     end
 
   end
-
+  
   def weather
-    puts "you here?========================================================================"
     p current_user
     if(current_user)
       my_user = User.find(current_user.id)

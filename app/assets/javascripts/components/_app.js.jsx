@@ -7,12 +7,15 @@ class App extends React.Component{
       bookedJobs: [],
       residence: 0,
       bookingForm: false,
+      userProfile: false,
+      
     };
     this.handleJobCreate = this.handleJobCreate.bind(this);
     this.addNewJob = this.addNewJob.bind(this);
     this.showBookingForm = this.showBookingForm.bind(this);
     this.jobDetails = this.jobDetails.bind(this);
     this.acceptJob = this.acceptJob.bind(this);
+    this.showUserProfile = this.showUserProfile.bind(this);
   }
 
   handleJobCreate(jobForm) {
@@ -49,6 +52,10 @@ class App extends React.Component{
   showBookingForm() {
     this.setState((prevState) => ({ bookingForm: !prevState.bookingForm }));
   }
+  showUserProfile() {
+    this.setState((prevState) => ({ userProfile: !prevState.userProfile }));
+  }
+
   jobDetails() {
     alert('The details');
   }
@@ -99,6 +106,7 @@ class App extends React.Component{
     let userWidget = this.props.user.current_user.is_shoveler? <MapView residences={this.props.user.job_residences} /> : <NewJob showBookingForm={this.showBookingForm} bookingForm={this.state.bookingForm} handleJobCreate={this.handleJobCreate} residence={this.props.user.residences[this.state.residence]} authenticity_token={this.props.authenticity_token} />;
     let dashboardArrangment = this.props.user.current_user.is_shoveler? dashboard : dashboard.reverse();
 
+
     return (
       <div>
         <div className="homepage-title-header">
@@ -108,6 +116,7 @@ class App extends React.Component{
 
         {userWidget}
         {dashboardArrangment}
+        <UserProfile user={this.props.user.current_user} showUserProfile={this.showUserProfile} userProfile={this.state.userProfile}/>
 
       </div>
     );
