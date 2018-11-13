@@ -20,12 +20,14 @@ class App extends React.Component{
     this.jobModalSwitchOff = this.jobModalSwitchOff.bind(this);
     this.jobModalSwitchOn = this.jobModalSwitchOn.bind(this);
   }
+
   jobModalSwitchOff() {
     this.setState({jobModal: null})
   }
   jobModalSwitchOn(n) {
     this.setState({jobModal: n})
   }
+
 
   handleJobCreate(jobForm) {
     let body = JSON.stringify({
@@ -130,10 +132,13 @@ class App extends React.Component{
       })
     });
   }
+
   render(){
-    // let homeNav = <nav class="home-nav"><a href="/">Mr Plow</a><div><a href="/">{this.props.user.current_user}</a><a href="api/v1/"></a></div></nav>
-    let dashboard = [<AllJobs jobModalSwitchOff={this.jobModalSwitchOff} jobModalSwitchOn={this.jobModalSwitchOn} jobModal={this.state.jobModal} showBookingDetails={this.showBookingDetails} bookingDisplay={this.state.bookingDisplay} acceptJob={this.acceptJob} jobDetails={this.jobDetails} residences={this.props.user.current_user.is_shoveler? this.props.user.job_residences : this.props.user.residences} residence_index={this.state.residence} availableJobs={this.state.availableJobs} bookedJobs={this.state.bookedJobs} jobs={this.state.jobs} user={this.props.user}key="all-jobs" />, <WeatherApp key="weather-app" />];
-    let userWidget = this.props.user.current_user.is_shoveler? <MapView /> : <NewJob showBookingForm={this.showBookingForm} bookingForm={this.state.bookingForm} handleJobCreate={this.handleJobCreate} residence={this.props.user.residences[this.state.residence]} authenticity_token={this.props.authenticity_token} />;
+
+
+
+    let dashboard = [<AllJobs acceptJob={this.acceptJob} jobDetails={this.jobDetails} residences={this.props.user.job_residences} availableJobs={this.state.availableJobs} bookedJobs={this.state.bookedJobs} jobs={this.state.jobs} user={this.props.user}key="all-jobs" />, <WeatherApp key="weather-app" />];
+    let userWidget = this.props.user.current_user.is_shoveler? <MapView residences={this.props.user.job_residences} /> : <NewJob showBookingForm={this.showBookingForm} bookingForm={this.state.bookingForm} handleJobCreate={this.handleJobCreate} residence={this.props.user.residences[this.state.residence]} authenticity_token={this.props.authenticity_token} />;
     let dashboardArrangment = this.props.user.current_user.is_shoveler? dashboard : dashboard.reverse();
 
     return (
