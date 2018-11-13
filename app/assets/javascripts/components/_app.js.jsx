@@ -93,7 +93,7 @@ class App extends React.Component{
 
   showUserProfile() {
     this.setState((prevState) => ({ userProfile: !prevState.userProfile }));
-
+  }
   showBookingDetails() {
     this.setState((prevState) => ({ bookingDisplay: !prevState.bookingDisplay }));
   }
