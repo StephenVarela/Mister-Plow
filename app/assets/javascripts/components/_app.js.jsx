@@ -7,7 +7,10 @@ class App extends React.Component{
       bookedJobs: [],
       residence: 0,
       bookingForm: false,
+      userProfile: false,
+
       jobModal: null,
+
     };
     this.handleJobCreate = this.handleJobCreate.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -15,9 +18,12 @@ class App extends React.Component{
     this.showBookingForm = this.showBookingForm.bind(this);
     this.jobDetails = this.jobDetails.bind(this);
     this.acceptJob = this.acceptJob.bind(this);
+
+    this.showUserProfile = this.showUserProfile.bind(this);
     this.showBookingDetails = this.showBookingDetails.bind(this);
     this.jobModalSwitchOff = this.jobModalSwitchOff.bind(this);
     this.jobModalSwitchOn = this.jobModalSwitchOn.bind(this);
+
   }
 
   jobModalSwitchOff() {
@@ -85,6 +91,9 @@ class App extends React.Component{
     this.setState((prevState) => ({ bookingForm: !prevState.bookingForm }));
   }
 
+  showUserProfile() {
+    this.setState((prevState) => ({ userProfile: !prevState.userProfile }));
+
   showBookingDetails() {
     this.setState((prevState) => ({ bookingDisplay: !prevState.bookingDisplay }));
   }
@@ -139,6 +148,7 @@ class App extends React.Component{
     let userWidget = this.props.user.current_user.is_shoveler? <MapView residences={this.props.user.job_residences} /> : <NewJob showBookingForm={this.showBookingForm} bookingForm={this.state.bookingForm} handleJobCreate={this.handleJobCreate} residence={this.props.user.residences[this.state.residence]} authenticity_token={this.props.authenticity_token} />;
     let dashboardArrangment = this.props.user.current_user.is_shoveler? dashboard : dashboard.reverse();
 
+
     return (
       <div>
         <div className="homepage-title-header">
@@ -148,6 +158,7 @@ class App extends React.Component{
 
         {userWidget}
         {dashboardArrangment}
+        <UserProfile user={this.props.user.current_user} showUserProfile={this.showUserProfile} userProfile={this.state.userProfile}/>
 
       </div>
     );
