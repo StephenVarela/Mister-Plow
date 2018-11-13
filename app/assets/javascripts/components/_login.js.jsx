@@ -14,7 +14,7 @@ class Login extends React.Component {
         email: form.email.value,
         password: form.password.value,
       },
-      authenticity_token: form.authenticity_token.value,
+      authenticity_token: this.props.authenticity_token,
     });
     fetch('/api/v1/sessions', {
       method: 'POST',
@@ -33,7 +33,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const newUserForm = <NewUser />
+    console.log(this.props.authenticity_token)
+    const newUserForm = <NewUser authenticity_token={this.props.authenticity_token}/>
     const formFields = {}
     return (
       <div className="landing-container">

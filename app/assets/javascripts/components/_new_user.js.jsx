@@ -71,7 +71,7 @@ class NewUser extends React.Component {
               country: residence_country,
               is_home_address: this.state.addressForm
             },
-            authenticity_token: formFields.authenticity_token.value
+            authenticity_token: this.props.authenticity_token
           });
           fetch('/api/v1/residences', {
             method: 'POST',
