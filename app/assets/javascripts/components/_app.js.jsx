@@ -8,7 +8,6 @@ class App extends React.Component{
       residence: 0,
       bookingForm: false,
       userProfile: false,
-
       jobModal: null,
 
     };
@@ -16,7 +15,6 @@ class App extends React.Component{
     this.handleLogin = this.handleLogin.bind(this);
     this.addNewJob = this.addNewJob.bind(this);
     this.showBookingForm = this.showBookingForm.bind(this);
-    this.jobDetails = this.jobDetails.bind(this);
     this.acceptJob = this.acceptJob.bind(this);
 
     this.showUserProfile = this.showUserProfile.bind(this);
@@ -96,10 +94,6 @@ class App extends React.Component{
   }
   showBookingDetails() {
     this.setState((prevState) => ({ bookingDisplay: !prevState.bookingDisplay }));
-  }
-
-  jobDetails() {
-    alert('The details');
   }
 
   acceptJob(id) {
