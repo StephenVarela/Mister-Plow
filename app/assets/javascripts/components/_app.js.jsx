@@ -8,7 +8,6 @@ class App extends React.Component{
       residence: 0,
       bookingForm: false,
       userProfile: false,
-
       jobModal: null,
 
     };
@@ -16,13 +15,15 @@ class App extends React.Component{
     this.handleLogin = this.handleLogin.bind(this);
     this.addNewJob = this.addNewJob.bind(this);
     this.showBookingForm = this.showBookingForm.bind(this);
-    this.jobDetails = this.jobDetails.bind(this);
     this.acceptJob = this.acceptJob.bind(this);
 
     this.showUserProfile = this.showUserProfile.bind(this);
     this.showBookingDetails = this.showBookingDetails.bind(this);
     this.jobModalSwitchOff = this.jobModalSwitchOff.bind(this);
     this.jobModalSwitchOn = this.jobModalSwitchOn.bind(this);
+    this.checkIn = this.checkIn.bind(this);
+    this.jobComplete = this.jobComplete.bind(this);
+    this.jobConfirmation = this.jobConfirmation.bind(this);
 
   }
 
@@ -98,15 +99,72 @@ class App extends React.Component{
     this.setState((prevState) => ({ bookingDisplay: !prevState.bookingDisplay }));
   }
 
-  jobDetails() {
-    alert('The details');
-  }
-
   acceptJob(id) {
     let body = JSON.stringify({
       job: {
         accepted: true,
         shoveler_id: this.props.user.shoveler.id,
+      },
+      authenticity_token: this.props.authenticity_token,
+    });
+    fetch(('/api/v1/jobs/' + id), {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: body,
+    }).then((response) => {
+      return response.json();
+    }).then(() => {
+      window.location.reload();
+    });
+  }
+  checkIn(id) {
+    let body = JSON.stringify({
+      job: {
+        check_in: new Date(),
+      },
+      authenticity_token: this.props.authenticity_token,
+    });
+    fetch(('/api/v1/jobs/' + id), {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: body,
+    }).then((response) => {
+      return response.json();
+    }).then(() => {
+      window.location.reload();
+    });
+  }
+  jobComplete(id) {
+    let body = JSON.stringify({
+      job: {
+        check_out: new Date(),
+      },
+      authenticity_token: this.props.authenticity_token,
+    });
+    fetch(('/api/v1/jobs/' + id), {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: body,
+    }).then((response) => {
+      return response.json();
+    }).then(() => {
+      window.location.reload();
+    });
+  }
+  jobConfirmation(id) {
+    alert('check out #' + id);
+    let body = JSON.stringify({
+      job: {
+        confirmation: true,
       },
       authenticity_token: this.props.authenticity_token,
     });
@@ -142,9 +200,8 @@ class App extends React.Component{
   }
 
   render(){
-    console.log(this.props.authenticity_token)
-    console.log('Just Re Deploying')
-    let dashboard = [<AllJobs jobModalSwitchOff={this.jobModalSwitchOff} jobModalSwitchOn={this.jobModalSwitchOn} jobModal={this.state.jobModal} acceptJob={this.acceptJob} jobDetails={this.jobDetails} residences={this.props.user.job_residences} availableJobs={this.state.availableJobs} bookedJobs={this.state.bookedJobs} jobs={this.state.jobs} user={this.props.user}key="all-jobs" />, <WeatherApp key="weather-app" />];
+    let dashboard = [<AllJobs jobConfirmation={this.jobConfirmation} jobComplete={this.jobComplete}checkIn={this.checkIn} jobModalSwitchOff={this.jobModalSwitchOff} jobModalSwitchOn={this.jobModalSwitchOn} jobModal={this.state.jobModal} acceptJob={this.acceptJob} jobDetails={this.jobDetails} residences={this.props.user.job_residences} availableJobs={this.state.availableJobs} bookedJobs={this.state.bookedJobs} jobs={this.state.jobs} user={this.props.user}key="all-jobs" />, <WeatherApp key="weather-app" />];
+
     let userWidget = this.props.user.current_user.is_shoveler? <MapView residences={this.props.user.job_residences} /> : <NewJob showBookingForm={this.showBookingForm} bookingForm={this.state.bookingForm} handleJobCreate={this.handleJobCreate} residence={this.props.user.residences[this.state.residence]} authenticity_token={this.props.authenticity_token} />;
     let dashboardArrangment = this.props.user.current_user.is_shoveler? dashboard : dashboard.reverse();
 
