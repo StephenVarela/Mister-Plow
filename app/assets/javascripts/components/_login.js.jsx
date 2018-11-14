@@ -33,7 +33,6 @@ class Login extends React.Component {
   }
 
   render() {
-    console.log(this.props.authenticity_token)
     const newUserForm = <NewUser authenticity_token={this.props.authenticity_token}/>
     const formFields = {}
     return (
