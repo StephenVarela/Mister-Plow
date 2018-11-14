@@ -9,5 +9,5 @@ class HomeOwner < ApplicationRecord
       errors.add(:user, "Must be valid")
     end
   end
-  
+
 end
