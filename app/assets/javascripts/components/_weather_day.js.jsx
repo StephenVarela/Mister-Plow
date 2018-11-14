@@ -1,17 +1,12 @@
 const WeatherDay =(props)=>  {
+  let weatherDays = props.data.map((data, index) => {
+    return <WeatherDayDetails body={data} key={index} />
+  });
 
-  console.log('In Weatherday')
-  console.log(props)
-  let weatherDays = props.data.map((data, index) => (
-    <WeatherDayDetails body={data} key = {index} weatherClick={props.weatherClick} />
-  ))
-
-
-
-    return (
-      <div className="weather-display">
-        <h1>5 Day Forecast</h1>
-        {weatherDays}
-      </div>
-    )
-  }
+  return (
+    <div className="weather-display">
+      <h1>{weatherDays.length} Day Forecast</h1>
+      {weatherDays}
+    </div>
+  )
+}

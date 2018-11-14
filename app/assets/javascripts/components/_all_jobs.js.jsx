@@ -49,7 +49,6 @@ const AllJobs = (props) => {
       const checkInBtn = job.confirmation? '' : props.user.current_user.is_shoveler? job.accepted? job.check_in? job.check_out? '' : <button onClick={() => {props.jobComplete(job.id)}}>Confirm Finished</button> : <button onClick={() => {props.checkIn(job.id)}}>Check-In</button> : <button onClick={() => {props.acceptJob(job.id)}}>Accept Job</button> : job.check_out? <button onClick={() => {props.jobConfirmation(job.id)}}>Approve</button> : ''
 
       const jobModalContent = <div className="job-modal">{jobDetails}{jobStatus}{checkInBtn}{job.check_in? job.check_out? props.user.current_user.is_shoveler?  <p>Awaiting customer approval...</p> : '' : <div><p>Checked In at:</p><h3>{job.check_in}</h3></div> : ''}</div>
-      console.log(typeof job.check_in)
 
       return(
         <div key={job.id} className="job-display">

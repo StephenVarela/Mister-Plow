@@ -17,8 +17,7 @@ class MapView extends React.Component {
     }).addTo(mymap);
 
     var findButton = document.querySelector('#GeoFind')
-    console.log("In map mount")
-    console.log(this.props)
+
     findButton.addEventListener('click', () => {this.clickMapButton(this.props.residences, mymap)})
 
 
@@ -35,7 +34,6 @@ class MapView extends React.Component {
       var longitude = position.coords.longitude;
 
       output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
-      console.log(e);
       var marker = L.marker([latitude, longitude]).addTo(mymap);
       marker.bindPopup("<b>You Are Here</b>").openPopup();
 
@@ -58,8 +56,6 @@ class MapView extends React.Component {
   }
 
   render() {
-    // console.log(this.props.residences);
-
     return (
       <div className="map-view">
         <h1>Your Map</h1>
