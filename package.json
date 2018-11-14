@@ -1,5 +1,7 @@
 {
   "name": "Mister-Plow",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "react-transition-group": "^1.2.1"
+  }
 }

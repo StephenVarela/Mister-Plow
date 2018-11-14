@@ -2,23 +2,32 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$opposing-color: #ccb22f;
-$dark-blue: #202f4f;
-$main-bg-color: #3a669d;
-$light-blue: #719fc4;
-$outline-blue: #abcde4;
-$font-blue: #d6e5f3;
-$body-bg-color: #eef1f3;
+$opposing-color: #f2c81f;
+$dark-blue: #141c24;
+$main-bg-color: #32465b;
+$light-blue: #56799d;
+$outline-blue: #698aac;
+$font-blue: #7493b2;
+$body-bg-color: #7493b2;
+// $opposing-color: #ccb22f;
+// $dark-blue: #202f4f;
+// $main-bg-color: #3a669d;
+// $light-blue: #719fc4;
+// $outline-blue: #abcde4;
+// $font-blue: #d6e5f3;
+// $body-bg-color: #eef1f3;
 
 $soft-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 // Main Elements.
 body {
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Nunito Sans', Arial, Helvetica, sans-serif;
   background-color: $body-bg-color;
   margin: 0;
   color: #FFF;
+  background-image: linear-gradient(rgba(255, 251, 251, 0.34), rgba(0, 0, 0, 0.81)), url('topography');
+
 }
 main {
   background-color: $font-blue;
@@ -69,6 +78,7 @@ textarea {
   margin-bottom: 0;
   resize: none;
 }
+
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -78,6 +88,7 @@ select {
   font-size: 1.2em;
   margin-top: 1em;
 }
+
 input[type="checkbox"] {
   display: inline-block;
   width: auto;
@@ -244,6 +255,8 @@ button:hover, .button:hover {
   border: 10px;
   display: block;
   margin: 0 auto;
+  z-index: 1;
+  position: relative;
 }
 .map-view {
   background-color: $light-blue;
@@ -326,34 +339,52 @@ button:hover, .button:hover {
 // Modal elements.
 
 //User Modal
+.hide-modal{
+  //IDK WAT DIS IS
+  background: white;
+  border: 1px solid #d0cccc;
+  box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
+  margin: 100px auto 0;
+  transition: all .8s;
+  width: 60%;
+}
+
 .userModal {
+  //IDK
   position: fixed;
   top: 0;
   left: 0;
-  right: -320px;
   width:100%;
   height: 100%;
-  background: rgb(10, 87, 64);
-  transform: skewX(25deg);
+  background: rgba(0, 0, 0, 0.6);
 
 }
+
 .userModal-main {
-  position: fixed;
-  right: 0;
-  background: rgb(10, 87, 64);
-  overflow-y: auto;
-  border: 5px solid rgb(10, 87, 64);
+  //has to do with the modal
+  padding-top: 50px;
+  right: -200px;
+  background: $main-bg-color;
+  overflow: auto;
+  border: 5px solid $main-bg-color;
   border-radius: 15px;
   width: 25%;
 	height: 100%;
-  transform: translate(-50%,-50%);
-  transform: skewX(25deg);
+  transform: translate(-100%,0%);
+  transform: translateX(0%);
+  transition: all 10s;
+  opacity: 0.5;
 }
 
 .userModal-top-row {
+  //has to do with the x button
   display: relative;
   text-align: right;
   padding: .2em 1.8em;
+}
+
+.display-block {
+  display: block;
 }
 
 //Job Modal
@@ -396,7 +427,10 @@ button:hover, .button:hover {
   color: $dark-blue;
 }
 .x-close-button:hover {
-  background-color: $opposing-color;
+  background-color: $opposing-color;	-webkit-transform: translate3d(0%, 0, 0);
+		    -ms-transform: translate3d(0%, 0, 0);
+		     -o-transform: translate3d(0%, 0, 0);
+		        transform: translate3d(0%, 0, 0);
 }
 .modal-top-row {
   display: relative;
