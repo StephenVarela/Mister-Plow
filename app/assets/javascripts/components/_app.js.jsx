@@ -1,3 +1,5 @@
+
+
 class App extends React.Component{
   constructor(props) {
     super(props);
@@ -10,6 +12,7 @@ class App extends React.Component{
       userProfile: false,
       jobModal: null,
       balance: 0,
+      value: 0,
 
     };
     this.handleJobCreate = this.handleJobCreate.bind(this);
@@ -24,6 +27,7 @@ class App extends React.Component{
     this.jobModalSwitchOn = this.jobModalSwitchOn.bind(this);
     this.handleDepositClick = this.handleDepositClick.bind(this);
     this.handleValue = this.handleValue.bind(this);
+    this.userWallet = this.userWallet.bind(this);
 
 
   }
@@ -60,6 +64,7 @@ class App extends React.Component{
       this.addNewJob(job);
     });
   }
+
   handleLogin(form) {
     let body = JSON.stringify({
       session: {
@@ -127,23 +132,55 @@ class App extends React.Component{
     });
   }
 
+  userWallet(formFields) {
+    let e_wallet_deposit = this.state.balance? this.state.balance : 0
+    console.log(formFields);
+    console.log(typeof this.state.balance);
+    console.log(this.state.balance);
+    console.log(typeof formFields.e_wallet.value);
+    console.log(Number(+e_wallet_deposit) + Number(formFields.e_wallet.value));
+    let body = JSON.stringify({
+      user: {
+        e_wallet: Number(+e_wallet_deposit) + Number(formFields.e_wallet.value),
+        password: this.props.user.current_user.crypted_password,
+      },
+      authenticity_token: this.props.authenticity_token,
+    });
+    fetch(('/api/v1/users/' + this.props.user.current_user.id), {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: body,
+    }).then((response) => {
+      return response.json();
+    }).then((reply) => {
+      console.log(reply);
+      this.setState((prevState) => {
+          balance: reply.e_wallet
+      })
+    });
+  }
+
   handleDepositClick(e) {
     e.preventDefault();
-  console.log("WTFFF");
-
-    let amount = +this.refs.amount.value;
+    console.log("WTFFF");
+    let amount = +this.state.value;
     let newBalance = this.state.balance + amount;
     this.setState({
-      balance: newBalance
+      balance: newBalance,
+      vale: '',
     })
-    this.refs.amount.value = '';
-
   }
 
   handleValue(e) {
     event.preventDefault()
     const value = e.target.value;
     console.log(value);
+    this.setState({
+      value: value,
+    })
 
   }
 
@@ -154,6 +191,7 @@ class App extends React.Component{
       return response.json()
     }).then((data) => {
       this.setState({
+        balance: this.props.user.current_user.e_wallet,
         jobs: data,
         availableJobs: data.filter((job) => {
           if (!job.accepted) { return job }
@@ -182,17 +220,9 @@ class App extends React.Component{
         {userWidget}
         {dashboardArrangment}
         <UserProfile user={this.props.user.current_user} showUserProfile={this.showUserProfile} userProfile={this.state.userProfile}/>
-        <Wallet balance={this.state.balance} clickEvent={this.handleDepositClick} changeEvent={this.handleValue}/>
+        <Wallet user={this.props.user.current_user} balance={this.state.balance} clickEvent={this.handleDepositClick} changeEvent={this.handleValue} userWallet={this.userWallet}/>
 
-          {/* <div className="account">
-            <h2>Wallet</h2>
-            <div className={balanceClass}>{this.state.balance}</div>
-            <input type="text" placeholder="enter an amount" ref="amount" />
-            <input type="button" value="Deposit" onClick={()=> handleDepositClick()}/>
-         </div> */}
-
-
-       </div>
+     </div>
     );
   }
 }
