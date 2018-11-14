@@ -1,6 +1,7 @@
 const UserModal = ({ handleClose, show, children }) => {
-  const showMe = show? "modal display-block" : "modal display-none";
+  const showMe = show? "modal display-block-user" : "modal display-none";
   return (
+    <div className = 'hide-modal'>
     <div className={showMe} onClick={() => {handleClose()}}>
       <section className="userModal-main" onClick={(e) => {e.stopPropagation()}}>
         <div className="userModal-top-row">
@@ -9,5 +10,6 @@ const UserModal = ({ handleClose, show, children }) => {
         {children}
       </section>
     </div>
+  </div>
   );
 };

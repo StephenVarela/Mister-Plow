@@ -8,8 +8,8 @@ class App extends React.Component{
       residence: 0,
       bookingForm: false,
       userProfile: false,
-
       jobModal: null,
+      balance: 0,
 
     };
     this.handleJobCreate = this.handleJobCreate.bind(this);
@@ -18,11 +18,13 @@ class App extends React.Component{
     this.showBookingForm = this.showBookingForm.bind(this);
     this.jobDetails = this.jobDetails.bind(this);
     this.acceptJob = this.acceptJob.bind(this);
-
     this.showUserProfile = this.showUserProfile.bind(this);
     this.showBookingDetails = this.showBookingDetails.bind(this);
     this.jobModalSwitchOff = this.jobModalSwitchOff.bind(this);
     this.jobModalSwitchOn = this.jobModalSwitchOn.bind(this);
+    this.handleDepositClick = this.handleDepositClick.bind(this);
+    this.handleValue = this.handleValue.bind(this);
+
 
   }
 
@@ -93,6 +95,7 @@ class App extends React.Component{
 
   showUserProfile() {
     this.setState((prevState) => ({ userProfile: !prevState.userProfile }));
+  }
 
   showBookingDetails() {
     this.setState((prevState) => ({ bookingDisplay: !prevState.bookingDisplay }));
@@ -124,6 +127,27 @@ class App extends React.Component{
     });
   }
 
+  handleDepositClick(e) {
+    e.preventDefault();
+  console.log("WTFFF");
+
+    let amount = +this.refs.amount.value;
+    let newBalance = this.state.balance + amount;
+    this.setState({
+      balance: newBalance
+    })
+    this.refs.amount.value = '';
+
+  }
+
+  handleValue(e) {
+    event.preventDefault()
+    const value = e.target.value;
+    console.log(value);
+
+  }
+
+
   componentDidMount(){
     fetch('/api/v1/jobs.json')
     .then((response) => {
@@ -141,6 +165,7 @@ class App extends React.Component{
     });
   }
 
+
   render(){
     console.log(this.props.authenticity_token)
     console.log('WHERE YOU AT')
@@ -148,19 +173,26 @@ class App extends React.Component{
     let userWidget = this.props.user.current_user.is_shoveler? <MapView residences={this.props.user.job_residences} /> : <NewJob showBookingForm={this.showBookingForm} bookingForm={this.state.bookingForm} handleJobCreate={this.handleJobCreate} residence={this.props.user.residences[this.state.residence]} authenticity_token={this.props.authenticity_token} />;
     let dashboardArrangment = this.props.user.current_user.is_shoveler? dashboard : dashboard.reverse();
 
-
     return (
       <div>
         <div className="homepage-title-header">
           <h3>Welcome to</h3>
           <h1>Mr Plow!</h1>
         </div>
-
         {userWidget}
         {dashboardArrangment}
         <UserProfile user={this.props.user.current_user} showUserProfile={this.showUserProfile} userProfile={this.state.userProfile}/>
+        <Wallet balance={this.state.balance} clickEvent={this.handleDepositClick} changeEvent={this.handleValue}/>
 
-      </div>
+          {/* <div className="account">
+            <h2>Wallet</h2>
+            <div className={balanceClass}>{this.state.balance}</div>
+            <input type="text" placeholder="enter an amount" ref="amount" />
+            <input type="button" value="Deposit" onClick={()=> handleDepositClick()}/>
+         </div> */}
+
+
+       </div>
     );
   }
 }
