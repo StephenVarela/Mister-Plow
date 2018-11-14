@@ -107,7 +107,7 @@ input[type="date"], input[type="time"] {
   padding: 1em;
   display: grid;
   grid-template-rows: .5fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr; 
+  grid-template-columns: 1fr 1fr;
 }
 .textarea {
   -webkit-column-span: all;
@@ -257,12 +257,24 @@ button:hover, .button:hover {
   margin: 1em;
   padding: 1em;
 }
+
+.weather-hourly-box {
+  border: 2px solid $font-blue;
+  border-radius: 1px;
+  padding: 1em;
+}
 .weather-alert {
   padding: 1em;
   background-color: $dark-blue;
 }
 .weather-display {
   background-color: $main-bg-color;
+}
+
+.weather-hourly-display{
+  background-color: $dark-blue;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 // Job display elements.
@@ -395,4 +407,3 @@ button:hover, .button:hover {
 .alt-color {
   color: $dark-blue;
 }
-

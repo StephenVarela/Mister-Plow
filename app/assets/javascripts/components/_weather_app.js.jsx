@@ -46,16 +46,12 @@ class WeatherApp extends React.Component {
     return(
       <div>
         <div className="weather-alert">
-          <h1> Weather Alert! </h1>
-          <p>Check out your weather!</p>
-          <div id = 'icon'>
-            {/* <img id="wicon" src={this.state.icon} alt="Weather icon"/> */}
-          </div>
+          <h1> Current Weather </h1>
           <h2>Toronto: is currently {this.state.description}</h2>
           <p>{this.state.date}</p>
         </div>
+        <Weather24 data={this.state.data}/>
         <WeatherDay data={this.state.data}/>
-        {/* <WeatherDay weatherClick={this.weatherClick} data={this.state.data} newState={this.state.data}/> */}
       </div>
     )
   }
