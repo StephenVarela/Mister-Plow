@@ -38,7 +38,7 @@ class Login extends React.Component {
     const formFields = {}
     return (
       <div className="landing-container">
-        <h1 className="landing-header">Mr Plow</h1>
+        <h1 className="landing-header">Mr. Plow</h1>
         <h2 className="landing-sub-header">Welcome</h2>
         <form onSubmit={(e) => {e.preventDefault(); this.handleLogin(formFields); }}>
           <p><input ref={input => formFields.email = input} placeholder='E-mail' /></p>
