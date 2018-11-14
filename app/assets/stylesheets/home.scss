@@ -269,6 +269,7 @@ button:hover, .button:hover {
 }
 .weather-display {
   background-color: $main-bg-color;
+  padding-top: 1em;
 }
 
 .weather-hourly-display{
@@ -348,6 +349,7 @@ button:hover, .button:hover {
 	height: 100%;
   transform: translate(-50%,-50%);
   transform: skewX(25deg);
+  padding-bottom: 1em;
 }
 
 .userModal-top-row {
@@ -379,6 +381,10 @@ button:hover, .button:hover {
   left:50%;
   transform: translate(-50%,-50%);
   z-index: 100;
+  padding-bottom: 1em;
+}
+.modal-main button {
+  margin-bottom: 0;
 }
 .display-block {
   display: block;
