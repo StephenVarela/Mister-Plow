@@ -1,3 +1,5 @@
+
+
 class App extends React.Component{
   constructor(props) {
     super(props);
@@ -9,6 +11,8 @@ class App extends React.Component{
       bookingForm: false,
       userProfile: false,
       jobModal: null,
+      balance: 0,
+      value: 0,
 
     };
     this.handleJobCreate = this.handleJobCreate.bind(this);
@@ -16,14 +20,15 @@ class App extends React.Component{
     this.addNewJob = this.addNewJob.bind(this);
     this.showBookingForm = this.showBookingForm.bind(this);
     this.acceptJob = this.acceptJob.bind(this);
-
     this.showUserProfile = this.showUserProfile.bind(this);
     this.showBookingDetails = this.showBookingDetails.bind(this);
     this.jobModalSwitchOff = this.jobModalSwitchOff.bind(this);
     this.jobModalSwitchOn = this.jobModalSwitchOn.bind(this);
+    this.userWallet = this.userWallet.bind(this);
     this.checkIn = this.checkIn.bind(this);
     this.jobComplete = this.jobComplete.bind(this);
     this.jobConfirmation = this.jobConfirmation.bind(this);
+
 
   }
 
@@ -59,6 +64,7 @@ class App extends React.Component{
       this.addNewJob(job);
     });
   }
+
   handleLogin(form) {
     let body = JSON.stringify({
       session: {
@@ -95,6 +101,7 @@ class App extends React.Component{
   showUserProfile() {
     this.setState((prevState) => ({ userProfile: !prevState.userProfile }));
   }
+
   showBookingDetails() {
     this.setState((prevState) => ({ bookingDisplay: !prevState.bookingDisplay }));
   }
@@ -182,12 +189,46 @@ class App extends React.Component{
     });
   }
 
+  userWallet(formFields) {
+    let e_wallet_deposit = this.state.balance? this.state.balance : 0
+    console.log(formFields);
+    console.log(typeof this.state.balance);
+    console.log(this.state.balance);
+    console.log(typeof formFields.e_wallet.value);
+    console.log(Number(+e_wallet_deposit) + Number(formFields.e_wallet.value));
+    let body = JSON.stringify({
+      user: {
+        e_wallet: Number(+e_wallet_deposit) + Number(formFields.e_wallet.value),
+        password: this.props.user.current_user.crypted_password,
+      },
+      authenticity_token: this.props.authenticity_token,
+    });
+    fetch(('/api/v1/users/' + this.props.user.current_user.id), {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: body,
+    }).then((response) => {
+      return response.json();
+    }).then((reply) => {
+      console.log(reply);
+      this.setState((prevState) => {
+          balance: reply.e_wallet
+      })
+    });
+  }
+
+
+
   componentDidMount(){
     fetch('/api/v1/jobs.json')
     .then((response) => {
       return response.json()
     }).then((data) => {
       this.setState({
+        balance: this.props.user.current_user.e_wallet,
         jobs: data,
         availableJobs: data.filter((job) => {
           if (!job.accepted) { return job }
@@ -199,11 +240,11 @@ class App extends React.Component{
     });
   }
 
+
   render(){
     let dashboard = [<AllJobs jobConfirmation={this.jobConfirmation} jobComplete={this.jobComplete}checkIn={this.checkIn} jobModalSwitchOff={this.jobModalSwitchOff} jobModalSwitchOn={this.jobModalSwitchOn} jobModal={this.state.jobModal} acceptJob={this.acceptJob} jobDetails={this.jobDetails} residences={this.props.user.job_residences} availableJobs={this.state.availableJobs} bookedJobs={this.state.bookedJobs} jobs={this.state.jobs} user={this.props.user}key="all-jobs" />, <WeatherApp key="weather-app" />];
     let userWidget = this.props.user.current_user.is_shoveler? <MapView residences={this.props.user.job_residences} /> : <NewJob showBookingForm={this.showBookingForm} bookingForm={this.state.bookingForm} handleJobCreate={this.handleJobCreate} residence={this.props.user.residences[this.state.residence]} authenticity_token={this.props.authenticity_token} />;
     let dashboardArrangment = this.props.user.current_user.is_shoveler? dashboard : dashboard.reverse();
-
 
     return (
       <div>
@@ -211,12 +252,12 @@ class App extends React.Component{
           <h3>Welcome to</h3>
           <h1>Mr. Plow!</h1>
         </div>
-
         {userWidget}
         {dashboardArrangment}
         <UserProfile user={this.props.user.current_user} showUserProfile={this.showUserProfile} userProfile={this.state.userProfile}/>
+        <Wallet user={this.props.user.current_user} balance={this.state.balance} clickEvent={this.handleDepositClick} changeEvent={this.handleValue} userWallet={this.userWallet}/>
 
-      </div>
+     </div>
     );
   }
 }

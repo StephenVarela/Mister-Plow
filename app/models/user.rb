@@ -14,10 +14,12 @@ class User < ApplicationRecord
 
   validates :primary_contact_number, presence: true
 
-  validates :password, presence: true
-  validates :password_confirmation, presence: true
-  validates_confirmation_of :password
-  validates :password, confirmation: true
+  validates :password, presence: true, on: :create
+  validates :password_confirmation, presence: true, on: :create
+  # validates_confirmation_of :password
+  validates :password, confirmation: true, unless: Proc.new { |a| a.password.blank? }
+
+
 
   def get_weather_forecast
 

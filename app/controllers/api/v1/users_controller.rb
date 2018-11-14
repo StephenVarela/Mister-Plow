@@ -22,7 +22,14 @@ class Api::V1::UsersController < ApplicationController
     end
 
   end
-  
+
+  def update
+    user = User.find(params[:id])
+    user.update_attributes(user_params)
+    render json: user
+  end
+
+
   def weather
     p current_user
     if(current_user)
@@ -33,7 +40,7 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:id, :first_name, :last_name, :street_name, :city_name, :postal_code, :country, :email, :primary_contact_number, :secondary_contact_number, :password, :password_confirmation, :is_shoveler)
+    params.require(:user).permit(:id, :first_name, :last_name, :street_name, :city_name, :postal_code, :country, :email, :primary_contact_number, :secondary_contact_number, :password, :password_confirmation, :is_shoveler, :e_wallet)
   end
 
 
