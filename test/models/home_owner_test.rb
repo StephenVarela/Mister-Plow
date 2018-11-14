@@ -40,7 +40,12 @@ class HomeOwnerTest < ActiveSupport::TestCase
     actual = my_home_owner.residences.count
 
     assert_equal(expected, actual)
+  end
 
+  def test_homeOwner_will_not_save_without_valid_user_profile
+    skip
+    my_home_owner = build(:home_owner)
+    assert(my_home_owner.valid?)
   end
 
 end
