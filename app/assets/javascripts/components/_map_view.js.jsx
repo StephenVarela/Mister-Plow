@@ -17,8 +17,8 @@ class MapView extends React.Component {
     }).addTo(mymap);
 
     var findButton = document.querySelector('#GeoFind')
-    console.log(this.props);
-
+    console.log("In map mount")
+    console.log(this.props)
     findButton.addEventListener('click', () => {this.clickMapButton(this.props.residences, mymap)})
 
 

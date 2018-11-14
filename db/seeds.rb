@@ -16,41 +16,78 @@ Residence.destroy_all
 Job.destroy_all
 
 # user1 is a shoveler
-my_user = User.new()
-my_user.first_name = 'Stephen'
-my_user.last_name = 'Varela'
-my_user.street_name = 'ABC123Ave'
-my_user.password = 'ABCDEF'
-my_user.e_wallet = 100
-my_shoveler = Shoveler.new()
-my_shoveler.user = my_user
-my_user.save
-my_shoveler.save
 
-#user2 is a home owner
-my_user2 = User.new()
-my_user2.first_name = 'Daniel'
-my_user2.last_name = 'Ang'
-my_user2.street_name = 'MyStreetIzCool'
-my_user2.e_wallet = 100
-my_homeOwner = HomeOwner.new()
-my_homeOwner.user = my_user2
-
-user_2_residence = Residence.new()
-user_2_residence.home_owner = my_homeOwner
-user_2_residence.is_home_address = true
-
-my_user2.save
+#creating 10 users with 10 jobs for shoveling driveway
+first_names = ['Stephen', 'John', 'O', 'Thomas', 'James', 'L W', 'M', 'Donald' ,'J']
+phone_nums = ['4166948464', '4163227518', '4166998444', '4166998071', '4163040129',
+              '4166994610', '4166989608', '4166993028', '4166989098']
+street_names = ['500 Kingston Rd',
+              '315 St Germain Ave',
+              '234 Willow Ave',
+              '26 Goodwood Park Cres',
+              '48 St Clair Ave W',
+              '1974 Queen St E',
+              '42 Balsam Ave',
+              '258 Waverley Rd',
+              '101 Hillingdon Ave']
 
 
-my_homeOwner.save
-user_2_residence.save
 
-my_job = Job.new
-my_job.shoveler = my_shoveler
-my_job.residence =  user_2_residence
-my_job.price = 30
-my_job.instructions = "shovel the driveway"
-my_job.comments = "This is Mr. Plows first job!"
+def create_jobs(fname, street_name,  phone_number)
+  my_user = User.new()
+  my_user.first_name = fname
+  my_user.last_name = 'Smith'
+  my_user.street_name = street_name
+  my_user.city_name = 'Toronto'
+  my_user.postal_code = 'M1M 3F8'
+  my_user.country = 'Canada'
+  my_user.email = "#{fname}smith@gmail.com"
+  my_user.primary_contact_number = '123456789'
+  my_user.password = 'ABC123'
+  my_user.password_confirmation = 'ABC123'
+  my_homeOwner = HomeOwner.new()
+  my_homeOwner.user = my_user
+  my_residence = Residence.new()
+  my_residence.home_owner = my_homeOwner
+  my_residence.street_name = street_name
+  my_residence.city_name = 'Toronto'
+  my_residence.postal_code = 'M1M 3F8'
+  my_residence.country = 'Canada'
+  my_residence.is_home_address = true
 
-my_job.save
+  residence_query = street_name.split
+
+  residence_query.each_with_index do |street, i|
+    if i < residence_query.length - 1
+      residence_query[i] = residence_query[i] + "+"
+    end
+  end
+
+  geo_residence = residence_query.join("")
+
+  response = HTTParty.get("https://www.mapquestapi.com/geocoding/v1/address?key=#{ENV['GEOLOC_MQ_KEY']}&inFormat=kvp&outFormat=json&location=#{geo_residence}&thumbMaps=false")
+
+  my_residence.lat = response["results"][0]["locations"][0]["latLng"]["lat"]
+  my_residence.lon = response["results"][0]["locations"][0]["latLng"]["lng"]
+
+  my_user.save
+  my_homeOwner.save
+  my_residence.save
+
+  my_job = Job.new
+  my_job.residence =  my_residence
+  my_job.price = 30
+  my_job.instructions = "shovel the driveway"
+  my_job.comments = "This is Mr. Plows first job!"
+  my_job.scheduled_time = DateTime.now
+  my_job.save
+
+  p my_job.errors.full_messages
+
+  return my_job
+end
+
+
+first_names.each_with_index do |item, index|
+  p create_jobs(item, street_names[index], phone_nums[index])
+end

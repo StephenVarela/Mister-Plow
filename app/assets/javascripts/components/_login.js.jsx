@@ -38,7 +38,7 @@ class Login extends React.Component {
     const formFields = {}
     return (
       <div className="landing-container">
-        <h1 className="landing-header">Mr Plow</h1>
+        <h1 className="landing-header">Mr. Plow</h1>
         <h2 className="landing-sub-header">Welcome</h2>
         <form onSubmit={(e) => {e.preventDefault(); this.handleLogin(formFields); }}>
           <p><input ref={input => formFields.email = input} placeholder='E-mail' /></p>
@@ -46,7 +46,7 @@ class Login extends React.Component {
           <p><button type='submit'>Login</button></p>
           <input ref={input => formFields.authenticity_token = input} type='hidden' name='authenticity_token' value={this.props.authenticity_token} />
         </form>
-        <p className="new-account" onClick={() => {this.showNewUserForm()}}>create a new account</p>
+        <p className="new-account landing-sub-header" onClick={() => {this.showNewUserForm()}}>create a new account</p>
         <Modal show={this.state.newUserForm} handleClose={() => {this.showNewUserForm()}} children={newUserForm}/>
       </div>
     )

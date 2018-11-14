@@ -21,14 +21,13 @@ const AllJobs = (props) => {
       const dateString = monthNames[dateTime.getMonth()] + ' ' + dateTime.getDate();
       const timeString = (dateTime.getHours() === 0 || dateTime.getHours() === 12 ? 12 : dateTime.getHours() % 12) + ':' + pad(dateTime.getMinutes()) + (dateTime.getHours() > 11 ? ' PM' : ' AM');
 
-      const status = props.user.current_user.is_shoveler? job.accepted && job.shoveler_id === props.user.shoveler.id? "Accepted" : 'Available' : job.accepted? 'Confirmed' : 'Pending...';
+      const status = job.confirmation? 'Approved' : props.user.current_user.is_shoveler? job.accepted && job.shoveler_id === props.user.shoveler.id? job.check_in? job.check_out? 'Checked-Out' : 'Checked-In' : 'Accepted' : 'Available' : job.accepted? job.check_in? job.check_out? 'Complete' : 'Active' : 'Confirmed' : 'Pending...';
+
       const adressTitle = props.user.current_user.is_shoveler? <p>Adress info:</p> : ''
       const adressInfo = props.user.current_user.is_shoveler && props.residences[residenceIndex(job.residence_id)]? <a src="/" className="address-link"><h3>{props.residences[residenceIndex(job.residence_id)].street_name}</h3></a> : ''
-      const jobButton = props.user.current_user.is_shoveler? <button className="job-accept-button" onClick={() => { job.accepted? props.jobModalSwitchOn(job.id) : props.acceptJob(job.id) }}>{job.accepted? "Details" : "Accept"}</button> : <button onClick={() => { props.jobModalSwitchOn(job.id)}} className="job-display-button">Details</button>;
+      const jobButton = props.user.current_user.is_shoveler? <button className="job-accept-button" onClick={() => {props.jobModalSwitchOn(job.id)}}>{job.accepted? "Details" : "Accept"}</button> : <button onClick={() => { props.jobModalSwitchOn(job.id)}} className="job-display-button">Details</button>;
 
-      const index = props.user.current_user.is_shoveler? residenceIndex(job.residence_id) : props.residence_index
-      // const jobDetails = <br />
-      // const jobDetails = <JobDetails is_shoveler={props.user.current_user.is_shoveler} status={status} dateString={dateString} timeString={timeString} job={job} residence={props.residences[index]}/>
+      // const index = props.user.current_user.is_shoveler? residenceIndex(job.residence_id) : props.residence_index        ----job.accepted? 
       const jobDetails = <div className="job-date-time">
         <div className="job-date-time-titles">
           <p>Booked for: </p>
@@ -47,14 +46,17 @@ const AllJobs = (props) => {
         <h2>{status}</h2>
       </div>
 
-      const checkInBtn = props.user.current_user.is_shoveler? <button>Check-In</button> : ''
+      const checkInBtn = job.confirmation? '' : props.user.current_user.is_shoveler? job.accepted? job.check_in? job.check_out? '' : <button onClick={() => {props.jobComplete(job.id)}}>Confirm Finished</button> : <button onClick={() => {props.checkIn(job.id)}}>Check-In</button> : <button onClick={() => {props.acceptJob(job.id)}}>Accept Job</button> : job.check_out? <button onClick={() => {props.jobConfirmation(job.id)}}>Approve</button> : ''
+
+      const jobModalContent = <div className="job-modal">{jobDetails}{jobStatus}{checkInBtn}{job.check_in? job.check_out? props.user.current_user.is_shoveler?  <p>Awaiting customer approval...</p> : '' : <div><p>Checked In at:</p><h3>{job.check_in}</h3></div> : ''}</div>
+      console.log(typeof job.check_in)
 
       return(
         <div key={job.id} className="job-display">
           {jobDetails}
           {jobStatus}
           {jobButton}
-          <Modal show={props.jobModal === job.id} handleClose={props.jobModalSwitchOff} children={<div className="job-modal">{jobDetails}{jobStatus}{checkInBtn}</div>} />
+          <Modal show={props.jobModal === job.id} handleClose={props.jobModalSwitchOff} children={jobModalContent} />
         </div>
       )
     });
