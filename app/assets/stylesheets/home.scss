@@ -570,7 +570,6 @@ div.weather-hourly-display > p {
   .user_profile {
     font-size: 10px;
   }
-}
 
 }
 
@@ -606,4 +605,4 @@ div.weather-hourly-display > p {
 .rating > input:checked + label:hover, /* hover current star when changing rating */
 .rating > input:checked ~ label:hover,
 .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }   
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
