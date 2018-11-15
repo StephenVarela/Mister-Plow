@@ -33,7 +33,7 @@ class MapView extends React.Component {
       var latitude  = position.coords.latitude;
       var longitude = position.coords.longitude;
 
-      output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+      output.innerHTML = '';
       var marker = L.marker([latitude, longitude]).addTo(mymap);
       marker.bindPopup("<b>You Are Here</b>").openPopup();
 

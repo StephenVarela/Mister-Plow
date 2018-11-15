@@ -154,7 +154,7 @@ button, .button {
 
 button, .button-login:link
 button, .button-login:visited {
-  background-color: #e67e22;
+  background-color: $opposing-color;
   border: 1px solid;
   display: inline-block;
   padding: 10px 30px;
@@ -165,7 +165,7 @@ button, .button-login:visited {
   transition: background-color 0.2s, border 0.2s, color 0.5s;
 }
 button:hover, .button:hover {
-  background-color: #cf6d17;
+  background-color: $opposing-color;
 }
 
 #welcome-button {
