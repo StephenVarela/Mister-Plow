@@ -188,10 +188,11 @@ button:hover, .button:hover {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url('shovel-home');
+  background-image:  url('shovel-home');
   background-size: cover;
   background-position: 70% 100%;
 }
+
 .landing-header {
   display: block;
   font-size: 5em;
@@ -309,13 +310,19 @@ button:hover, .button:hover {
   justify-content: center;
 }
 
-.weather-hourly-display{
+div.weather-hourly-display{
   background-color: $dark-blue;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+
   // grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
+
+div.weather-hourly-display > p {
+  border: none;
+}
+
 
 // Job display elements.
 .job-display {
@@ -535,9 +542,10 @@ button:hover, .button:hover {
 //Wallet
 
 .wallet_profile {
-  border: 1px solid #6b8cae;
+  border: 1px solid  #2a2a2a;
   background-image: url('curls');
   padding: 15%;
+  border-radius: 100px;
 }
 
 .wallet_deposit {
