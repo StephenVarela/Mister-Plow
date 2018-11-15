@@ -14,7 +14,6 @@ const Wallet = (props) => {
 
     return(
       <div className="account">
-          {/* <div className={balanceClass}>{props.balance? props.balance : 0}</div> */}
         <Modal type={"modal-main"} show={props.walletForm} handleClose={props.showWalletForm} children={walletForm} />
       </div>
     )
