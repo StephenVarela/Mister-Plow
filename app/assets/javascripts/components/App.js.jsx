@@ -127,7 +127,10 @@ class App extends React.Component{
       },
       body: body,
     }).then((response) => {
+      console.log(response);
       return response.json();
+    }).catch((error) => {
+      alert("Something Went Wrong! Please Refresh This Page")
     }).then(() => {
       window.location.reload();
     });
