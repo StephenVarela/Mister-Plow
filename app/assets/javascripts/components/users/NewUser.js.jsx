@@ -117,7 +117,6 @@ class NewUser extends React.Component {
     }
   }
   homeAddress() {
-    console.log("the thing clicked")
     if (this.state.addressForm === false) {
       this.setState({homeIsResidence: 'checked', addressForm: true})
     } else {

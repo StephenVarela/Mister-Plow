@@ -46,7 +46,7 @@ class Login extends React.Component {
           <input ref={input => formFields.authenticity_token = input} type='hidden' name='authenticity_token' value={this.props.authenticity_token} />
         </form>
         <p className="new-account landing-sub-header" onClick={() => {this.showNewUserForm()}}>create a new account</p>
-        <Modal show={this.state.newUserForm} handleClose={() => {this.showNewUserForm()}} children={newUserForm}/>
+        <Modal type={'modal-main'} show={this.state.newUserForm} handleClose={() => {this.showNewUserForm()}} children={newUserForm}/>
       </div>
     )
   }

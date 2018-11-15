@@ -19,6 +19,12 @@ $body-bg-color: #7493b2;
 
 $soft-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 // Main Elements.
 body {
   text-align: center;
@@ -203,6 +209,9 @@ button:hover, .button:hover {
   position: relative;
   z-index: 999;
 }
+.home-nav div {
+  display: inline-block;
+}
 .homepage-title-header {
   padding: 1em;
   background-color: $opposing-color;
@@ -264,17 +273,24 @@ button:hover, .button:hover {
 
 // Weather elements.
 .weather-box {
-  border: 2px solid $font-blue;
-  border-radius: 15px;
-  display: inline-block;
+  // border: 2px solid $font-blue;
+  // border-radius: 15px;
+  border-left: 1px solid $light-blue;
+  display: block;
   margin: 1em;
   padding: 1em;
+  width: 16%;
+  margin: 0;
 }
 
 .weather-hourly-box {
-  border: 2px solid $font-blue;
+  border-left: 1px solid $light-blue;
+  // border: 2px solid $font-blue;
+  display: block;
   border-radius: 1px;
-  padding: 1em;
+  padding: 1em 0;
+  margin: 0;
+  width: 12%;
 }
 .weather-alert {
   padding: 1em;
@@ -284,11 +300,17 @@ button:hover, .button:hover {
   background-color: $main-bg-color;
   padding-top: 1em;
 }
+.weather-weekday-display {
+  display: flex;
+  justify-content: center;
+}
 
 .weather-hourly-display{
   background-color: $dark-blue;
-  display: inline-grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  // grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 // Job display elements.
@@ -341,7 +363,6 @@ button:hover, .button:hover {
 
 //User Modal
 .hide-modal{
-  //IDK WAT DIS IS
   background: white;
   border: 1px solid #d0cccc;
   box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
@@ -351,35 +372,32 @@ button:hover, .button:hover {
 }
 
 .userModal {
-  //IDK
   position: fixed;
   top: 0;
   left: 0;
-  width:100%;
+  width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
-
 }
 
 .userModal-main {
-  //has to do with the modal
   padding-top: 50px;
   right: -200px;
   background: $main-bg-color;
   overflow: auto;
   border: 5px solid $main-bg-color;
-  border-radius: 15px;
   width: 25%;
 	height: 100%;
   padding-bottom: 1em;
-  transform: translate(-100%,0%);
+  transition: all 1.5s;
   transform: translateX(0%);
-  transition: all 10s;
-  opacity: 0.5;
+  display: block;
+}
+.slide-modal-hide {
+  transform: translate(-100%,0%);
 }
 
 .userModal-top-row {
-  //has to do with the x button
   display: relative;
   text-align: right;
   padding: .2em 1.8em;
@@ -394,7 +412,7 @@ button:hover, .button:hover {
   position: fixed;
   top: 0;
   left: 0;
-  width:100%;
+  width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
 }
@@ -408,11 +426,17 @@ button:hover, .button:hover {
   border: 5px solid $main-bg-color;
   border-radius: 15px;
   height: auto;
-  top:50%;
-  left:50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%,-50%);
   z-index: 100;
   padding-bottom: 1em;
+}
+.list {
+  margin: 2em 0;
+  max-width: 700px;
+  width: 95%;
+  height: 90%
 }
 .modal-main button {
   margin-bottom: 0;
@@ -425,7 +449,7 @@ button:hover, .button:hover {
 }
 .x-close-button {
   border-radius: 100%;
-  padding: .2em .5em;
+  padding: 0 .5em .12em .5em;
   background-color: $font-blue;
   display: inline-block;
   position: absolute;
@@ -434,9 +458,9 @@ button:hover, .button:hover {
 }
 .x-close-button:hover {
   background-color: $opposing-color;	-webkit-transform: translate3d(0%, 0, 0);
-		    -ms-transform: translate3d(0%, 0, 0);
-		     -o-transform: translate3d(0%, 0, 0);
-		        transform: translate3d(0%, 0, 0);
+	-ms-transform: translate3d(0%, 0, 0);
+	-o-transform: translate3d(0%, 0, 0);
+	transform: translate3d(0%, 0, 0);
 }
 .modal-top-row {
   display: relative;
@@ -452,5 +476,72 @@ button:hover, .button:hover {
   background-size: cover;
   background-position: 50% 0;
   width: 100%;
-  height: 2em;
+  height: 10em;
+}
+.user-profile-button {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 750px) {
+  .weather-box {
+    // display: flex;
+    // justify-content: space-around;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr 2fr;
+    border-top: 1px solid $light-blue;
+    border-left: none;
+    margin: 0 1em;
+    width: auto;
+
+  }
+  .weather-hourly-box {
+    width: 24%;
+  }
+  .weather-weekday-display {
+    display: block;
+  }
+  .job-booking-display {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .residence-details {
+    display: flex;
+    justify-content: center;
+    // text-align: center;
+    // display: inline-block;
+  }
+  .residence-pic-border, .residence-details ul {
+    // margin: 0 auto;
+    display: inline-block;
+  }
+  .booking-button {
+    display: block;
+  }
+  .userModal-main {
+    width: 70%;
+  }
+  .job-display {
+    margin: 1em 1em;
+  }
+
+}
+
+@media screen and (max-width: 500px) {
+  .residence-details ul {
+    // margin: 0 auto;
+    display: block;
+  }
+  .job-display {
+    display: block;
+  }
+  .residence-details {
+    display: inline-block;
+  }
+  .job-form {
+    display: block;
+  }
+  .date-box, .time-box {
+    padding: .5em 0;
+  }
 }

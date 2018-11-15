@@ -30,7 +30,7 @@ const NewJob = (props) => {
 
         {bookingDisplay}
 
-        <Modal show={props.bookingForm} handleClose={props.showBookingForm} children={bookingForm} />
+        <Modal type={"modal-main"} show={props.bookingForm} handleClose={props.showBookingForm} children={bookingForm} />
       </div>
     </div>
   )

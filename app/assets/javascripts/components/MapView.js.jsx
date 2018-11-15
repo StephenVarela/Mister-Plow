@@ -60,7 +60,7 @@ class MapView extends React.Component {
       <div className="map-view">
         <h1>Your Map</h1>
         <div id="mapid"></div>
-        <p><button id="GeoFind">Show my location</button></p>
+        <p><button id="GeoFind">Show Locations</button></p>
         <div id="out"></div>
       </div>
     )
