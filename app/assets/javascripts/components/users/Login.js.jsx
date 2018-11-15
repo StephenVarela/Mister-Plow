@@ -3,7 +3,9 @@ class Login extends React.Component {
     super(props)
     this.state = {
       newUserForm: false,
+      error: ""
     }
+
   }
   showNewUserForm() {
     this.setState((prevState) => ({ newUserForm: !prevState.newUserForm }));
@@ -26,11 +28,17 @@ class Login extends React.Component {
     })
     .then((response) => {
       return response.json()
+    }).catch((error)=>{
+      alert("E-mail or password is invalid")
+
     })
     .then(() => {
-      window.location.reload();
-    });
+      window.location.reload()
+    })
+
   }
+
+
 
   render() {
     const newUserForm = <NewUser authenticity_token={this.props.authenticity_token}/>
