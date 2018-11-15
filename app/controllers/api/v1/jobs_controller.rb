@@ -20,6 +20,16 @@ class Api::V1::JobsController < ApplicationController
 
   def update
     job = Job.find(params[:id])
+    if(job.shoveler_id)
+      flash[:error] = "Oops Sorry! This Job was taken!"
+    else
+      job.update_attributes(job_params)
+      render json: job
+    end
+  end
+
+  def cancel
+    job = Job.find(params[:id])
     job.update_attributes(job_params)
     render json: job
   end

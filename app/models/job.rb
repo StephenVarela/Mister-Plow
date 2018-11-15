@@ -7,6 +7,8 @@ class Job < ApplicationRecord
   validates :residence_id, presence: true
   validates :price, presence: true
   validates :scheduled_time, presence: true
+
+
 end
 
 # def attach_confirmation(picture)
