@@ -11,6 +11,7 @@ class App extends React.Component{
       userProfile: false,
       completedJobsModal: false,
       jobModal: null,
+      radioStar: 2,
       walletForm: false,
       balance: 0,
       value: 0,
@@ -100,7 +101,6 @@ class App extends React.Component{
     this.setState((prevState) => ({ completedJobsModal: !prevState.completedJobsModal }));
   }
   showWalletForm() {
-    // alert('hello')
     this.setState((prevState) => ({ walletForm: !prevState.walletForm }));
   }
   jobModalSwitchOff() {
@@ -172,10 +172,11 @@ class App extends React.Component{
       window.location.reload();
     });
   }
-  jobConfirmation(id) {
+  jobConfirmation(rating, id) {
     let body = JSON.stringify({
       job: {
         confirmation: true,
+        rating: rating,
       },
       authenticity_token: this.props.authenticity_token,
     });
@@ -245,10 +246,14 @@ class App extends React.Component{
           if (!job.accepted) { return job }
         }),
         bookedJobs: data.filter((job) => {
-          if (job.accepted && !job.confirmation) { return job }
+          if (job.accepted && !job.check_out) { return job }
         }),
         completedJobs: data.filter((job) => {
-          if (job.confirmation) { return job }
+          if (this.props.user.current_user.is_shoveler && job.check_out) {
+            return job
+          } else if (job.rating) {
+            return job
+          }
         })
       })
     });
@@ -256,7 +261,7 @@ class App extends React.Component{
   render(){
     let userWidget = this.props.user.current_user.is_shoveler? <MapView residences={this.props.user.job_residences} /> : <NewJob showBookingForm={this.showBookingForm} bookingForm={this.state.bookingForm} handleJobCreate={this.handleJobCreate} residence={this.props.user.residences[this.state.residence]} authenticity_token={this.props.authenticity_token} />;
 
-    let dashboard = [<AllJobs showCompletedJobs={this.showCompletedJobs} residenceIndex={this.residenceIndex} timeString={this.timeString} dateString={this.dateString} completedJobsModal={this.state.completedJobsModal} jobConfirmation={this.jobConfirmation} jobComplete={this.jobComplete}checkIn={this.checkIn} jobModalSwitchOff={this.jobModalSwitchOff} jobModalSwitchOn={this.jobModalSwitchOn} jobModal={this.state.jobModal} acceptJob={this.acceptJob} jobDetails={this.jobDetails} residences={this.props.user.job_residences} availableJobs={this.state.availableJobs} bookedJobs={this.state.bookedJobs} completedJobs={this.state.completedJobs} jobs={this.state.jobs} user={this.props.user} key="all-jobs" />, <WeatherApp key="weather-app" weekdayString={this.weekdayString} dateString={this.dateString} timeString={this.timeString} />];
+    let dashboard = [<AllJobs radioStar={this.state.radioStar} showCompletedJobs={this.showCompletedJobs} residenceIndex={this.residenceIndex} timeString={this.timeString} dateString={this.dateString} completedJobsModal={this.state.completedJobsModal} jobConfirmation={this.jobConfirmation} jobComplete={this.jobComplete}checkIn={this.checkIn} jobModalSwitchOff={this.jobModalSwitchOff} jobModalSwitchOn={this.jobModalSwitchOn} jobModal={this.state.jobModal} acceptJob={this.acceptJob} jobDetails={this.jobDetails} residences={this.props.user.job_residences} availableJobs={this.state.availableJobs} bookedJobs={this.state.bookedJobs} completedJobs={this.state.completedJobs} jobs={this.state.jobs} user={this.props.user} key="all-jobs" />, <WeatherApp key="weather-app" weekdayString={this.weekdayString} dateString={this.dateString} timeString={this.timeString} />];
     let dashboardArrangment = this.props.user.current_user.is_shoveler? dashboard : dashboard.reverse();
 
     return (

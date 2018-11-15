@@ -479,9 +479,6 @@ div.weather-hourly-display > p {
   padding: .2em 1.8em;
 }
 
-.alt-color {
-  color: $dark-blue;
-}
 #user-profile-pic {
   background: url("snowman.jpg");
   background-size: cover;
@@ -569,7 +566,44 @@ div.weather-hourly-display > p {
   .date-box, .time-box {
     padding: .5em 0;
   }
+
   .user_profile {
     font-size: 10px;
   }
 }
+
+}
+
+// Ratings star styling.
+.rating button {
+  display: block;
+  margin: 0 auto;
+  // flex-direction: row;
+}
+.rating {
+  // display: flex;
+  // justify-content: center;
+  // flex-direction: row-reverse;
+  // padding-right: 25%;
+  text-align: center;
+}
+.rating input {
+  display: none;
+}
+.rating label {
+  transition: all 0.2s;
+  display: inline-block;
+  // float: right;
+  color: $dark-blue;
+  cursor: pointer;
+  font-size: 4em;
+}
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }   
