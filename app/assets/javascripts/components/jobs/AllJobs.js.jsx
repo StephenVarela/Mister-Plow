@@ -6,14 +6,14 @@ const AllJobs = (props) => {
         {props.bookedJobs.length > 0? <h1>Your Booked Jobs:</h1> : ''}
         <JobPosts jobs={props.bookedJobs} shoveler_id={props.user.shoveler.id} is_shoveler={props.user.current_user.is_shoveler} residences={props.residences} residenceIndex={props.residenceIndex} jobModalSwitchOn={props.jobModalSwitchOn} jobModalSwitchOff={props.jobModalSwitchOff} jobModal={props.jobModal} dateString={props.dateString} timeString={props.timeString} jobComplete={props.jobComplete} checkIn={props.checkIn} acceptJob={props.acceptJob} jobConfirmation={props.jobConfirmation}/>
       </div>
-      {props.availableJobs.length > 0? <h1 className="alt-color">Available Jobs:</h1> : ''}
+      {props.availableJobs.length > 0? <h1>Available Jobs:</h1> : ''}
       <JobPosts jobs={props.availableJobs} shoveler_id={props.user.shoveler.id} is_shoveler={props.user.current_user.is_shoveler} residences={props.residences} residenceIndex={props.residenceIndex} jobModalSwitchOn={props.jobModalSwitchOn} jobModalSwitchOff={props.jobModalSwitchOff} jobModal={props.jobModal} dateString={props.dateString} timeString={props.timeString} jobComplete={props.jobComplete} checkIn={props.checkIn} acceptJob={props.acceptJob} jobConfirmation={props.jobConfirmation}/>
     </div>
 
     :
     
     <div className="job-list">
-    {props.jobs.length > 0? <h1 className="alt-color">Your Upcoming Jobs:</h1> : ''}
+    {props.jobs.length > 0? <h1>Your Upcoming Jobs:</h1> : ''}
       <JobPosts jobs={props.jobs} is_shoveler={props.user.current_user.is_shoveler} residences={props.residences} residenceIndex={props.residenceIndex} jobModalSwitchOn={props.jobModalSwitchOn} jobModalSwitchOff={props.jobModalSwitchOff} jobModal={props.jobModal} dateString={props.dateString} timeString={props.timeString} jobComplete={props.jobComplete} checkIn={props.checkIn} acceptJob={props.acceptJob} jobConfirmation={props.jobConfirmation}/>
     </div>;
 

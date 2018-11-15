@@ -31,9 +31,30 @@ const JobPosts = (props) => {
       </div>
     </div>
 
-    const jobRating = <div className="rating-display">
+    function stars(num) {
+      return '*'.repeat(num);
+    }
+
+    const jobRating = job.rating? <div className="rating-display">
       <p>Rating:</p>
-    </div>
+      <h2>{ stars(job.rating) }</h2>
+    </div> : props.is_shoveler? '' : 
+      <form className="rating">
+          <input type="radio" value="5" name="rating" id="rating-5"/>
+          <label htmlFor="rating-5" title="5 stars">*</label>
+
+          <input type="radio" value="4" name="rating" id="rating-4"/>
+          <label htmlFor="rating-4" title="4 stars">*</label>  
+
+          <input type="radio" value="3" name="rating" id="rating-3"/>
+          <label htmlFor="rating-3" title="3 stars">*</label>  
+
+          <input type="radio" value="2" name="rating" id="rating-2"/>
+          <label htmlFor="rating-2" title="2 stars">*</label>  
+
+          <input type="radio" value="1" name="rating" id="rating-1"/>
+          <label htmlFor="rating-1" title="1 star">*</label> 
+      </form>;
 
     const jobStatus = <div className="job-display-status">
       <p>Status:</p>
@@ -50,7 +71,7 @@ const JobPosts = (props) => {
       <p>{job.comments}</p>
     </div> : <div> </div>
 
-    const checkInBtn = job.confirmation? '' : props.is_shoveler? job.accepted? job.check_in? job.check_out? '' : <button onClick={() => {props.jobComplete(job.id)}}>Confirm Finished</button> : <button onClick={() => {props.checkIn(job.id)}}>Check-In</button> : <button onClick={() => {props.acceptJob(job.id)}}>Accept Job</button> : job.check_out? <button disabled="disabled" onClick={() => {props.jobConfirmation(job.id)}}>Leave Feedback</button> : ''
+    const checkInBtn = job.confirmation? '' : props.is_shoveler? job.accepted? job.check_in? job.check_out? '' : <button onClick={() => {props.jobComplete(job.id)}}>Confirm Finished</button> : <button onClick={() => {props.checkIn(job.id)}}>Check-In</button> : <button onClick={() => {props.acceptJob(job.id)}}>Accept Job</button> : job.check_out? <button onClick={() => {props.jobConfirmation(job.id)}}>Leave Feedback</button> : ''
     const checkInTime = new Date(job.check_in);
     const jobModalContent = <div className="job-modal">{jobDetails}{jobStatus}{instructions}{checkInBtn}{job.check_in? job.check_out? props.is_shoveler? job.confirmation? '' : <p>Awaiting customer approval...</p> : '' : <div><p>Checked in at:</p><h3>{props.timeString(checkInTime)} on {props.dateString(checkInTime)}</h3></div> : ''}</div>
     
