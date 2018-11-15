@@ -1,5 +1,3 @@
-
-
 class App extends React.Component{
   constructor(props) {
     super(props);
@@ -7,13 +5,15 @@ class App extends React.Component{
       jobs: [],
       availableJobs: [],
       bookedJobs: [],
+      completedJobs: [],
       residence: 0,
       bookingForm: false,
       userProfile: false,
+      completedJobsModal: false,
       jobModal: null,
+      walletForm: false,
       balance: 0,
       value: 0,
-
     };
     this.handleJobCreate = this.handleJobCreate.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -28,18 +28,11 @@ class App extends React.Component{
     this.checkIn = this.checkIn.bind(this);
     this.jobComplete = this.jobComplete.bind(this);
     this.jobConfirmation = this.jobConfirmation.bind(this);
-
-
+    this.showCompletedJobs = this.showCompletedJobs.bind(this);
+    this.showWalletForm = this.showWalletForm.bind(this);
   }
 
-  jobModalSwitchOff() {
-    this.setState({jobModal: null})
-  }
-  jobModalSwitchOn(n) {
-    this.setState({jobModal: n})
-  }
-
-
+  // POST methods
   handleJobCreate(jobForm) {
     let body = JSON.stringify({
       job: {
@@ -64,7 +57,6 @@ class App extends React.Component{
       this.addNewJob(job);
     });
   }
-
   handleLogin(form) {
     let body = JSON.stringify({
       session: {
@@ -89,6 +81,7 @@ class App extends React.Component{
     });
   }
 
+  // Modal switches
   addNewJob(job) {
     this.setState({
       jobs: this.state.jobs.concat(job),
@@ -97,15 +90,27 @@ class App extends React.Component{
   showBookingForm() {
     this.setState((prevState) => ({ bookingForm: !prevState.bookingForm }));
   }
-
   showUserProfile() {
     this.setState((prevState) => ({ userProfile: !prevState.userProfile }));
   }
-
   showBookingDetails() {
     this.setState((prevState) => ({ bookingDisplay: !prevState.bookingDisplay }));
   }
+  showCompletedJobs() {
+    this.setState((prevState) => ({ completedJobsModal: !prevState.completedJobsModal }));
+  }
+  showWalletForm() {
+    // alert('hello')
+    this.setState((prevState) => ({ walletForm: !prevState.walletForm }));
+  }
+  jobModalSwitchOff() {
+    this.setState({jobModal: null})
+  }
+  jobModalSwitchOn(n) {
+    this.setState({jobModal: n})
+  }
 
+  // PUT methods
   acceptJob(id) {
     let body = JSON.stringify({
       job: {
@@ -168,7 +173,6 @@ class App extends React.Component{
     });
   }
   jobConfirmation(id) {
-    alert('check out #' + id);
     let body = JSON.stringify({
       job: {
         confirmation: true,
@@ -188,18 +192,11 @@ class App extends React.Component{
       window.location.reload();
     });
   }
-
   userWallet(formFields) {
-    let e_wallet_deposit = this.state.balance? this.state.balance : 0
-    console.log(formFields);
-    console.log(typeof this.state.balance);
-    console.log(this.state.balance);
-    console.log(typeof formFields.e_wallet.value);
-    console.log(Number(+e_wallet_deposit) + Number(formFields.e_wallet.value));
+    let e_wallet_balance = this.state.balance? this.state.balance : 0
     let body = JSON.stringify({
       user: {
-        e_wallet: Number(+e_wallet_deposit) + Number(formFields.e_wallet.value),
-        password: this.props.user.current_user.crypted_password,
+        e_wallet: Number(e_wallet_balance) + Number(formFields.e_wallet.value),
       },
       authenticity_token: this.props.authenticity_token,
     });
@@ -213,15 +210,23 @@ class App extends React.Component{
     }).then((response) => {
       return response.json();
     }).then((reply) => {
-      console.log(reply);
-      this.setState((prevState) => {
-          balance: reply.e_wallet
-      })
+      window.location.reload();
     });
   }
 
+  // Helper methods
+  dateString(dateTime) {
+    const monthNames = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    const timeString = monthNames[dateTime.getMonth()] + ' ' + dateTime.getDate();
+    return timeString
+  }
+  timeString(dateTime) {
+    const min = dateTime.getMinutes();
+    const minString = (min < 10) ? '0' + min.toString() : min.toString();
+    return (dateTime.getHours() === 0 || dateTime.getHours() === 12 ? 12 : dateTime.getHours() % 12) + ':' + minString + (dateTime.getHours() > 11 ? ' PM' : ' AM');
+  }
 
-
+  // Lifecycle methods
   componentDidMount(){
     fetch('/api/v1/jobs.json')
     .then((response) => {
@@ -229,35 +234,40 @@ class App extends React.Component{
     }).then((data) => {
       this.setState({
         balance: this.props.user.current_user.e_wallet,
-        jobs: data,
+        jobs: data.filter((job) => {
+          if (!job.confirmation) { return job }
+        }),
         availableJobs: data.filter((job) => {
           if (!job.accepted) { return job }
         }),
         bookedJobs: data.filter((job) => {
-          if (job.accepted) { return job }
+          if (job.accepted && !job.confirmation) { return job }
+        }),
+        completedJobs: data.filter((job) => {
+          if (job.confirmation) { return job }
         })
       })
     });
   }
-
-
   render(){
-    let dashboard = [<AllJobs jobConfirmation={this.jobConfirmation} jobComplete={this.jobComplete}checkIn={this.checkIn} jobModalSwitchOff={this.jobModalSwitchOff} jobModalSwitchOn={this.jobModalSwitchOn} jobModal={this.state.jobModal} acceptJob={this.acceptJob} jobDetails={this.jobDetails} residences={this.props.user.job_residences} availableJobs={this.state.availableJobs} bookedJobs={this.state.bookedJobs} jobs={this.state.jobs} user={this.props.user}key="all-jobs" />, <WeatherApp key="weather-app" />];
     let userWidget = this.props.user.current_user.is_shoveler? <MapView residences={this.props.user.job_residences} /> : <NewJob showBookingForm={this.showBookingForm} bookingForm={this.state.bookingForm} handleJobCreate={this.handleJobCreate} residence={this.props.user.residences[this.state.residence]} authenticity_token={this.props.authenticity_token} />;
+
+    let dashboard = [<AllJobs showCompletedJobs={this.showCompletedJobs} residenceIndex={this.residenceIndex} timeString={this.timeString} dateString={this.dateString} completedJobsModal={this.state.completedJobsModal} jobConfirmation={this.jobConfirmation} jobComplete={this.jobComplete}checkIn={this.checkIn} jobModalSwitchOff={this.jobModalSwitchOff} jobModalSwitchOn={this.jobModalSwitchOn} jobModal={this.state.jobModal} acceptJob={this.acceptJob} jobDetails={this.jobDetails} residences={this.props.user.job_residences} availableJobs={this.state.availableJobs} bookedJobs={this.state.bookedJobs} completedJobs={this.state.completedJobs} jobs={this.state.jobs} user={this.props.user} key="all-jobs" />, <WeatherApp key="weather-app" />];
     let dashboardArrangment = this.props.user.current_user.is_shoveler? dashboard : dashboard.reverse();
 
     return (
       <div>
-        <div className="homepage-title-header">
-          <h3>Welcome to</h3>
-          <h1>Mr. Plow!</h1>
-        </div>
-        {userWidget}
-        {dashboardArrangment}
-        <UserProfile user={this.props.user.current_user} showUserProfile={this.showUserProfile} userProfile={this.state.userProfile}/>
-        <Wallet user={this.props.user.current_user} balance={this.state.balance} clickEvent={this.handleDepositClick} changeEvent={this.handleValue} userWallet={this.userWallet}/>
-
-     </div>
+        <HeaderNav authenticity_token={this.props.authenticity_token} logout={this.logout} showUserProfile={this.showUserProfile} user={this.props.user.current_user}/>
+        <main>
+          <div className="homepage-title-header">
+            <h3>Welcome to</h3>
+            <h1>Mr. Plow!</h1>
+          </div>
+          {userWidget}
+          {dashboardArrangment}
+          <UserProfile showWalletForm={this.showWalletForm} walletForm={this.state.walletForm} userWallet={this.userWallet} handleDepositClick={this.handleDepositClick} handleValue={this.handleValue} showCompletedJobs={this.showCompletedJobs} user={this.props.user.current_user} userProfile={this.state.userProfile} showUserProfile={this.showUserProfile} />
+        </main>
+      </div>
     );
   }
 }
