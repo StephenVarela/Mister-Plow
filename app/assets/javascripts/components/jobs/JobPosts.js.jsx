@@ -52,7 +52,7 @@ const JobPosts = (props) => {
 
     const checkInBtn = job.confirmation? '' : props.is_shoveler? job.accepted? job.check_in? job.check_out? '' : <button onClick={() => {props.jobComplete(job.id)}}>Confirm Finished</button> : <button onClick={() => {props.checkIn(job.id)}}>Check-In</button> : <button onClick={() => {props.acceptJob(job.id)}}>Accept Job</button> : job.check_out? <button disabled="disabled" onClick={() => {props.jobConfirmation(job.id)}}>Leave Feedback</button> : ''
     const checkInTime = new Date(job.check_in);
-    const jobModalContent = <div className="job-modal">{jobDetails}{jobStatus}{instructions}{checkInBtn}{job.check_in? job.check_out? props.is_shoveler? job.confirmation? '' : <p>Awaiting customer approval...</p> : '' : <div><p>Checked In at:</p><h3>{props.timeString(checkInTime)} on {props.dateString(checkInTime)}</h3></div> : ''}</div>
+    const jobModalContent = <div className="job-modal">{jobDetails}{jobStatus}{instructions}{checkInBtn}{job.check_in? job.check_out? props.is_shoveler? job.confirmation? '' : <p>Awaiting customer approval...</p> : '' : <div><p>Checked in at:</p><h3>{props.timeString(checkInTime)} on {props.dateString(checkInTime)}</h3></div> : ''}</div>
     
     return(
       <div key={job.id} className="job-display">

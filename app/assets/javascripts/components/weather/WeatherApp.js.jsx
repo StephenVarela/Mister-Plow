@@ -50,8 +50,8 @@ class WeatherApp extends React.Component {
           <h2>Toronto: is currently {this.state.description}</h2>
           <p>{this.state.date}</p>
         </div>
-        <Weather24 data={this.state.data}/>
-        <WeatherDay data={this.state.data}/>
+        <Weather24 data={this.state.data} dateString={this.props.dateString} timeString={this.props.timeString} />
+        <WeatherDay data={this.state.data} dateString={this.props.dateString} weekdayString={this.props.weekdayString} />
       </div>
     )
   }
