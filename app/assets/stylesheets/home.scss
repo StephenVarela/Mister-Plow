@@ -6,6 +6,7 @@ $opposing-color: #f2c81f;
 $dark-blue: #141c24;
 $main-bg-color: #32465b;
 $light-blue: #56799d;
+$lighter-blue: #c0d5eb;
 $outline-blue: #698aac;
 $font-blue: #7493b2;
 $body-bg-color: #7493b2;
@@ -140,6 +141,7 @@ input[type="date"], input[type="time"] {
   width: 84%
 }
 button, .button {
+
   background-color: $font-blue;
   font-size: 1.2em;
   font-weight: 600;
@@ -148,7 +150,9 @@ button, .button {
   padding: .4em 1em;
   margin: 1em auto;
   cursor: pointer;
-  transition-duration: .15s;
+  color: #FFF;
+  border: 1px solid;
+  transition: background-color 0.2s, border 0.2s, color 0.5s;
 }
 button:hover, .button:hover {
   background-color: $opposing-color
@@ -184,9 +188,9 @@ button:hover, .button:hover {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background: url('branches-cold-conifer');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url('shovel-home');
   background-size: cover;
-  background-position: 50% 0;
+  background-position: 70% 100%;
 }
 .landing-header {
   display: block;
@@ -236,19 +240,19 @@ button:hover, .button:hover {
 .residence-pic-border {
   display: inline-block;
   border-radius: 20px;
-  border: 8px solid $outline-blue;
+  border: 8px solid $lighter-blue;
 }
 .residence-pic {
   width: 150px;
   height: 150px;
-  background-color: $outline-blue;
+  background-color: $lighter-blue;
   -webkit-mask: url("baseline-home-24px.svg") no-repeat 100%;
   mask: url("baseline-home-24px.svg") no-repeat 100%;
   -webkit-mask-size: 100%;
   mask-size: 100%;
 }
 .residence-details ul {
-  color: $font-blue;
+  color: $lighter-blue;
 }
 .booking-button {
   font-size: 2.5em;
