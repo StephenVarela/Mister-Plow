@@ -17,8 +17,7 @@ const AllJobs = (props) => {
       <JobPosts jobs={props.jobs} is_shoveler={props.user.current_user.is_shoveler} residences={props.residences} residenceIndex={props.residenceIndex} jobModalSwitchOn={props.jobModalSwitchOn} jobModalSwitchOff={props.jobModalSwitchOff} jobModal={props.jobModal} dateString={props.dateString} timeString={props.timeString} jobComplete={props.jobComplete} checkIn={props.checkIn} acceptJob={props.acceptJob} jobConfirmation={props.jobConfirmation}/>
     </div>;
 
-    const completedJob = <JobPosts jobs={props.completedJobs} shoveler_id={props.is_shoveler? props.user.shoveler.id : null} is_shoveler={props.user.current_user.is_shoveler} residences={props.residences} residenceIndex={props.residenceIndex} jobModalSwitchOn={props.jobModalSwitchOn} jobModalSwitchOff={props.jobModalSwitchOff} jobModal={props.jobModal} dateString={props.dateString} timeString={props.timeString} jobComplete={props.jobComplete} checkIn={props.checkIn} acceptJob={props.acceptJob} jobConfirmation={props.jobConfirmation}/>
-
+    const completedJob = <JobPosts radioStar={props.radioStar} jobs={props.completedJobs} shoveler_id={props.is_shoveler? props.user.shoveler.id : null} is_shoveler={props.user.current_user.is_shoveler} residences={props.residences} residenceIndex={props.residenceIndex} jobModalSwitchOn={props.jobModalSwitchOn} jobModalSwitchOff={props.jobModalSwitchOff} jobModal={props.jobModal} dateString={props.dateString} timeString={props.timeString} jobComplete={props.jobComplete} checkIn={props.checkIn} acceptJob={props.acceptJob} jobConfirmation={props.jobConfirmation}/>
 
   return (
     <div>
