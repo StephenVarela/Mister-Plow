@@ -1,0 +1,55 @@
+=> Booting Puma
+=> Rails 5.2.1 application starting in development 
+=> Run `rails server -h` for more startup options
+Calling ping job
+Puma starting in single mode...
+* Version 3.12.0 (ruby 2.5.1-p57), codename: Llamas in Pajamas
+* Min threads: 5, max threads: 5
+* Environment: development
+* Listening on tcp://0.0.0.0:3000
+Use Ctrl-C to stop
+making Weather object
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/jobs/ping_api_job.rb:25
+  [1m[36mWeather Create (1.1ms)[0m  [1m[32mINSERT INTO "weathers" ("created_at", "updated_at", "city_name", "forecast") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", "2018-11-16 00:38:52.414204"], ["updated_at", "2018-11-16 00:38:52.414204"], ["city_name", "Toronto"], ["forecast", "---\n- weather:\n    id: 601\n    main: Snow\n    description: snow\n    icon: 13n\n  datetime: '2018-11-16 03:00:00'\n  temp: 273.06\n- weather:\n    id: 601\n    main: Snow\n    description: snow\n    icon: 13n\n  datetime: '2018-11-16 06:00:00'\n  temp: 273.34\n- weather:\n    id: 600\n    main: Snow\n    description: light snow\n    icon: 13n\n  datetime: '2018-11-16 09:00:00'\n  temp: 273.71\n- weather:\n    id: 500\n    main: Rain\n    description: light rain\n    icon: 10n\n  datetime: '2018-11-16 12:00:00'\n  temp: 274.54\n- weather:\n    id: 500\n    main: Rain\n    description: light rain\n    icon: 10d\n  datetime: '2018-11-16 15:00:00'\n  temp: 275.132\n- weather:\n    id: 500\n    main: Rain\n    description: light rain\n    icon: 10d\n  datetime: '2018-11-16 18:00:00'\n  temp: 275.201\n- weather:\n    id: 500\n    main: Rain\n    description: light rain\n    icon: 10d\n  datetime: '2018-11-16 21:00:00'\n  temp: 275.687\n- weather:\n    id: 500\n    main: Rain\n    description: light rain\n    icon: 10n\n  datetime: '2018-11-17 00:00:00'\n  temp: 276.608\n- weather:\n    id: 500\n    main: Rain\n    description: light rain\n    icon: 10n\n  datetime: '2018-11-17 03:00:00'\n  temp: 276.948\n- weather:\n    id: 500\n    main: Rain\n    description: light rain\n    icon: 10n\n  datetime: '2018-11-17 06:00:00'\n  temp: 276.167\n- weather:\n    id: 500\n    main: Rain\n    description: light rain\n    icon: 10n\n  datetime: '2018-11-17 09:00:00'\n  temp: 275.604\n- weather:\n    id: 500\n    main: Rain\n    description: light rain\n    icon: 10n\n  datetime: '2018-11-17 12:00:00'\n  temp: 275.363\n- weather:\n    id: 500\n    main: Rain\n    description: light rain\n    icon: 10d\n  datetime: '2018-11-17 15:00:00'\n  temp: 276.427\n- weather:\n    id: 500\n    main: Rain\n    description: light rain\n    icon: 10d\n  datetime: '2018-11-17 18:00:00'\n  temp: 277.305\n- weather:\n    id: 500\n    main: Rain\n    description: light rain\n    icon: 10d\n  datetime: '2018-11-17 21:00:00'\n  temp: 276\n- weather:\n    id: 800\n    main: Clear\n    description: clear sky\n    icon: 01n\n  datetime: '2018-11-18 00:00:00'\n  temp: 273.668\n- weather:\n    id: 801\n    main: Clouds\n    description: few clouds\n    icon: 02n\n  datetime: '2018-11-18 03:00:00'\n  temp: 270.584\n- weather:\n    id: 800\n    main: Clear\n    description: clear sky\n    icon: 02n\n  datetime: '2018-11-18 06:00:00'\n  temp: 267.545\n- weather:\n    id: 801\n    main: Clouds\n    description: few clouds\n    icon: 02n\n  datetime: '2018-11-18 09:00:00'\n  temp: 266.24\n- weather:\n    id: 802\n    main: Clouds\n    description: scattered clouds\n    icon: 03n\n  datetime: '2018-11-18 12:00:00'\n  temp: 266.862\n- weather:\n    id: 803\n    main: Clouds\n    description: broken clouds\n    icon: 04d\n  datetime: '2018-11-18 15:00:00'\n  temp: 273.612\n- weather:\n    id: 600\n    main: Snow\n    description: light snow\n    icon: 13d\n  datetime: '2018-11-18 18:00:00'\n  temp: 274.979\n- weather:\n    id: 600\n    main: Snow\n    description: light snow\n    icon: 13d\n  datetime: '2018-11-18 21:00:00'\n  temp: 274.554\n- weather:\n    id: 600\n    main: Snow\n    description: light snow\n    icon: 13n\n  datetime: '2018-11-19 00:00:00'\n  temp: 272.196\n- weather:\n    id: 800\n    main: Clear\n    description: clear sky\n    icon: 01n\n  datetime: '2018-11-19 03:00:00'\n  temp: 271.578\n- weather:\n    id: 800\n    main: Clear\n    description: clear sky\n    icon: 01n\n  datetime: '2018-11-19 06:00:00'\n  temp: 271.348\n- weather:\n    id: 800\n    main: Clear\n    description: clear sky\n    icon: 01n\n  datetime: '2018-11-19 09:00:00'\n  temp: 270.686\n- weather:\n    id: 800\n    main: Clear\n    description: clear sky\n    icon: 01n\n  datetime: '2018-11-19 12:00:00'\n  temp: 270.334\n- weather:\n    id: 600\n    main: Snow\n    description: light snow\n    icon: 13d\n  datetime: '2018-11-19 15:00:00'\n  temp: 271.099\n- weather:\n    id: 600\n    main: Snow\n    description: light snow\n    icon: 13d\n  datetime: '2018-11-19 18:00:00'\n  temp: 270.991\n- weather:\n    id: 600\n    main: Snow\n    description: light snow\n    icon: 13d\n  datetime: '2018-11-19 21:00:00'\n  temp: 270.122\n- weather:\n    id: 600\n    main: Snow\n    description: light snow\n    icon: 13n\n  datetime: '2018-11-20 00:00:00'\n  temp: 268.206\n- weather:\n    id: 802\n    main: Clouds\n    description: scattered clouds\n    icon: 03n\n  datetime: '2018-11-20 03:00:00'\n  temp: 266.379\n- weather:\n    id: 803\n    main: Clouds\n    description: broken clouds\n    icon: 04n\n  datetime: '2018-11-20 06:00:00'\n  temp: 265.245\n- weather:\n    id: 800\n    main: Clear\n    description: clear sky\n    icon: 01n\n  datetime: '2018-11-20 09:00:00'\n  temp: 265.917\n- weather:\n    id: 800\n    main: Clear\n    description: clear sky\n    icon: 01n\n  datetime: '2018-11-20 12:00:00'\n  temp: 267.034\n- weather:\n    id: 803\n    main: Clouds\n    description: broken clouds\n    icon: 04d\n  datetime: '2018-11-20 15:00:00'\n  temp: 271.493\n- weather:\n    id: 800\n    main: Clear\n    description: clear sky\n    icon: 01d\n  datetime: '2018-11-20 18:00:00'\n  temp: 273.583\n- weather:\n    id: 600\n    main: Snow\n    description: light snow\n    icon: 13d\n  datetime: '2018-11-20 21:00:00'\n  temp: 273.623\n"]]
+  ↳ app/jobs/ping_api_job.rb:25
+  [1m[35m (5.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/jobs/ping_api_job.rb:25
+Checking async
+Started GET "/" for 127.0.0.1 at 2018-11-15 19:39:00 -0500
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/stephenvarela/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 57], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7
+  [1m[36mHomeOwner Load (0.6ms)[0m  [1m[34mSELECT  "home_owners".* FROM "home_owners" WHERE "home_owners"."user_id" = $1 LIMIT $2[0m  [["user_id", 57], ["LIMIT", 1]]
+  ↳ app/views/home/index.html.erb:2
+  [1m[36mShoveler Load (0.3ms)[0m  [1m[34mSELECT  "shovelers".* FROM "shovelers" WHERE "shovelers"."user_id" = $1 LIMIT $2[0m  [["user_id", 57], ["LIMIT", 1]]
+  ↳ app/views/home/index.html.erb:2
+  [1m[36mJob Load (0.6ms)[0m  [1m[34mSELECT "jobs".* FROM "jobs" WHERE ("jobs"."shoveler_id" = $1 OR "jobs"."accepted" IS NULL)[0m  [["shoveler_id", 2]]
+  ↳ app/views/home/index.html.erb:5
+  [1m[36mResidence Load (0.4ms)[0m  [1m[34mSELECT  "residences".* FROM "residences" WHERE "residences"."id" = $1 LIMIT $2[0m  [["id", 34], ["LIMIT", 1]]
+  ↳ app/views/home/index.html.erb:5
+  [1m[36mResidence Load (0.3ms)[0m  [1m[34mSELECT  "residences".* FROM "residences" WHERE "residences"."id" = $1 LIMIT $2[0m  [["id", 35], ["LIMIT", 1]]
+  ↳ app/views/home/index.html.erb:5
+  [1m[36mResidence Load (0.3ms)[0m  [1m[34mSELECT  "residences".* FROM "residences" WHERE "residences"."id" = $1 LIMIT $2[0m  [["id", 36], ["LIMIT", 1]]
+  ↳ app/views/home/index.html.erb:5
+  [1m[36mResidence Load (0.3ms)[0m  [1m[34mSELECT  "residences".* FROM "residences" WHERE "residences"."id" = $1 LIMIT $2[0m  [["id", 37], ["LIMIT", 1]]
+  ↳ app/views/home/index.html.erb:5
+  [1m[36mResidence Load (0.3ms)[0m  [1m[34mSELECT  "residences".* FROM "residences" WHERE "residences"."id" = $1 LIMIT $2[0m  [["id", 29], ["LIMIT", 1]]
+  ↳ app/views/home/index.html.erb:5
+  [1m[36mResidence Load (0.4ms)[0m  [1m[34mSELECT  "residences".* FROM "residences" WHERE "residences"."id" = $1 LIMIT $2[0m  [["id", 30], ["LIMIT", 1]]
+  ↳ app/views/home/index.html.erb:5
+  [1m[36mResidence Load (0.1ms)[0m  [1m[34mSELECT  "residences".* FROM "residences" WHERE "residences"."id" = $1 LIMIT $2[0m  [["id", 31], ["LIMIT", 1]]
+  ↳ app/views/home/index.html.erb:5
+  [1m[36mResidence Load (0.1ms)[0m  [1m[34mSELECT  "residences".* FROM "residences" WHERE "residences"."id" = $1 LIMIT $2[0m  [["id", 32], ["LIMIT", 1]]
+  ↳ app/views/home/index.html.erb:5
+  [1m[36mResidence Load (0.1ms)[0m  [1m[34mSELECT  "residences".* FROM "residences" WHERE "residences"."id" = $1 LIMIT $2[0m  [["id", 33], ["LIMIT", 1]]
+  ↳ app/views/home/index.html.erb:5
+  Rendered home/index.html.erb within layouts/application (123.3ms)
+Completed 200 OK in 444ms (Views: 410.8ms | ActiveRecord: 25.7ms)
+
+
+Started GET "/api/v1/jobs.json" for 127.0.0.1 at 2018-11-15 19:39:01 -0500
+Started GET "/api/v1/weather.json" for 127.0.0.1 at 2018-11-15 19:39:01 -0500
