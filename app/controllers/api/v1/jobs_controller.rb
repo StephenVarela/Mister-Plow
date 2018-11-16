@@ -20,8 +20,13 @@ class Api::V1::JobsController < ApplicationController
 
   def update
     job = Job.find(params[:id])
-    if(job.shoveler_id)
-      flash[:error] = "Oops Sorry! This Job was taken!"
+    if :assign_shoveler
+      if job.shoveler_id
+        flash[:error] = "Oops Sorry! This Job was taken!"
+      else
+        job.update_attributes(job_params)
+        render json: job
+      end
     else
       job.update_attributes(job_params)
       render json: job
@@ -37,6 +42,6 @@ class Api::V1::JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:id, :comments, :price, :residence_id, :instructions, :premium_rush, :premium_peak_hours, :scheduled_time, :check_in, :check_out, :rating, :confirmation, :accepted, :shoveler_id)
+    params.require(:job).permit(:id, :assign_shoveler, :comments, :price, :residence_id, :instructions, :premium_rush, :premium_peak_hours, :scheduled_time, :check_in, :check_out, :rating, :confirmation, :accepted, :shoveler_id)
   end
 end
