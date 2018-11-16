@@ -116,7 +116,7 @@ class App extends React.Component{
       job: {
         accepted: true,
         shoveler_id: this.props.user.shoveler.id,
-        // assign_shoveler: true,
+        assign_shoveler: true,
       },
       authenticity_token: this.props.authenticity_token,
     });
@@ -140,7 +140,7 @@ class App extends React.Component{
     let body = JSON.stringify({
       job: {
         check_in: new Date(),
-        // assign_shoveler: false,
+        assign_shoveler: false,
       },
       authenticity_token: this.props.authenticity_token,
     });
@@ -161,7 +161,7 @@ class App extends React.Component{
     let body = JSON.stringify({
       job: {
         check_out: new Date(),
-        // assign_shoveler: false,
+        assign_shoveler: false,
       },
       authenticity_token: this.props.authenticity_token,
     });
@@ -183,7 +183,7 @@ class App extends React.Component{
       job: {
         confirmation: true,
         rating: rating,
-        // assign_shoveler: false,
+        assign_shoveler: false,
       },
       authenticity_token: this.props.authenticity_token,
     });
