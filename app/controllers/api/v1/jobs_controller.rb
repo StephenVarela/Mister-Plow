@@ -20,6 +20,18 @@ class Api::V1::JobsController < ApplicationController
 
   def update
     job = Job.find(params[:id])
+    if(job.shoveler_id)
+      flash[:alert] = "Opps this job doesnt exist anymore"
+    else
+      job.update_attributes(job_params)
+      render json: job
+    end
+  end
+
+  def update_lifecycle
+    p "---------------"
+    p "in update lifecycle"
+    job = Job.find(params[:id])
     job.update_attributes(job_params)
     render json: job
   end
@@ -32,9 +44,6 @@ class Api::V1::JobsController < ApplicationController
 
   private
 
-  def additional_params
-    params.permit(:assign_shoveler)
-  end
 
   def job_params
     params.require(:job).permit(:id, :comments, :price, :residence_id, :instructions, :premium_rush, :premium_peak_hours, :scheduled_time, :check_in, :check_out, :rating, :confirmation, :accepted, :shoveler_id)
