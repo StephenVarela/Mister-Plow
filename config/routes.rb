@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :jobs#, only: [:index, :create, :destroy, :update, :edit]
-      post '/jobs/cancel' => 'jobs#cancel'
+      post '/jobs/:id/cancel' => 'jobs#cancel'
+      put '/jobs/:id/lifecycle' => 'jobs#update_lifecycle'
       resources :users
 
       resources :weathers
