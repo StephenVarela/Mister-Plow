@@ -4,7 +4,7 @@ const Weather24 = (props) =>  {
     let next_8 = upcoming.slice(0, 8);
     var weatherHour = next_8.map((data, index) => {
 
-      const boxClass = 'weather-hourly-box' + (index === 0? ' weather-first' : index === 4? ' weather-fourth' : '')
+      const boxClass = 'weather-hourly-box' + (index === 0? ' weather-first' : index === 4? ' weather-fifth' : '')
       const dateTime = new Date(data.datetime);
 
       return ( 
