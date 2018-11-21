@@ -1,6 +1,7 @@
 const WeatherDay =(props)=>  {
   let weatherDays = props.data.map((data, index) => {
-    return <WeatherDayDetails weekdayString={props.weekdayString} dateString={props.dateString} body={data} key={index} />
+    const boxClass = index === 0? 'weather-box weather-first' : index === 4? 'weather-box weather-fourth' : 'weather-box'
+    return <WeatherDayDetails weatherBox={boxClass} weekdayString={props.weekdayString} dateString={props.dateString} body={data} key={index} />
   });
 
   return (

@@ -309,6 +309,9 @@ button:hover, .button:hover {
   display: flex;
   justify-content: center;
 }
+.weather-first {
+  border: none;
+}
 
 div.weather-hourly-display{
   background-color: $dark-blue;
@@ -393,16 +396,20 @@ div.weather-hourly-display > p {
 
 .userModal-main {
   padding-top: 50px;
+  margin-bottom: 50px;
   right: -200px;
   background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url('star');
   overflow: auto;
   border-right: 5px solid rgb(35, 36, 33);
-  width: 25%;
+  width: 35%;
 	height: 100%;
   padding-bottom: 1em;
   transition: all 1.5s;
   // transform: translateX(0%);
   display: block;
+}
+.profile-padding { 
+  height: 50px;
 }
 .slide-modal-hide {
   transform: translate(-100%,0%);
@@ -503,7 +510,9 @@ div.weather-hourly-display > p {
     border-left: none;
     margin: 0 1em;
     width: auto;
-
+  }
+  .weather-fourth {
+    border: none;
   }
   .weather-hourly-box {
     width: 24%;
@@ -529,23 +538,23 @@ div.weather-hourly-display > p {
     display: block;
   }
   .userModal-main {
-    width: 70%;
+    width: 50%;
   }
   .job-display {
     margin: 1em 1em;
   }
-
 }
 
 //Wallet
 
 .wallet_profile {
+  display: block;
   border: 1px solid  #2a2a2a;
   background-image: url('curls');
-  padding: 15%;
-  border-radius: 100px;
+  padding: .5em 1em;
+  margin: 0 1em;
+  border-radius: 50px;
 }
-
 .wallet_deposit {
   color: #2c3e50;
 }
@@ -567,11 +576,18 @@ div.weather-hourly-display > p {
   .date-box, .time-box {
     padding: .5em 0;
   }
-
   .user_profile {
-    font-size: 10px;
+    font-size: .8em;
   }
-
+  .userModal-main {
+    padding-top: 80px;
+  }
+  .profile-padding { 
+    height: 80px;
+  }
+  .list {
+    margin-top: 3em;
+  }
 }
 
 // Ratings star styling.

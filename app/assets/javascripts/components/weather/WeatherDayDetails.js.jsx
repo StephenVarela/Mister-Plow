@@ -1,7 +1,7 @@
 const WeatherDayDetails = (props) =>  {
     const dateTime = new Date(props.body[0].datetime)
     return (
-      <div className="weather-box">
+      <div className={props.weatherBox}>
         <h3>{props.weekdayString(dateTime)}</h3>
         <h3>{props.dateString(dateTime)}</h3>
         <h4>{props.body[0].weather.main}</h4>

@@ -14,6 +14,7 @@ const UserProfile = (props) => {
       <button className="wallet_deposit" onClick={() => {props.showWalletForm()}}>Deposit</button>
     </div>
     <button onClick={() => {props.showCompletedJobs(); props.showUserProfile()}}>Show completed jobs</button>
+    <div className="profile-padding"></div>
   </div>
 
   return(
