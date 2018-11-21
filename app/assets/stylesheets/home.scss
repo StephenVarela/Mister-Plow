@@ -473,6 +473,8 @@ div.weather-hourly-display > p {
   position: absolute;
   cursor: pointer;
   color: $dark-blue;
+  transition: all 0.15s;
+  color: #fff;
 }
 .x-close-button:hover {
   background-color: $opposing-color;
