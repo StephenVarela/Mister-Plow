@@ -18,6 +18,7 @@ const JobPosts = (props) => {
     const adressInfo = props.is_shoveler && props.residences[residenceIndex(job.residence_id)]? <a src="/" className="address-link"> <h3>{props.residences[residenceIndex(job.residence_id)].street_name}</h3></a> : ''
     const jobButton = props.is_shoveler? job.check_out? '' : <button className="job-accept-button" onClick={() => {props.jobModalSwitchOn(job.id)}}>{job.accepted? "Details" : "Accept"}</button> : <button onClick={() => {props.jobModalSwitchOn(job.id)}} className="job-display-button">Details</button>;
     
+    console.log(dateTime)
     const jobDetails = <div className="job-date-time">
       <div className="job-date-time-titles">
         <p>Booked for: </p>

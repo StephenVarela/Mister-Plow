@@ -5,7 +5,9 @@ const Weather24 = (props) =>  {
     var weatherHour = next_8.map((data, index) => {
 
       const boxClass = 'weather-hourly-box' + (index === 0? ' weather-first' : index === 4? ' weather-fifth' : '')
-      const dateTime = new Date(data.datetime);
+
+      const dateString = data.datetime.replace(/-/g, '/')
+      const dateTime = new Date(dateString);
 
       return ( 
         <div className={boxClass} key={index}>

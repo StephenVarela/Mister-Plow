@@ -17,7 +17,7 @@ const NewJob = (props) => {
       <div className="job-booking-display">
 
         <div className="residence-details">
-          <div className="residence-pic-border">
+          <div className="residence-pic-border" id="maskelement">
             <img className="residence-pic"/>
           </div>
 
