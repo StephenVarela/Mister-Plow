@@ -19,19 +19,8 @@ Job.destroy_all
 
 #creating 10 users with 10 jobs for shoveling driveway
 first_names = ['Stephen', 'John', 'O', 'Thomas', 'James', 'L W', 'M', 'Donald' ,'J']
-phone_nums = ['4166948464', '4163227518', '4166998444', '4166998071', '4163040129',
-              '4166994610', '4166989608', '4166993028', '4166989098']
-street_names = ['500 Kingston Rd',
-              '315 St Germain Ave',
-              '234 Willow Ave',
-              '26 Goodwood Park Cres',
-              '48 St Clair Ave W',
-              '1974 Queen St E',
-              '42 Balsam Ave',
-              '258 Waverley Rd',
-              '101 Hillingdon Ave']
-
-
+phone_nums = ['4166948464', '4163227518', '4166998444', '4166998071', '4163040129', '4166994610', '4166989608', '4166993028', '4166989098']
+street_names = ['500 Kingston Rd', '315 St Germain Ave', '234 Willow Ave', '26 Goodwood Park Cres', '48 St Clair Ave W', '1974 Queen St E', '42 Balsam Ave', '258 Waverley Rd', '101 Hillingdon Ave']
 
 def create_jobs(fname, street_name,  phone_number)
   my_user = User.new()
@@ -91,3 +80,49 @@ end
 first_names.each_with_index do |item, index|
   p create_jobs(item, street_names[index], phone_nums[index])
 end
+
+# Creating guest accounts with addresses of old and new city hall
+guest_user_client = User.new()
+guest_user_client.first_name = 'Guest'
+guest_user_client.last_name = 'Homeowner'
+guest_user_client.street_name = '60 Queen St W'
+guest_user_client.city_name = 'Toronto'
+guest_user_client.postal_code = 'M5H 2M3'
+guest_user_client.country = 'Canada'
+guest_user_client.email = 'guest@mrplow.com'
+guest_user_client.primary_contact_number = '123-456-7890'
+guest_user_client.password = '123456'
+guest_user_client.password_confirmation = '123456'
+guest_user_client.save
+
+guest_homeowner = HomeOwner.new()
+guest_homeowner.user = guest_user_client
+guest_homeowner.save
+
+guest_residence = Residence.new()
+guest_residence.home_owner = guest_homeowner
+guest_residence.street_name = guest_user_client.street_name
+guest_residence.city_name = guest_user_client.city_name
+guest_residence.postal_code = guest_user_client.postal_code
+guest_residence.country = guest_user_client.country
+guest_residence.is_home_address = true
+guest_residence.save
+
+
+guest_user_shoveler = User.new()
+guest_user_shoveler.first_name = 'Guest'
+guest_user_shoveler.last_name = 'Shoveler'
+guest_user_shoveler.street_name = '100 Queen St W'
+guest_user_shoveler.city_name = 'Toronto'
+guest_user_shoveler.postal_code = 'M5H 2N2'
+guest_user_shoveler.country = 'Canada'
+guest_user_shoveler.email = 'guestshoveler@mrplow.com'
+guest_user_shoveler.primary_contact_number = '123-456-7890'
+guest_user_shoveler.is_shoveler = true
+guest_user_shoveler.password = '123456'
+guest_user_shoveler.password_confirmation = '123456'
+guest_user_shoveler.save
+
+guest_shoveler = Shoveler.new()
+guest_shoveler.user = guest_user_shoveler
+guest_shoveler.save
