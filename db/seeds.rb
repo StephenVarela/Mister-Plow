@@ -106,6 +106,22 @@ guest_residence.city_name = guest_user_client.city_name
 guest_residence.postal_code = guest_user_client.postal_code
 guest_residence.country = guest_user_client.country
 guest_residence.is_home_address = true
+
+guest_residence_query = guest_user_client.street_name.split
+
+guest_residence_query.each_with_index do |street, i|
+  if i < guest_residence_query.length - 1
+    guest_residence_query[i] = guest_residence_query[i] + "+"
+  end
+end
+
+guest_geo_residence = guest_residence_query.join("")
+
+response = HTTParty.get("https://www.mapquestapi.com/geocoding/v1/address?key=#{ENV['GEOLOC_MQ_KEY']}&inFormat=kvp&outFormat=json&location=#{guest_geo_residence}&thumbMaps=false")
+
+guest_residence.lat = response["results"][0]["locations"][0]["latLng"]["lat"]
+guest_residence.lon = response["results"][0]["locations"][0]["latLng"]["lng"]
+p guest_residence
 guest_residence.save
 
 
