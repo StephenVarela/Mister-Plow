@@ -1,14 +1,16 @@
-const Weather24 =(props)=>  {
-
-  
-  if (props.data[0]){
+const Weather24 = (props) =>  {
+  if (props.data[0]) {
     let upcoming = props.data[0].concat(props.data[1]);
     let next_8 = upcoming.slice(0, 8);
     var weatherHour = next_8.map((data, index) => {
-      const dateTime = new Date(data.datetime);
+
+      const boxClass = 'weather-hourly-box' + (index === 0? ' weather-first' : index === 4? ' weather-fifth' : '')
+
+      const dateString = data.datetime.replace(/-/g, '/')
+      const dateTime = new Date(dateString);
 
       return ( 
-        <div className="weather-hourly-box" key={index}>
+        <div className={boxClass} key={index}>
           <div>{props.timeString(dateTime)}</div>
           <div>{props.dateString(dateTime)}</div>
           <div>{data.weather.main}</div>
@@ -20,9 +22,9 @@ const Weather24 =(props)=>  {
       )
     })
   }
-    return (
-      <div className="weather-hourly-display">
-        {weatherHour}
-      </div>
-    )
-  }
+  return (
+    <div className="weather-hourly-display">
+      {weatherHour}
+    </div>
+  )
+}

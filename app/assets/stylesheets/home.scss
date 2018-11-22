@@ -106,9 +106,6 @@ input[type="date"], input[type="time"] {
   margin: 0 auto;
   text-align: center;
 }
-// input[type="time"] {
-
-// }
 .date-box, .time-box {
   display: inline-block;
   grid-row: 1;
@@ -248,7 +245,8 @@ button:hover, .button:hover {
   height: 150px;
   background-color: $lighter-blue;
   -webkit-mask: url("baseline-home-24px.svg") no-repeat 100%;
-  mask: url("baseline-home-24px.svg") no-repeat 100%;
+  // mask: url("baseline-home-24px.svg") no-repeat 100%;
+  mask: url("baseline-home-24px.svg");
   -webkit-mask-size: 100%;
   mask-size: 100%;
 }
@@ -278,8 +276,6 @@ button:hover, .button:hover {
 
 // Weather elements.
 .weather-box {
-  // border: 2px solid $font-blue;
-  // border-radius: 15px;
   border-left: 1px solid $light-blue;
   display: block;
   margin: 1em;
@@ -290,7 +286,6 @@ button:hover, .button:hover {
 
 .weather-hourly-box {
   border-left: 1px solid $light-blue;
-  // border: 2px solid $font-blue;
   display: block;
   border-radius: 1px;
   padding: 1em 0;
@@ -309,14 +304,15 @@ button:hover, .button:hover {
   display: flex;
   justify-content: center;
 }
+.weather-first {
+  border: none;
+}
 
 div.weather-hourly-display{
   background-color: $dark-blue;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-
-  // grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 div.weather-hourly-display > p {
@@ -393,16 +389,19 @@ div.weather-hourly-display > p {
 
 .userModal-main {
   padding-top: 50px;
+  margin-bottom: 50px;
   right: -200px;
   background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url('star');
   overflow: auto;
   border-right: 5px solid rgb(35, 36, 33);
-  width: 25%;
+  width: 35%;
 	height: 100%;
   padding-bottom: 1em;
   transition: all 1.5s;
-  // transform: translateX(0%);
   display: block;
+}
+.profile-padding { 
+  height: 50px;
 }
 .slide-modal-hide {
   transform: translate(-100%,0%);
@@ -466,13 +465,11 @@ div.weather-hourly-display > p {
   position: absolute;
   cursor: pointer;
   color: $dark-blue;
+  transition: all 0.15s;
+  color: #fff;
 }
 .x-close-button:hover {
   background-color: $opposing-color;
-  // -webkit-transform: translate3d(0%, 0, 0);
-	// -ms-transform: translate3d(0%, 0, 0);
-	// -o-transform: translate3d(0%, 0, 0);
-	// transform: translate3d(0%, 0, 0);
 }
 .modal-top-row {
   display: relative;
@@ -492,10 +489,21 @@ div.weather-hourly-display > p {
   cursor: pointer;
 }
 
+//Wallet
+.wallet_profile {
+  display: block;
+  border: 1px solid  #2a2a2a;
+  background-image: url('curls');
+  padding: .5em 1em;
+  margin: 0 1em;
+  border-radius: 50px;
+}
+.wallet_deposit {
+  color: #2c3e50;
+}
+
 @media screen and (max-width: 750px) {
   .weather-box {
-    // display: flex;
-    // justify-content: space-around;
     align-items: center;
     display: grid;
     grid-template-columns: 1fr 2fr 1fr 1fr 2fr;
@@ -503,7 +511,9 @@ div.weather-hourly-display > p {
     border-left: none;
     margin: 0 1em;
     width: auto;
-
+  }
+  .weather-fifth {
+    border: none;
   }
   .weather-hourly-box {
     width: 24%;
@@ -518,41 +528,23 @@ div.weather-hourly-display > p {
   .residence-details {
     display: flex;
     justify-content: center;
-    // text-align: center;
-    // display: inline-block;
   }
   .residence-pic-border, .residence-details ul {
-    // margin: 0 auto;
     display: inline-block;
   }
   .booking-button {
     display: block;
   }
   .userModal-main {
-    width: 70%;
+    width: 50%;
   }
   .job-display {
     margin: 1em 1em;
   }
-
-}
-
-//Wallet
-
-.wallet_profile {
-  border: 1px solid  #2a2a2a;
-  background-image: url('curls');
-  padding: 15%;
-  border-radius: 100px;
-}
-
-.wallet_deposit {
-  color: #2c3e50;
 }
 
 @media screen and (max-width: 500px) {
   .residence-details ul {
-    // margin: 0 auto;
     display: block;
   }
   .job-display {
@@ -567,43 +559,16 @@ div.weather-hourly-display > p {
   .date-box, .time-box {
     padding: .5em 0;
   }
-
   .user_profile {
-    font-size: 10px;
+    font-size: .8em;
   }
-
+  .userModal-main {
+    padding-top: 80px;
+  }
+  .profile-padding { 
+    height: 80px;
+  }
+  .list {
+    margin-top: 3em;
+  }
 }
-
-// Ratings star styling.
-.rating button {
-  display: block;
-  margin: 0 auto;
-  // flex-direction: row;
-}
-.rating {
-  // display: flex;
-  // justify-content: center;
-  // flex-direction: row-reverse;
-  // padding-right: 25%;
-  text-align: center;
-}
-.rating input {
-  display: none;
-}
-.rating label {
-  transition: all 0.2s;
-  display: inline-block;
-  // float: right;
-  color: $dark-blue;
-  cursor: pointer;
-  font-size: 4em;
-}
-
-.rating > input:checked ~ label, /* show gold star when clicked */
-.rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
-
-.rating > input:checked + label:hover, /* hover current star when changing rating */
-.rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
