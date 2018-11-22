@@ -37,7 +37,7 @@ class MapView extends React.Component {
 
       residences.forEach(function(residence){
         if(residence_ids.includes(residence.id)){
-          console.log("GOOD")
+
             var accepted = L.circle([residence.lat, residence.lon], {
               color: 'green',
               fillColor: 'green',
@@ -46,7 +46,7 @@ class MapView extends React.Component {
             }).addTo(mymap);
           accepted.bindPopup("<img src=https://image.flaticon.com/icons/svg/86/86364.svg>")
         }else{
-          console.log("BAD")
+          
           var available = L.circle([residence.lat, residence.lon], {
             color: 'red',
             fillColor: 'red',
